@@ -5,6 +5,7 @@ ZCHEDULE is a hybrid mobile application extended from existing [FSKSM E-Learning
 
 ## Tools used 
 - [Ionic 5]
+- [Google Chart API]
 
 # Features!
 
@@ -19,3 +20,4 @@ ZCHEDULE is a hybrid mobile application extended from existing [FSKSM E-Learning
   
   [FSKSM E-Learning]: <http://web1.fsksm.utm.my/~webapps/cgi-bin/webman/applications/fsksmELearning/index.cgi>
   [Ionic 5]: <https://ionicframework.com/docs>
+  [Google Chart API]: <https://developers.google.com/chart>

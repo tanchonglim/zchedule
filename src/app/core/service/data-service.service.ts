@@ -1,16 +1,28 @@
 import { Injectable } from "@angular/core";
-import { StudentSubject } from "src/app/shared/interface/StudentSubject";
+import { StudentSubject } from "src/app/shared/models/StudentSubject";
 import { CgiServiceService } from "./cgi-service.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class DataServiceService {
-  private _id: string;
-  private _role: number;
+  private _id: string; //matric / no_pekerja
+  private _role: number; // 1/2 student/lecturer
+
   private _studentSubjects: Array<StudentSubject>;
+  private _lecturerSubjects: Array<StudentSubject>;
 
   constructor(private cgiService: CgiServiceService) {}
+
+  /**
+   * when logout
+   */
+  clearData() {
+    this._id = null;
+    this._role = null;
+    this._studentSubjects = null;
+    this._lecturerSubjects = null;
+  }
 
   setID(id: string) {
     this._id = id;
@@ -20,13 +32,12 @@ export class DataServiceService {
     return this._id;
   }
 
-  async getRole(id: string) {
-    if (!this._role) {
-      this._role = await this.cgiService.getRole(id);
-      return this._role;
-    } else {
-      return this._role;
-    }
+  setRole(role: number) {
+    this._role = role;
+  }
+
+  getRole() {
+    return this._role;
   }
 
   async getStudentSubjects(id: string) {
@@ -35,6 +46,15 @@ export class DataServiceService {
       return this._studentSubjects;
     } else {
       return this._studentSubjects;
+    }
+  }
+
+  async getLecturerSubject(id: string) {
+    if (!this._lecturerSubjects) {
+      this._lecturerSubjects = await this.cgiService.fetchLecturerSubject(id);
+      return this._lecturerSubjects;
+    } else {
+      return this._lecturerSubjects;
     }
   }
 }

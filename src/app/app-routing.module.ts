@@ -20,14 +20,14 @@ const routes: Routes = [
       ),
   },
   {
-    path: "teaching-subject",
+    path: "teacher/teaching-subject",
     loadChildren: () =>
       import("./lecturer/teaching-subject/teaching-subject.module").then(
         (m) => m.TeachingSubjectPageModule
       ),
   },
   {
-    path: "registered-subject",
+    path: "student/registered-subject",
     loadChildren: () =>
       import("./student/registered-subject/registered-subject.module").then(
         (m) => m.RegisteredSubjectPageModule

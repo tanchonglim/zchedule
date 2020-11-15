@@ -11,6 +11,5 @@ export class HomePagePage implements OnInit {
 
   async ngOnInit() {
     console.log(await this.dataService.getStudentSubjects("A18CS0255"));
-    console.log(await this.dataService.getRole("7057"));
   }
 }

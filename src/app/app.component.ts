@@ -19,12 +19,12 @@ export class AppComponent implements OnInit {
     },
     {
       title: "Teaching Subject",
-      url: "/teaching-subject",
+      url: "/teacher/teaching-subject",
       icon: "paper-plane",
     },
     {
       title: "Registered Subject",
-      url: "/registered-subject",
+      url: "/student/registered-subject",
       icon: "heart",
     },
   ];

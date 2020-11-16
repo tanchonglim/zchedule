@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CgiServiceService } from './cgi-service.service';
+import { FsksmServiceService } from './fsksm-service.service';
 
-describe('CgiServiceService', () => {
-  let service: CgiServiceService;
+describe('FsksmServiceService', () => {
+  let service: FsksmServiceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CgiServiceService);
+    service = TestBed.inject(FsksmServiceService);
   });
 
   it('should be created', () => {

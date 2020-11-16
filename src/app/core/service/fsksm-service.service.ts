@@ -1,13 +1,11 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { DataServiceService } from "./data-service.service";
-import { take } from "rxjs/operators";
-import { Observable } from "rxjs";
+
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
 })
-export class CgiServiceService {
+export class FsksmServiceService {
   apiEndpoint = "http://web.fc.utm.my/ttms/web_man_webservice_json.cgi";
 
   constructor(private http: HttpClient) {}

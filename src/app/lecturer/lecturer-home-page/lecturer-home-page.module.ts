@@ -7,7 +7,7 @@ import { IonicModule } from "@ionic/angular";
 import { LecturerHomePagePageRoutingModule } from "./lecturer-home-page-routing.module";
 
 import { LecturerHomePagePage } from "./lecturer-home-page.page";
-import { TeachingSubjectComponent } from "../modal/teaching-subject/teaching-subject.component";
+import { TeachingSubjectComponent } from "../components/teaching-subject/teaching-subject.component";
 
 @NgModule({
   imports: [

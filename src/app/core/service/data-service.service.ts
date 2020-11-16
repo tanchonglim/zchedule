@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { StudentSubject } from "src/app/shared/models/StudentSubject";
-import { CgiServiceService } from "./cgi-service.service";
+import { FsksmServiceService } from "./fsksm-service.service";
 
 @Injectable({
   providedIn: "root",
@@ -12,7 +12,7 @@ export class DataServiceService {
   private _studentSubjects: Array<StudentSubject>;
   private _lecturerSubjects: Array<StudentSubject>;
 
-  constructor(private cgiService: CgiServiceService) {}
+  constructor(private fsksmService: FsksmServiceService) {}
 
   /**
    * when logout
@@ -42,7 +42,7 @@ export class DataServiceService {
 
   async getStudentSubjects(id: string) {
     if (!this._studentSubjects) {
-      this._studentSubjects = await this.cgiService.fetchStudentSubject(id);
+      this._studentSubjects = await this.fsksmService.fetchStudentSubject(id);
       return this._studentSubjects;
     } else {
       return this._studentSubjects;
@@ -51,7 +51,7 @@ export class DataServiceService {
 
   async getLecturerSubject(id: string) {
     if (!this._lecturerSubjects) {
-      this._lecturerSubjects = await this.cgiService.fetchLecturerSubject(id);
+      this._lecturerSubjects = await this.fsksmService.fetchLecturerSubject(id);
       return this._lecturerSubjects;
     } else {
       return this._lecturerSubjects;

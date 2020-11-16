@@ -7,7 +7,7 @@ import { IonicModule } from "@ionic/angular";
 import { StudentHomePagePageRoutingModule } from "./student-home-page-routing.module";
 
 import { StudentHomePagePage } from "./student-home-page.page";
-import { RegisteredSubjectsComponent } from "../modal/registered-subjects/registered-subjects.component";
+import { RegisteredSubjectsComponent } from "../components/registered-subjects/registered-subjects.component";
 
 @NgModule({
   imports: [

@@ -18,13 +18,13 @@ export class AppComponent implements OnInit {
       icon: "mail",
     },
     {
-      title: "Teaching Subject",
-      url: "/teacher/teaching-subject",
+      title: "Lecturer",
+      url: "/lecturer-home-page",
       icon: "paper-plane",
     },
     {
-      title: "Registered Subject",
-      url: "/student/registered-subject",
+      title: "Student",
+      url: "/student-home-page",
       icon: "heart",
     },
   ];

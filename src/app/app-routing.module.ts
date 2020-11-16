@@ -20,18 +20,12 @@ const routes: Routes = [
       ),
   },
   {
-    path: "teacher/teaching-subject",
-    loadChildren: () =>
-      import("./lecturer/teaching-subject/teaching-subject.module").then(
-        (m) => m.TeachingSubjectPageModule
-      ),
+    path: 'lecturer-home-page',
+    loadChildren: () => import('./lecturer/lecturer-home-page/lecturer-home-page.module').then( m => m.LecturerHomePagePageModule)
   },
   {
-    path: "student/registered-subject",
-    loadChildren: () =>
-      import("./student/registered-subject/registered-subject.module").then(
-        (m) => m.RegisteredSubjectPageModule
-      ),
+    path: 'student-home-page',
+    loadChildren: () => import('./student/student-home-page/student-home-page.module').then( m => m.StudentHomePagePageModule)
   },
 ];
 

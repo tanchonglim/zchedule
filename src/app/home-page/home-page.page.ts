@@ -9,7 +9,5 @@ import { DataServiceService } from "../core/service/data-service.service";
 export class HomePagePage implements OnInit {
   constructor(private dataService: DataServiceService) {}
 
-  async ngOnInit() {
-    console.log(await this.dataService.getStudentSubjects("A18CS0255"));
-  }
+  async ngOnInit() {}
 }

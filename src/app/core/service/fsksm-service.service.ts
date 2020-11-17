@@ -10,14 +10,8 @@ export class FsksmServiceService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   *
-   * @param id matrik/staffid
-   */
-  async fetchStudentSubject(id: string): Promise<any> {
-    let params: HttpParams = new HttpParams()
-      .set("entity", "pelajar_subjek")
-      .set("no_matrik", id);
+  async fetchSesiSemester(): Promise<any> {
+    let params: HttpParams = new HttpParams().set("entity", "sesisemester");
 
     let result = await this.http
       .get(this.apiEndpoint, {
@@ -28,14 +22,46 @@ export class FsksmServiceService {
     return result;
   }
 
-  /**
-   *
-   * @param id matrik/staffid
-   */
-  async fetchLecturerSubject(id: string): Promise<any> {
+  async fetchStudentSubject(no_matrik: string): Promise<any> {
+    let params: HttpParams = new HttpParams()
+      .set("entity", "pelajar_subjek")
+      .set("no_matrik", no_matrik);
+
+    let result = await this.http
+      .get(this.apiEndpoint, {
+        params: params,
+      })
+      .toPromise();
+
+    return result;
+  }
+
+  async fetchLecturerSubject(no_pekerja: string): Promise<any> {
     let params: HttpParams = new HttpParams()
       .set("entity", "pensyarah_subjek")
-      .set("no_pekerja", id);
+      .set("no_pekerja", no_pekerja);
+
+    let result = await this.http
+      .get(this.apiEndpoint, {
+        params: params,
+      })
+      .toPromise();
+
+    return result;
+  }
+
+  async fetchSubjectSchedule(
+    sesi: string,
+    semester: number,
+    kod_subjek: string,
+    seksyen: number
+  ): Promise<any> {
+    let params: HttpParams = new HttpParams()
+      .set("entity", "jadual_subjek")
+      .set("sesi", sesi)
+      .set("semester", semester.toString())
+      .set("kod_subjek", kod_subjek)
+      .set("seksyen", seksyen.toString());
 
     let result = await this.http
       .get(this.apiEndpoint, {

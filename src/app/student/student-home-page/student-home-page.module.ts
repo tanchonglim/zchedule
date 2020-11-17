@@ -8,6 +8,7 @@ import { StudentHomePagePageRoutingModule } from "./student-home-page-routing.mo
 
 import { StudentHomePagePage } from "./student-home-page.page";
 import { RegisteredSubjectsComponent } from "../components/registered-subjects/registered-subjects.component";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { RegisteredSubjectsComponent } from "../components/registered-subjects/r
     FormsModule,
     IonicModule,
     StudentHomePagePageRoutingModule,
+    SharedModule,
   ],
   declarations: [StudentHomePagePage, RegisteredSubjectsComponent],
 })

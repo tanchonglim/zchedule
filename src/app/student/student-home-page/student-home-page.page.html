@@ -6,15 +6,6 @@
 </ion-header>
 
 <ion-content>
-  <div class="timetable" *ngIf="timetableBody">
-    <div class="timetable-top-header">day</div>
-    <div class="timetable-bottom">
-      <div class="timetable-side-header">time</div>
-      <div class="timetable-body">
-        <div *ngFor="let slot of timetableBody.slots" class="timetable-data">
-          {{slot.data}}
-        </div>
-      </div>
-    </div>
-  </div>
+  <ion-button (click)="openSubjectModal()">Subjects</ion-button>
+  <ion-button (click)="openTimetableModal()">Timetable</ion-button>
 </ion-content>

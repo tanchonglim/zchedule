@@ -8,6 +8,7 @@ import { LecturerHomePagePageRoutingModule } from "./lecturer-home-page-routing.
 
 import { LecturerHomePagePage } from "./lecturer-home-page.page";
 import { TeachingSubjectComponent } from "../components/teaching-subject/teaching-subject.component";
+import { LecturerTimetableComponent } from "../components/lecturer-timetable/lecturer-timetable.component";
 
 @NgModule({
   imports: [
@@ -16,6 +17,10 @@ import { TeachingSubjectComponent } from "../components/teaching-subject/teachin
     IonicModule,
     LecturerHomePagePageRoutingModule,
   ],
-  declarations: [LecturerHomePagePage, TeachingSubjectComponent],
+  declarations: [
+    LecturerHomePagePage,
+    TeachingSubjectComponent,
+    LecturerTimetableComponent,
+  ],
 })
 export class LecturerHomePagePageModule {}

@@ -1,3 +1,5 @@
-<p>
-  student-timetable works!
-</p>
+<div *ngIf="isDataLoaded">
+  <app-timetable-subjects
+    [timetableData]="timetableData"
+  ></app-timetable-subjects>
+</div>

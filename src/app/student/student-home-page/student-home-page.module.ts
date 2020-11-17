@@ -9,6 +9,7 @@ import { StudentHomePagePageRoutingModule } from "./student-home-page-routing.mo
 import { StudentHomePagePage } from "./student-home-page.page";
 import { RegisteredSubjectsComponent } from "../components/registered-subjects/registered-subjects.component";
 import { SharedModule } from "src/app/shared/shared.module";
+import { StudentTimetableComponent } from "../components/student-timetable/student-timetable.component";
 
 @NgModule({
   imports: [
@@ -18,6 +19,10 @@ import { SharedModule } from "src/app/shared/shared.module";
     StudentHomePagePageRoutingModule,
     SharedModule,
   ],
-  declarations: [StudentHomePagePage, RegisteredSubjectsComponent],
+  declarations: [
+    StudentHomePagePage,
+    RegisteredSubjectsComponent,
+    StudentTimetableComponent,
+  ],
 })
 export class StudentHomePagePageModule {}

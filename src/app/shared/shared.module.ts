@@ -3,11 +3,11 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { IonicModule } from "@ionic/angular";
-import { TimetableComponent } from "./components/timetable/timetable.component";
+import { TimetableSubjectsComponent } from "./components/timetable-subjects/timetable-subjects.component";
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule],
-  declarations: [TimetableComponent],
-  exports: [TimetableComponent],
+  declarations: [TimetableSubjectsComponent],
+  exports: [TimetableSubjectsComponent],
 })
 export class SharedModule {}

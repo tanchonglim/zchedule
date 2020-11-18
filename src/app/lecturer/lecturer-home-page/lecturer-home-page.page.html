@@ -1,8 +1,11 @@
 <ion-header>
-  <ion-toolbar>
+  <div style="display: flex; width: 100%; justify-content: start">
     <ion-menu-button></ion-menu-button>
-    <ion-title>lecturer-home-page</ion-title>
-  </ion-toolbar>
+  </div>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-input [(ngModel)]="id" placeholder="Input your ID"></ion-input>
+  <ion-button (click)="openSubjectModal()">Subjects</ion-button>
+  <ion-button (click)="openTimetableModal()">Timetable</ion-button>
+</ion-content>

@@ -9,6 +9,7 @@ import { LecturerHomePagePageRoutingModule } from "./lecturer-home-page-routing.
 import { LecturerHomePagePage } from "./lecturer-home-page.page";
 import { TeachingSubjectComponent } from "../components/teaching-subject/teaching-subject.component";
 import { LecturerTimetableComponent } from "../components/lecturer-timetable/lecturer-timetable.component";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { LecturerTimetableComponent } from "../components/lecturer-timetable/lec
     FormsModule,
     IonicModule,
     LecturerHomePagePageRoutingModule,
+    SharedModule,
   ],
   declarations: [
     LecturerHomePagePage,

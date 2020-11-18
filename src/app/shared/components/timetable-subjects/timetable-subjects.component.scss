@@ -2,12 +2,33 @@
   display: flex;
   flex-direction: column;
   border: 1px solid black;
+  text-align: center;
+  height: 100%;
+}
+
+.timetable-top-header {
+  display: flex;
+  flex-direction: row;
+  div {
+    width: calc(100% / 6);
+  }
 }
 
 .timetable-bottom {
   display: flex;
   flex-direction: row;
   border: 1px solid black;
+  height: 100%;
+}
+
+.timetable-side-header {
+  width: calc(100% / 6);
+  div {
+    height: calc(100% / 10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .timetable-body {
@@ -15,6 +36,18 @@
   flex-wrap: wrap;
   flex-direction: row;
   border: 1px solid black;
+  width: calc(100% / 6 * 5);
+
+  div {
+    height: calc(100% / 10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+    overflow: hidden;
+  }
+  font-size: 0.8em;
 }
 .timetable-data {
   width: 20%;

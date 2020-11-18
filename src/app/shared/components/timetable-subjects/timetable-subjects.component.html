@@ -1,7 +1,16 @@
 <div class="timetable" *ngIf="timetableBody">
-  <div class="timetable-top-header">day</div>
+  <div class="timetable-top-header">
+    <div>&nbsp;</div>
+    <div *ngFor="let day of days">
+      {{ day }}
+    </div>
+  </div>
   <div class="timetable-bottom">
-    <div class="timetable-side-header">time</div>
+    <div class="timetable-side-header">
+      <div *ngFor="let time of times">
+        {{ time }}
+      </div>
+    </div>
     <div class="timetable-body">
       <div *ngFor="let slot of timetableBody.slots" class="timetable-data">
         {{ slot.data }}

@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { DataServiceService } from "../core/service/data-service.service";
+import { TimetableData } from "../shared/models/TimetableData";
+import { StudentServiceService } from "../student/student-service.service";
 
 @Component({
   selector: "app-home-page",
@@ -7,7 +9,29 @@ import { DataServiceService } from "../core/service/data-service.service";
   styleUrls: ["./home-page.page.scss"],
 })
 export class HomePagePage implements OnInit {
-  constructor(private dataService: DataServiceService) {}
+  displayingComponent: number = 0; // 0 for timetable, 1 for subject list
+  timetableData: TimetableData;
 
-  async ngOnInit() {}
+  constructor(
+    private studentService: StudentServiceService,
+    private ds: DataServiceService
+  ) {}
+
+  async ngOnInit() {
+    const id = this.ds.getID();
+    const sesiSemester = (await this.ds.getSesiSemester())[0];
+    this.timetableData = await this.studentService.getTimetable(
+      id,
+      sesiSemester.sesi,
+      sesiSemester.semester
+    );
+  }
+
+  get isDataLoaded() {
+    return this.timetableData;
+  }
+
+  segmentChanged(event) {
+    this.displayingComponent = Number(event.detail.value);
+  }
 }

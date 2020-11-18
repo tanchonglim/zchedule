@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { DataServiceService } from "src/app/core/service/data-service.service";
 import { SesiSemester } from "src/app/shared/models/SesiSemester";
 import { StudentServiceService } from "../../student-service.service";
@@ -10,6 +10,7 @@ import { TimetableData } from "../../../shared/models/TimetableData";
   styleUrls: ["./student-timetable.component.scss"],
 })
 export class StudentTimetableComponent implements OnInit {
+  @Input() id: string;
   currentSesiSem: SesiSemester;
   timetableData: TimetableData;
 
@@ -22,7 +23,7 @@ export class StudentTimetableComponent implements OnInit {
     this.currentSesiSem = (await this.ds.getSesiSemester())[0];
 
     this.timetableData = await this.studentService.getTimetable(
-      this.ds.getID(),
+      this.id,
       this.currentSesiSem.sesi,
       this.currentSesiSem.semester
     );

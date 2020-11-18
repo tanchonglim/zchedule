@@ -1,4 +1,4 @@
-export class TimetableData {
+export interface TimetableData {
   slots: Array<{
     day: number;
     timeSlot: number;

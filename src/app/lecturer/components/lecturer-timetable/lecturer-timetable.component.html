@@ -1,3 +1,8 @@
-<p>
-  lecturer-timetable works!
-</p>
+<div class="modal-wrapper">
+  <app-modal-header></app-modal-header>
+  <div *ngIf="isDataLoaded" style="height: 90%">
+    <app-timetable-subjects
+      [timetableData]="timetableData"
+    ></app-timetable-subjects>
+  </div>
+</div>

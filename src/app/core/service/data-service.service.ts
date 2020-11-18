@@ -14,9 +14,11 @@ export class DataServiceService {
   private _id: string = "A18CS0255"; //matric / no_pekerja
   private _role: number; // 1/2 student/lecturer
 
+  private _currentStudentSubjects: Array<StudentSubject>;
+
   private _sesiSemester: Array<SesiSemester>;
-  private _studentSubjects: Array<StudentSubject>;
-  private _lecturerSubjects: Array<LecturerSubject>;
+  // private _studentSubjects: Array<StudentSubject>;
+  // private _lecturerSubjects: Array<LecturerSubject>;
   private _scheduleSubjectList: Array<ScheduleSubject> = [];
 
   constructor(private fsksmService: FsksmServiceService) {}
@@ -27,8 +29,11 @@ export class DataServiceService {
   clearData() {
     this._id = null;
     this._role = null;
-    this._studentSubjects = null;
-    this._lecturerSubjects = null;
+    // this._studentSubjects = null;
+    // this._lecturerSubjects = null;
+    this._currentStudentSubjects = null;
+    this._sesiSemester = null;
+    this._scheduleSubjectList = [];
   }
 
   setID(id: string) {
@@ -59,22 +64,24 @@ export class DataServiceService {
     }
   }
 
-  async getStudentSubjects(id: string) {
-    if (!this._studentSubjects) {
-      this._studentSubjects = await this.fsksmService.fetchStudentSubject(id);
-      return this._studentSubjects;
+  async getStudentSubjects(id: string): Promise<Array<StudentSubject>> {
+    //only store data of logged in student
+    if (id === this._id) {
+      if (!this._currentStudentSubjects) {
+        this._currentStudentSubjects = await this.fsksmService.fetchStudentSubject(
+          id
+        );
+        return this._currentStudentSubjects;
+      } else {
+        return this._currentStudentSubjects;
+      }
     } else {
-      return this._studentSubjects;
+      return await this.fsksmService.fetchStudentSubject(id);
     }
   }
 
-  async getLecturerSubject(id: string) {
-    if (!this._lecturerSubjects) {
-      this._lecturerSubjects = await this.fsksmService.fetchLecturerSubject(id);
-      return this._lecturerSubjects;
-    } else {
-      return this._lecturerSubjects;
-    }
+  async getLecturerSubject(id: string): Promise<Array<LecturerSubject>> {
+    return await this.fsksmService.fetchLecturerSubject(id);
   }
 
   async getSubjectSchedule(
@@ -106,7 +113,7 @@ export class DataServiceService {
         seksyen: seksyen,
         dailySchedule: schedules,
       };
-      this._scheduleSubjectList.push();
+      this._scheduleSubjectList.push(scheduleSubject);
       return scheduleSubject;
     } else {
       return this._scheduleSubjectList[index];

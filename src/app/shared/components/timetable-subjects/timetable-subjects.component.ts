@@ -8,6 +8,20 @@ import { TimetableData } from "../../models/TimetableData";
 })
 export class TimetableSubjectsComponent implements OnInit {
   @Input() timetableData: TimetableData;
+
+  days = ["SUN", "MON", "TUE", "WED", "THU"];
+  times = [
+    "8.00-8.50",
+    "9.00-9.50",
+    "10.00-10.50",
+    "11.00-11.50",
+    "12.00-12.50",
+    "1.00-1.50",
+    "2.00-2.50",
+    "3.00-3.50",
+    "4.00-4.50",
+    "5.00-5.50",
+  ];
   timetableBody: {
     slots: Array<{
       day: number;
@@ -27,19 +41,16 @@ export class TimetableSubjectsComponent implements OnInit {
     this.timetableBody = {
       slots: [],
     };
-    let counter = 0;
 
-    for (let time = 2; time <= 10; time++) {
+    for (let time = 2; time <= 11; time++) {
       for (let day = 1; day <= 5; day++) {
         this.timetableBody.slots.push({
           day: day,
           timeSlot: time,
           data: "-",
         });
-        counter++;
       }
     }
-    console.log(counter);
   }
 
   appendTimetableData() {

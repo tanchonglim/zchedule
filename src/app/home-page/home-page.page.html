@@ -1,8 +1,31 @@
 <ion-header>
-  <ion-toolbar>
+  <div style="display: flex; width: 100%; justify-content: start">
     <ion-menu-button></ion-menu-button>
-    <ion-title>home-page</ion-title>
-  </ion-toolbar>
+  </div>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content *ngIf="isDataLoaded">
+  <div style="display: flex; justify-content: center; padding: 2em 10%">
+    <ion-segment
+      (ionChange)="segmentChanged($event)"
+      mode="ios"
+      [(ngModel)]="displayingComponent"
+    >
+      <ion-segment-button value="0">
+        <ion-label>Timetable</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        <ion-label>Subjects</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div style="height: 100%">
+    <app-timetable-subjects
+      *ngIf="!displayingComponent"
+      [timetableData]="timetableData"
+    >
+    </app-timetable-subjects>
+    <div *ngIf="displayingComponent">subject</div>
+  </div>
+</ion-content>

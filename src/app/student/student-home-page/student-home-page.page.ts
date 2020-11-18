@@ -9,6 +9,7 @@ import { StudentTimetableComponent } from "../components/student-timetable/stude
   styleUrls: ["./student-home-page.page.scss"],
 })
 export class StudentHomePagePage implements OnInit {
+  id: string = "A18CS0255";
   constructor(public modal: ModalController) {}
 
   ngOnInit() {}
@@ -16,6 +17,9 @@ export class StudentHomePagePage implements OnInit {
   async openSubjectModal() {
     const modal = await this.modal.create({
       component: RegisteredSubjectsComponent,
+      componentProps: {
+        id: this.id,
+      },
     });
     await modal.present();
     await modal.onWillDismiss();
@@ -24,6 +28,7 @@ export class StudentHomePagePage implements OnInit {
   async openTimetableModal() {
     const modal = await this.modal.create({
       component: StudentTimetableComponent,
+      componentProps: { id: this.id },
     });
     await modal.present();
     await modal.onWillDismiss();

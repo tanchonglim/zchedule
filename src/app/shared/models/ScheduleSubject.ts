@@ -1,4 +1,4 @@
-export class ScheduleSubject {
+export interface ScheduleSubject {
   sesi: string;
   semester: number;
   kod_subjek: string;

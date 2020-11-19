@@ -13,14 +13,14 @@ export class HomePagePage implements OnInit {
   timetableData: TimetableData;
 
   constructor(
-    private studentService: StudentServiceService,
+    private ss: StudentServiceService,
     private ds: DataServiceService
   ) {}
 
   async ngOnInit() {
     const id = this.ds.getID();
-    const sesiSemester = (await this.ds.getSesiSemester())[0];
-    this.timetableData = await this.studentService.getTimetable(
+    const sesiSemester = await this.ds.getCurrentSesiSem();
+    this.timetableData = await this.ss.getTimetable(
       id,
       sesiSemester.sesi,
       sesiSemester.semester

@@ -12,7 +12,10 @@ import * as moment from "moment";
 })
 export class DataServiceService {
   private _id: string = "A18CS0255"; //matric / no_pekerja
-  private _role: number; // 1/2 student/lecturer
+  private _currentSesiSem: {
+    sesi: string;
+    semester: number;
+  };
 
   private _currentStudentSubjects: Array<StudentSubject>;
 
@@ -28,7 +31,6 @@ export class DataServiceService {
    */
   clearData() {
     this._id = null;
-    this._role = null;
     // this._studentSubjects = null;
     // this._lecturerSubjects = null;
     this._currentStudentSubjects = null;
@@ -44,12 +46,9 @@ export class DataServiceService {
     return this._id;
   }
 
-  setRole(role: number) {
-    this._role = role;
-  }
-
-  getRole() {
-    return this._role;
+  async getCurrentSesiSem() {
+    this._currentSesiSem = (await this.getSesiSemester())[0];
+    return this._currentSesiSem;
   }
 
   async getSesiSemester() {

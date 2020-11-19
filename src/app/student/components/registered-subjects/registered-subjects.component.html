@@ -1,3 +1,15 @@
 <div class="modal-wrapper">
   <app-modal-header></app-modal-header>
+  <ion-content>
+    <ion-card *ngFor="let studSub of studentSubject">
+      <p>{{ studSub.nama_subjek }}</p>
+      <p>{{ studSub.kod_subjek }}</p>
+      <p>{{ studSub.status }}</p>
+      <p>{{ studSub.kod_kursus }}</p>
+      <p>{{ studSub.semester }}</p>
+      <p>{{ studSub.sesi }}</p>
+      <p>{{ studSub.seksyen }}</p>
+      <p>{{ studSub.tahun_kursus }}</p>
+    </ion-card>
+  </ion-content>
 </div>

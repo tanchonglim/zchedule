@@ -1,14 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
+import { LecturerServiceService } from "../../lecturer-service.service";
+import { DataServiceService } from "src/app/core/service/data-service.service";
+import { LecturerSubject } from "./../../../shared/models/LecturerSubject";
 
 @Component({
-  selector: 'app-teaching-subject',
-  templateUrl: './teaching-subject.component.html',
-  styleUrls: ['./teaching-subject.component.scss'],
+  selector: "app-teaching-subject",
+  templateUrl: "./teaching-subject.component.html",
+  styleUrls: ["./teaching-subject.component.scss"],
 })
 export class TeachingSubjectComponent implements OnInit {
+  @Input() id: string;
+  lecturerSubject: Array<LecturerSubject>;
+  constructor(
+    private ls: LecturerServiceService,
+    private dataService: DataServiceService
+  ) {}
 
-  constructor() { }
-
-  ngOnInit() {}
-
+  async ngOnInit() {
+    this.lecturerSubject = await this.dataService.getLecturerSubject(this.id);
+    console.log(this.lecturerSubject[0].bil_pelajar);
+    console.log(this.lecturerSubject[0].kod_subjek);
+    console.log(this.lecturerSubject);
+  }
 }

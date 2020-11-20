@@ -8,4 +8,34 @@
   <ion-input [(ngModel)]="id" placeholder="Input your ID"></ion-input>
   <ion-button (click)="openSubjectModal()">Subjects</ion-button>
   <ion-button (click)="openTimetableModal()">Timetable</ion-button>
+
+  <div
+    style="
+      width: 100%;
+      display: flex;
+      overflow: scroll;
+      justify-content: flex-start;
+      flex-shrink: 0;
+      border: 1px solid blue;
+      background-color: yellow;
+    "
+  >
+    <div
+      class="trayTab"
+      (click)="selectTray0()"
+      [ngClass]="{'selected':trayArray[0].status == 1}"
+    >
+      <!-- [ngStyle]="{'background-color':trayArray[0].status === 1 ? 'green' : 'red' }" -->
+      a
+    </div>
+    <div
+      class="trayTab"
+      (click)="selectTray1()"
+      [ngClass]="{'selected':trayArray[1].status == 1}"
+    >
+      b
+    </div>
+  </div>
+  <div *ngIf="viewMode == 'subject'">Subjectssssssss</div>
+  <div *ngIf="viewMode == 'timetable'">Timetableeeeeeeee</div>
 </ion-content>

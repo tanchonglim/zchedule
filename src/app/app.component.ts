@@ -15,17 +15,27 @@ export class AppComponent implements OnInit {
     {
       title: "Home",
       url: "/home-page",
-      icon: "mail",
+      icon: "home",
     },
     {
       title: "Lecturer",
       url: "/lecturer-home-page",
-      icon: "paper-plane",
+      icon: "ribbon",
     },
     {
       title: "Student",
       url: "/student-home-page",
-      icon: "heart",
+      icon: "school",
+    },
+    {
+      title: "Subject",
+      url: "/subject-home",
+      icon: "library",
+    },
+    {
+      title: "Room",
+      url: "/room-home",
+      icon: "easel",
     },
   ];
   public labels = [];

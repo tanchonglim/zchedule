@@ -16,7 +16,6 @@
       overflow: scroll;
       justify-content: flex-start;
       flex-shrink: 0;
-      border: 1px solid blue;
       background-color: yellow;
     "
   >
@@ -25,7 +24,6 @@
       (click)="selectTray0()"
       [ngClass]="{'selected':trayArray[0].status == 1}"
     >
-      <!-- [ngStyle]="{'background-color':trayArray[0].status === 1 ? 'green' : 'red' }" -->
       a
     </div>
     <div
@@ -36,6 +34,7 @@
       b
     </div>
   </div>
+  <div style="background: green">&nbsp;</div>
   <div *ngIf="viewMode == 'subject'">Subjectssssssss</div>
   <div *ngIf="viewMode == 'timetable'">Timetableeeeeeeee</div>
 </ion-content>

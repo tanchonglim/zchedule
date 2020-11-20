@@ -1,0 +1,13 @@
+$tabColor: green;
+
+.trayTab {
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  display: flex;
+  margin-top: 15px;
+  padding: 20px;
+}
+
+.trayTab.selected {
+  background: $tabColor;
+}

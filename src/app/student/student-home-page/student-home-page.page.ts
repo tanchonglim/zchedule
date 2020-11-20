@@ -10,15 +10,13 @@ import { StudentTimetableComponent } from "../components/student-timetable/stude
 })
 export class StudentHomePagePage implements OnInit {
   viewMode: any = "subject";
-  status: boolean = false;
+
   trayArray: any = [
     {
-      index: 0,
       name: "subject",
       status: 1,
     },
     {
-      index: 1,
       name: "timetable",
       status: 0,
     },

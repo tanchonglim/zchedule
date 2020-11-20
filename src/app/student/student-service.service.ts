@@ -39,4 +39,8 @@ export class StudentServiceService {
 
     return timetableData;
   }
+
+  async getStudentSubjects(id: string) {
+    return this.ds.getStudentSubjects(id);
+  }
 }

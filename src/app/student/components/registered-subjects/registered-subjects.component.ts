@@ -11,13 +11,10 @@ import { StudentServiceService } from "../../student-service.service";
 export class RegisteredSubjectsComponent implements OnInit {
   @Input() id: string;
   studentSubject: Array<StudentSubject>;
-  constructor(
-    private ss: StudentServiceService,
-    private dataService: DataServiceService
-  ) {}
+  constructor(private ss: StudentServiceService) {}
 
   async ngOnInit() {
-    this.studentSubject = await this.dataService.getStudentSubjects(this.id);
+    this.studentSubject = await this.ss.getStudentSubjects(this.id);
     console.log(this.studentSubject);
 
     // this.dataService.getStudentSubjects('1').then(result =>{

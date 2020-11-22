@@ -11,18 +11,16 @@ import * as moment from "moment";
   providedIn: "root",
 })
 export class DataServiceService {
-  private _id: string = "A18CS0255"; //matric / no_pekerja
-  private _currentSesiSem: {
-    sesi: string;
-    semester: number;
-  };
+  private _id: string = "A18CS0255"; //fixed
+  private _currentSesiSem: SesiSemester;
 
-  private _currentStudentSubjects: Array<StudentSubject>;
-
-  private _sesiSemester: Array<SesiSemester>;
+  private _currentStudentSubjects: Array<StudentSubject>; //fixed
+  private _sesiSemester: Array<SesiSemester>; //fixed
   // private _studentSubjects: Array<StudentSubject>;
   // private _lecturerSubjects: Array<LecturerSubject>;
-  private _scheduleSubjectList: Array<ScheduleSubject> = [];
+
+  //has huge list of data (need find)
+  private _scheduleSubjectList: Array<ScheduleSubject> = []; //
 
   constructor(private fsksmService: FsksmServiceService) {}
 
@@ -91,10 +89,10 @@ export class DataServiceService {
   ) {
     let index = this._scheduleSubjectList.findIndex((subjectSchedule) => {
       return (
-        subjectSchedule.sesi === sesi &&
-        subjectSchedule.semester === semester &&
-        subjectSchedule.kod_subjek === kod_subjek &&
-        subjectSchedule.seksyen === seksyen
+        subjectSchedule.subject.sesi === sesi &&
+        subjectSchedule.subject.semester === semester &&
+        subjectSchedule.subject.kod_subjek === kod_subjek &&
+        subjectSchedule.subject.seksyen === seksyen
       );
     });
 
@@ -106,10 +104,12 @@ export class DataServiceService {
         seksyen
       );
       let scheduleSubject = {
-        sesi: sesi,
-        semester: semester,
-        kod_subjek: kod_subjek,
-        seksyen: seksyen,
+        subject: {
+          sesi: sesi,
+          semester: semester,
+          kod_subjek: kod_subjek,
+          seksyen: seksyen,
+        },
         dailySchedule: schedules,
       };
       this._scheduleSubjectList.push(scheduleSubject);

@@ -1,8 +1,11 @@
 export interface ScheduleSubject {
-  sesi: string;
-  semester: number;
-  kod_subjek: string;
-  seksyen: number;
+  subject: {
+    sesi: string;
+    semester: number;
+    kod_subjek: string;
+    seksyen: number;
+  };
+
   dailySchedule: Array<{
     ruang: {
       kod_ruang: string;

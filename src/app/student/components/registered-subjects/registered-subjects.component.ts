@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { DataServiceService } from "src/app/core/service/data-service.service";
 import { StudentSubject } from "src/app/shared/models/StudentSubject";
 import { StudentServiceService } from "../../student-service.service";
 
@@ -16,9 +15,5 @@ export class RegisteredSubjectsComponent implements OnInit {
   async ngOnInit() {
     this.studentSubject = await this.ss.getStudentSubjects(this.id);
     console.log(this.studentSubject);
-
-    // this.dataService.getStudentSubjects('1').then(result =>{
-    //   this.studentSubject= result
-    // })
   }
 }

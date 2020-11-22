@@ -8,6 +8,10 @@ import { TimetableData } from "../shared/models/TimetableData";
 export class StudentServiceService {
   constructor(private ds: DataServiceService) {}
 
+  async getCurrentSesiSem() {
+    return this.ds.getCurrentSesiSem();
+  }
+
   async getTimetable(
     id: string,
     sesi: string,

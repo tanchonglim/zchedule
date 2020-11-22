@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { DataServiceService } from "src/app/core/service/data-service.service";
 import { SesiSemester } from "src/app/shared/models/SesiSemester";
 import { TimetableData } from "src/app/shared/models/TimetableData";
 import { LecturerServiceService } from "../../lecturer-service.service";
@@ -14,15 +13,12 @@ export class LecturerTimetableComponent implements OnInit {
   currentSesiSem: SesiSemester;
   timetableData: TimetableData;
 
-  constructor(
-    private lecturerService: LecturerServiceService,
-    private ds: DataServiceService
-  ) {}
+  constructor(private ls: LecturerServiceService) {}
 
   async ngOnInit() {
-    this.currentSesiSem = (await this.ds.getSesiSemester())[0];
+    this.currentSesiSem = await this.ls.getCurrentSesiSem();
     console.log(this.id);
-    this.timetableData = await this.lecturerService.getTimetable(
+    this.timetableData = await this.ls.getTimetable(
       this.id,
       this.currentSesiSem.sesi,
       this.currentSesiSem.semester

@@ -6,6 +6,7 @@ import { FsksmServiceService } from "./fsksm-service.service";
 import { SesiSemester } from "src/app/shared/models/SesiSemester";
 
 import * as moment from "moment";
+import { Student } from "src/app/shared/models/Student";
 
 @Injectable({
   providedIn: "root",
@@ -13,6 +14,7 @@ import * as moment from "moment";
 export class DataServiceService {
   private _id: string = "A18CS0255"; //fixed
   private _currentSesiSem: SesiSemester;
+  private _adminSessionID: number; //will expire?
 
   private _currentStudentSubjects: Array<StudentSubject>; //fixed
   private _sesiSemester: Array<SesiSemester>; //fixed
@@ -49,6 +51,15 @@ export class DataServiceService {
   async getCurrentSesiSem(): Promise<SesiSemester> {
     this._currentSesiSem = (await this.getSesiSemester())[0];
     return this._currentSesiSem;
+  }
+
+  async getAdminSessionID() {
+    if (!this._adminSessionID) {
+      this._adminSessionID = await this.fsksmService.getAdminSessionID();
+      return this._adminSessionID;
+    } else {
+      return this._adminSessionID;
+    }
   }
 
   async getSesiSemester(): Promise<Array<SesiSemester>> {
@@ -119,5 +130,20 @@ export class DataServiceService {
     } else {
       return this._scheduleSubjectList[index];
     }
+  }
+
+  async getStudentList(
+    kod_kursus: string,
+    limit: number,
+    offset: number
+  ): Promise<Array<Student>> {
+    return this.fsksmService.fetchStudentList(
+      this._adminSessionID,
+      this._currentSesiSem.sesi,
+      this._currentSesiSem.semester,
+      kod_kursus,
+      limit,
+      offset
+    );
   }
 }

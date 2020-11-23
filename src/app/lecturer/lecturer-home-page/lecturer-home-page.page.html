@@ -6,15 +6,8 @@
 
 <ion-content>
   <ion-item>
-    <ion-label>Course</ion-label>
-    <ion-select placeholder="Select Course">
-      <ion-select-option value="SCSJ">SCSJ</ion-select-option>
-      <ion-select-option value="SCSV">SCSV</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Student ID</ion-label>
-    <ion-input [(ngModel)]="id" placeholder="Input your ID"></ion-input>
+    <ion-label position="floating">Staff ID or name</ion-label>
+    <ion-input [(ngModel)]="id" placeholder="ALI"></ion-input>
   </ion-item>
   <ion-button (click)="openSubjectModal()">Subjects</ion-button>
   <ion-button (click)="openTimetableModal()">Timetable</ion-button>

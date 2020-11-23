@@ -8,6 +8,11 @@ import { TimetableData } from "../shared/components/timetable-subjects/timetable
 export class HomeServiceService {
   constructor(private ds: DataServiceService) {}
 
+  async initiate() {
+    this.ds.getCurrentSesiSem();
+    this.ds.getAdminSessionID();
+  }
+
   async getCurrentSesiSem() {
     return this.ds.getCurrentSesiSem();
   }

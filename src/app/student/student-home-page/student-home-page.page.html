@@ -5,7 +5,68 @@
 </ion-header>
 
 <ion-content>
-  <ion-input [(ngModel)]="id" placeholder="Input your ID"></ion-input>
-  <ion-button (click)="openSubjectModal()">Subjects</ion-button>
-  <ion-button (click)="openTimetableModal()">Timetable</ion-button>
+  <ion-item>
+    <ion-label>Course</ion-label>
+    <ion-select placeholder="Select Course" [(ngModel)]="courseCode">
+      <ion-select-option value="SCSJ">SCSJ</ion-select-option>
+      <ion-select-option value="SCSV">SCSV</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-input
+    [(ngModel)]="searchString"
+    placeholder="Input Matrics or Name"
+  ></ion-input>
+
+  <ion-button (click)="searchStudent()">Search</ion-button>
+
+  <ion-list *ngIf="filteredStudentList">
+    <ion-list-header> Search Result(s) </ion-list-header>
+    <ion-item-sliding *ngFor="let student of filteredStudentList">
+      <ion-item>
+        <ion-label>
+          <h2>{{student.nama}}</h2>
+          <p>Course: {{student.kod_kursus}}</p>
+          <p>Year: {{student.tahun_kursus}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="openSubjectModal(student.no_matrik)"
+          >Subject</ion-item-option
+        >
+        <ion-item-option (click)="openTimetableModal(student.no_matrik)"
+          >Timetable</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- <div
+    style="
+      width: 100%;
+      display: flex;
+      overflow: scroll;
+      justify-content: flex-start;
+      flex-shrink: 0;
+      background-color: yellow;
+    "
+  >
+    <div
+      class="trayTab"
+      (click)="selectTray0()"
+      [ngClass]="{'selected':trayArray[0].status == 1}"
+    >
+      a
+    </div>
+    <div
+      class="trayTab"
+      (click)="selectTray1()"
+      [ngClass]="{'selected':trayArray[1].status == 1}"
+    >
+      b
+    </div>
+  </div>
+  <div style="background: green">&nbsp;</div>
+  <div *ngIf="viewMode == 'subject'">Subjectssssssss</div>
+  <div *ngIf="viewMode == 'timetable'">Timetableeeeeeeee</div> -->
 </ion-content>

@@ -19,8 +19,10 @@ export class DataServiceService {
   // private _studentSubjects: Array<StudentSubject>;
   // private _lecturerSubjects: Array<LecturerSubject>;
 
-  //has huge list of data (need find)
+  //store a list of subjects, with its schedule attached to id
   private _scheduleSubjectList: Array<ScheduleSubject> = []; //
+
+  //studentSubjects, lecturerSubjects (for searching) no store in memory currently
 
   constructor(private fsksmService: FsksmServiceService) {}
 
@@ -40,16 +42,16 @@ export class DataServiceService {
     this._id = id;
   }
 
-  getID() {
+  getID(): string {
     return this._id;
   }
 
-  async getCurrentSesiSem() {
+  async getCurrentSesiSem(): Promise<SesiSemester> {
     this._currentSesiSem = (await this.getSesiSemester())[0];
     return this._currentSesiSem;
   }
 
-  async getSesiSemester() {
+  async getSesiSemester(): Promise<Array<SesiSemester>> {
     if (!this._sesiSemester) {
       this._sesiSemester = await this.fsksmService.fetchSesiSemester();
       this._sesiSemester = this._sesiSemester.sort((a, b) => {
@@ -65,7 +67,7 @@ export class DataServiceService {
     //only store data of logged in student
     if (id === this._id) {
       if (!this._currentStudentSubjects) {
-        this._currentStudentSubjects = await this.fsksmService.fetchStudentSubject(
+        this._currentStudentSubjects = await this.fsksmService.fetchStudentSubjects(
           id
         );
         return this._currentStudentSubjects;
@@ -73,12 +75,12 @@ export class DataServiceService {
         return this._currentStudentSubjects;
       }
     } else {
-      return await this.fsksmService.fetchStudentSubject(id);
+      return await this.fsksmService.fetchStudentSubjects(id);
     }
   }
 
-  async getLecturerSubject(id: string): Promise<Array<LecturerSubject>> {
-    return await this.fsksmService.fetchLecturerSubject(id);
+  async getLecturerSubjects(id: string): Promise<Array<LecturerSubject>> {
+    return await this.fsksmService.fetchLecturerSubjects(id);
   }
 
   async getSubjectSchedule(
@@ -86,7 +88,7 @@ export class DataServiceService {
     semester: number,
     kod_subjek: string,
     seksyen: number
-  ) {
+  ): Promise<ScheduleSubject> {
     let index = this._scheduleSubjectList.findIndex((subjectSchedule) => {
       return (
         subjectSchedule.subject.sesi === sesi &&

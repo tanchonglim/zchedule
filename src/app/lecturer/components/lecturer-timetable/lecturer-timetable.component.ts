@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { TimetableData } from "src/app/shared/components/timetable-subjects/timetable-subjects.component";
 import { SesiSemester } from "src/app/shared/models/SesiSemester";
-import { TimetableData } from "src/app/shared/models/TimetableData";
 import { LecturerServiceService } from "../../lecturer-service.service";
 
 @Component({

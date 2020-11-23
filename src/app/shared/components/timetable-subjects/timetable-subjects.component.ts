@@ -1,5 +1,12 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { TimetableData } from "../../models/TimetableData";
+
+export interface TimetableData {
+  slots: Array<{
+    day: number;
+    timeSlot: number;
+    data: string;
+  }>;
+}
 
 @Component({
   selector: "app-timetable-subjects",

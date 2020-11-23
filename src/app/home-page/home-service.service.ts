@@ -5,11 +5,15 @@ import { TimetableData } from "../shared/components/timetable-subjects/timetable
 @Injectable({
   providedIn: "root",
 })
-export class LecturerServiceService {
+export class HomeServiceService {
   constructor(private ds: DataServiceService) {}
 
   async getCurrentSesiSem() {
     return this.ds.getCurrentSesiSem();
+  }
+
+  getID() {
+    return this.ds.getID();
   }
 
   async getTimetable(
@@ -20,7 +24,7 @@ export class LecturerServiceService {
     let timetableData: TimetableData = {
       slots: [],
     };
-    let subjects = await this.ds.getLecturerSubjects(id);
+    let subjects = await this.ds.getStudentSubjects(id);
     subjects = subjects.filter((subject) => {
       return subject.sesi === sesi && subject.semester === semester;
     });
@@ -44,7 +48,7 @@ export class LecturerServiceService {
     return timetableData;
   }
 
-  async getLecturerSubject(id: string) {
-    return this.ds.getLecturerSubjects(id);
+  async getStudentSubjects(id: string) {
+    return this.ds.getStudentSubjects(id);
   }
 }

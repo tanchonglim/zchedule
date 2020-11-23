@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { DataServiceService } from "../core/service/data-service.service";
-import { TimetableData } from "../shared/models/TimetableData";
-import { StudentServiceService } from "../student/student-service.service";
+import { TimetableData } from "../shared/components/timetable-subjects/timetable-subjects.component";
+import { HomeServiceService } from "./home-service.service";
 
 @Component({
   selector: "app-home-page",
@@ -12,15 +11,12 @@ export class HomePagePage implements OnInit {
   displayingComponent: number = 0; // 0 for timetable, 1 for subject list
   timetableData: TimetableData;
 
-  constructor(
-    private ss: StudentServiceService,
-    private ds: DataServiceService
-  ) {}
+  constructor(private hs: HomeServiceService) {}
 
   async ngOnInit() {
-    const id = this.ds.getID();
-    const sesiSemester = await this.ds.getCurrentSesiSem();
-    this.timetableData = await this.ss.getTimetable(
+    const id = this.hs.getID();
+    const sesiSemester = await this.hs.getCurrentSesiSem();
+    this.timetableData = await this.hs.getTimetable(
       id,
       sesiSemester.sesi,
       sesiSemester.semester

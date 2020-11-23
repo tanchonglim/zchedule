@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { DataServiceService } from "../core/service/data-service.service";
-import { TimetableData } from "../shared/models/TimetableData";
+import { TimetableData } from "../shared/components/timetable-subjects/timetable-subjects.component";
 
 @Injectable({
   providedIn: "root",

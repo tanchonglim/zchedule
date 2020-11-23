@@ -22,7 +22,7 @@ export class FsksmServiceService {
     return result;
   }
 
-  async fetchStudentSubject(no_matrik: string): Promise<any> {
+  async fetchStudentSubjects(no_matrik: string): Promise<any> {
     let params: HttpParams = new HttpParams()
       .set("entity", "pelajar_subjek")
       .set("no_matrik", no_matrik);
@@ -36,7 +36,7 @@ export class FsksmServiceService {
     return result;
   }
 
-  async fetchLecturerSubject(no_pekerja: string): Promise<any> {
+  async fetchLecturerSubjects(no_pekerja: string): Promise<any> {
     let params: HttpParams = new HttpParams()
       .set("entity", "pensyarah_subjek")
       .set("no_pekerja", no_pekerja);

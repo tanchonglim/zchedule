@@ -1,3 +1,16 @@
 ion-toggle {
   width: 80%;
 }
+$tabColor: green;
+
+.tabArr {
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  display: flex;
+  margin-top: 15px;
+  padding: 20px;
+}
+
+.tabArr.selected {
+  background: $tabColor;
+}

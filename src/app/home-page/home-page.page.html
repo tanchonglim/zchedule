@@ -5,7 +5,35 @@
 </ion-header>
 
 <ion-content *ngIf="isDataLoaded">
-  <div style="display: flex; justify-content: center; padding: 2em 10%">
+  <div
+    style="
+      width: 100%;
+      display: flex;
+      overflow: scroll;
+      justify-content: flex-start;
+      flex-shrink: 0;
+      background-color: yellow;
+    "
+  >
+    <div
+      class="tabArr"
+      (click)="selectTab0()"
+      [ngClass]="{'selected':tabArray[0].status == 1}"
+    >
+      a
+    </div>
+    <div
+      class="tabArr"
+      (click)="selectTab1()"
+      [ngClass]="{'selected':tabArray[1].status == 1}"
+    >
+      b
+    </div>
+  </div>
+  <div style="background: green">&nbsp;</div>
+  <div *ngIf="viewMode == 'subject'">Subjectssssssss</div>
+  <div *ngIf="viewMode == 'timetable'">Timetableeeeeeeee</div>
+  <!-- <div style="display: flex; justify-content: center; padding: 2em 10%">
     <ion-segment
       (ionChange)="segmentChanged($event)"
       mode="ios"
@@ -18,14 +46,20 @@
         <ion-label>Subjects</ion-label>
       </ion-segment-button>
     </ion-segment>
-  </div>
+  </div> -->
 
   <div style="height: 100%">
     <app-timetable-subjects
-      *ngIf="!displayingComponent"
+      *ngIf="tabArray[0].status"
       [timetableData]="timetableData"
     >
     </app-timetable-subjects>
-    <div *ngIf="displayingComponent">subject</div>
+    <div style="height: 100%">
+      <app-subject-list
+        *ngIf="tabArray[1].status"
+        [registeredSubjectListData]="registeredSubjectListData"
+      >
+      </app-subject-list>
+    </div>
   </div>
 </ion-content>

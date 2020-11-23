@@ -1,0 +1,9 @@
+<ion-card *ngFor="let ssd of sesiSemData">
+  <p>{{ ssd.sesi }}</p>
+  <p>{{ ssd.semester }}</p>
+  <ion-item *ngFor="let sub of ssd.subjects">
+    <p>{{ sub.nama_subjek }}</p>
+    <p>{{ sub.kod_subjek }}</p>
+    <p>{{ sub.bil_pelajar }}</p>
+  </ion-item>
+</ion-card>

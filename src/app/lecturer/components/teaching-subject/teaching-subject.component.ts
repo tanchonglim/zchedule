@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { LecturerServiceService } from "../../lecturer-service.service";
 import { LecturerSubject } from "./../../../shared/models/LecturerSubject";
+import { RegisteredSubjectListData } from "src/app/shared/components/subject-list/subject-list.component";
 
 @Component({
   selector: "app-teaching-subject",
@@ -10,6 +11,7 @@ import { LecturerSubject } from "./../../../shared/models/LecturerSubject";
 export class TeachingSubjectComponent implements OnInit {
   @Input() id: string;
   lecturerSubject: Array<LecturerSubject>;
+  registeredSubjectListData: Array<RegisteredSubjectListData>;
   constructor(private ls: LecturerServiceService) {}
 
   async ngOnInit() {
@@ -17,5 +19,14 @@ export class TeachingSubjectComponent implements OnInit {
     console.log(this.lecturerSubject[0].bil_pelajar);
     console.log(this.lecturerSubject[0].kod_subjek);
     console.log(this.lecturerSubject);
+    this.registeredSubjectListData = this.lecturerSubject.map((subject) => {
+      return {
+        nama_subjek: subject.nama_subjek,
+        kod_subjek: subject.kod_subjek,
+        semester: subject.semester,
+        sesi: subject.sesi,
+        bil_pelajar: subject.bil_pelajar,
+      };
+    });
   }
 }

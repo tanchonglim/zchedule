@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { TimetableData } from "../shared/components/timetable-subjects/timetable-subjects.component";
 import { HomeServiceService } from "./home-service.service";
+import { RegisteredSubjectListData } from "src/app/shared/components/subject-list/subject-list.component";
+import { StudentSubject } from "./../shared/models/StudentSubject";
 
 @Component({
   selector: "app-home-page",
@@ -8,26 +10,68 @@ import { HomeServiceService } from "./home-service.service";
   styleUrls: ["./home-page.page.scss"],
 })
 export class HomePagePage implements OnInit {
+  viewMode: any = "subject";
+  tabArray: any = [
+    {
+      name: "subject",
+      status: 1,
+    },
+    {
+      name: "timetable",
+      status: 0,
+    },
+  ];
+  id: string;
   displayingComponent: number = 0; // 0 for timetable, 1 for subject list
   timetableData: TimetableData;
+  registeredSubjectListData: Array<RegisteredSubjectListData> = [];
+  registeredSubject: Array<StudentSubject>;
 
   constructor(private hs: HomeServiceService) {}
 
   async ngOnInit() {
-    const id = this.hs.getID();
+    this.id = this.hs.getID();
     const sesiSemester = await this.hs.getCurrentSesiSem();
     this.timetableData = await this.hs.getTimetable(
-      id,
+      this.id,
       sesiSemester.sesi,
       sesiSemester.semester
     );
+    this.registeredSubject = await this.hs.getStudentSubjects(this.id);
+    this.registeredSubjectListData = this.registeredSubject.map((subject) => {
+      return {
+        nama_subjek: subject.nama_subjek,
+        kod_subjek: subject.kod_subjek,
+        semester: subject.semester,
+        sesi: subject.sesi,
+      };
+    });
   }
 
   get isDataLoaded() {
-    return this.timetableData;
+    return this.timetableData && this.registeredSubjectListData;
   }
 
   segmentChanged(event) {
     this.displayingComponent = Number(event.detail.value);
+  }
+
+  selectTab0() {
+    this.viewMode = this.tabArray[0].name;
+    if (this.tabArray[0].status == 1) {
+      this.tabArray[1].status = 0;
+    } else {
+      this.tabArray[0].status = 1;
+      this.tabArray[1].status = 0;
+    }
+  }
+  selectTab1() {
+    this.viewMode = this.tabArray[1].name;
+    if (this.tabArray[1].status == 1) {
+      this.tabArray[0].status = 0;
+    } else {
+      this.tabArray[1].status = 1;
+      this.tabArray[0].status = 0;
+    }
   }
 }

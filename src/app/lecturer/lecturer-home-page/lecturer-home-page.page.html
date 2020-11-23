@@ -5,35 +5,17 @@
 </ion-header>
 
 <ion-content>
-  <ion-input [(ngModel)]="id" placeholder="Input your ID"></ion-input>
+  <ion-item>
+    <ion-label>Course</ion-label>
+    <ion-select placeholder="Select Course">
+      <ion-select-option value="SCSJ">SCSJ</ion-select-option>
+      <ion-select-option value="SCSV">SCSV</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Student ID</ion-label>
+    <ion-input [(ngModel)]="id" placeholder="Input your ID"></ion-input>
+  </ion-item>
   <ion-button (click)="openSubjectModal()">Subjects</ion-button>
   <ion-button (click)="openTimetableModal()">Timetable</ion-button>
-  <div
-    style="
-      width: 100%;
-      display: flex;
-      overflow: scroll;
-      justify-content: flex-start;
-      flex-shrink: 0;
-      background-color: yellow;
-    "
-  >
-    <div
-      class="trayTab"
-      (click)="selectTray0()"
-      [ngClass]="{'selected':trayArray[0].status == 1}"
-    >
-      a
-    </div>
-    <div
-      class="trayTab"
-      (click)="selectTray1()"
-      [ngClass]="{'selected':trayArray[1].status == 1}"
-    >
-      b
-    </div>
-  </div>
-  <div style="background: green">&nbsp;</div>
-  <div *ngIf="viewMode == 'subject'">Subjectssssssss</div>
-  <div *ngIf="viewMode == 'timetable'">Timetableeeeeeeee</div>
 </ion-content>

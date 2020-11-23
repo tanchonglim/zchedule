@@ -5,10 +5,19 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { TimetableSubjectsComponent } from "./components/timetable-subjects/timetable-subjects.component";
 import { ModalHeaderComponent } from "./components/modal-header/modal-header.component";
+import { SubjectListComponent } from "./components/subject-list/subject-list.component";
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule],
-  declarations: [TimetableSubjectsComponent, ModalHeaderComponent],
-  exports: [TimetableSubjectsComponent, ModalHeaderComponent],
+  declarations: [
+    TimetableSubjectsComponent,
+    ModalHeaderComponent,
+    SubjectListComponent,
+  ],
+  exports: [
+    TimetableSubjectsComponent,
+    ModalHeaderComponent,
+    SubjectListComponent,
+  ],
 })
 export class SharedModule {}

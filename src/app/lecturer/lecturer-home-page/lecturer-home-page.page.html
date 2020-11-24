@@ -7,15 +7,26 @@
 <ion-content>
   <ion-item>
     <ion-label>Course</ion-label>
-    <ion-select placeholder="Select Course">
+    <ion-select
+      placeholder="Select Course"
+      (ionChange)="getCourse()"
+      [(ngModel)]="course"
+    >
       <ion-select-option value="SCSJ">SCSJ</ion-select-option>
       <ion-select-option value="SCSV">SCSV</ion-select-option>
+      <ion-select-option value="SCSR">SCSR</ion-select-option>
+      <ion-select-option value="SCSD">SCSD</ion-select-option>
+      <ion-select-option value="SCSP">SCSP</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Student ID</ion-label>
-    <ion-input [(ngModel)]="id" placeholder="Input your ID"></ion-input>
+    <ion-label position="floating">Lecturer ID/ Lecturer Name</ion-label>
+    <ion-input [(ngModel)]="id" placeholder=""></ion-input>
   </ion-item>
-  <ion-button (click)="openSubjectModal()">Subjects</ion-button>
-  <ion-button (click)="openTimetableModal()">Timetable</ion-button>
+  <ion-button expand="block" (click)="searchLect()">Search</ion-button>
+  <div *ngIf="isFound">
+    <ion-button (click)="openSubjectModal()">Subjects</ion-button>
+    <ion-button (click)="openTimetableModal()">Timetable</ion-button>
+  </div>
+  <div *ngIf="!isFound">Not data found!</div>
 </ion-content>

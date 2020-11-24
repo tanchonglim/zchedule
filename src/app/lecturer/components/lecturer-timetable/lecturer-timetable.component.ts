@@ -18,8 +18,12 @@ export class LecturerTimetableComponent implements OnInit {
   async ngOnInit() {
     this.currentSesiSem = await this.ls.getCurrentSesiSem();
     console.log(this.id);
+    await this.getTimetableData(this.id);
+  }
+
+  async getTimetableData(id) {
     this.timetableData = await this.ls.getTimetable(
-      this.id,
+      id,
       this.currentSesiSem.sesi,
       this.currentSesiSem.semester
     );

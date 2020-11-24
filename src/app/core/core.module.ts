@@ -11,7 +11,7 @@ import { ErrorsHandlerModule } from "./errors-handler/errors-handler.module";
     FormsModule,
     IonicModule,
     HttpClientModule,
-    ErrorsHandlerModule,
+    // ErrorsHandlerModule,
   ],
   declarations: [],
 })

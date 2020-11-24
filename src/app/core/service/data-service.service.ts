@@ -7,6 +7,7 @@ import { SesiSemester } from "src/app/shared/models/SesiSemester";
 
 import * as moment from "moment";
 import { Student } from "src/app/shared/models/Student";
+import { Lecturer } from "src/app/shared/models/Lecturer";
 
 @Injectable({
   providedIn: "root",
@@ -144,6 +145,47 @@ export class DataServiceService {
       kod_kursus,
       limit,
       offset
+    );
+  }
+
+  async getLecturerList(): Promise<Array<Lecturer>> {
+    // await this.getCurrentSesiSem(); //tempporary
+    // await this.getAdminSessionID(); //temporary
+    return [
+      {
+        nama: "Ali",
+        bil_pelajar: 10,
+        bil_seksyen: 10,
+        no_pekerja: 11,
+        bil_subjek: 10,
+      },
+      {
+        nama: "Ali",
+        bil_pelajar: 10,
+        bil_seksyen: 10,
+        no_pekerja: 11,
+        bil_subjek: 10,
+      },
+      {
+        nama: "Ali",
+        bil_pelajar: 10,
+        bil_seksyen: 10,
+        no_pekerja: 11,
+        bil_subjek: 10,
+      },
+      {
+        nama: "Ali",
+        bil_pelajar: 10,
+        bil_seksyen: 10,
+        no_pekerja: 11,
+        bil_subjek: 10,
+      },
+    ];
+
+    return this.fsksmService.fetchLecturerList(
+      this._adminSessionID,
+      this._currentSesiSem.sesi,
+      this._currentSesiSem.semester
     );
   }
 }

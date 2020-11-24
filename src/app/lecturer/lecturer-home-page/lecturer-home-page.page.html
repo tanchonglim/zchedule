@@ -6,27 +6,27 @@
 
 <ion-content>
   <ion-item>
-    <ion-label>Course</ion-label>
-    <ion-select
-      placeholder="Select Course"
-      (ionChange)="getCourse()"
-      [(ngModel)]="course"
-    >
-      <ion-select-option value="SCSJ">SCSJ</ion-select-option>
-      <ion-select-option value="SCSV">SCSV</ion-select-option>
-      <ion-select-option value="SCSR">SCSR</ion-select-option>
-      <ion-select-option value="SCSD">SCSD</ion-select-option>
-      <ion-select-option value="SCSP">SCSP</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
     <ion-label position="floating">Lecturer ID/ Lecturer Name</ion-label>
-    <ion-input [(ngModel)]="id" placeholder=""></ion-input>
+    <ion-input [(ngModel)]="searchString" placeholder=""></ion-input>
   </ion-item>
-  <ion-button expand="block" (click)="searchLect()">Search</ion-button>
-  <div *ngIf="isFound">
-    <ion-button (click)="openSubjectModal()">Subjects</ion-button>
-    <ion-button (click)="openTimetableModal()">Timetable</ion-button>
-  </div>
-  <div *ngIf="!isFound">Not data found!</div>
+  <ion-button expand="block" (click)="searchLecturer()">Search</ion-button>
+
+  <ion-list *ngIf="filteredLecturerList">
+    <ion-list-header> Search Result(s) </ion-list-header>
+    <div *ngFor="let lecturer of filteredLecturerList; index as i ">
+      <ion-item (click)="expandCard(i)">
+        <ion-label>
+          <h2>{{lecturer.nama}}</h2>
+        </ion-label>
+      </ion-item>
+      <div *ngIf="collapse[i]" @expandCard>
+        <ion-item-option (click)="openSubjectModal(lecturer.no_pekerja)"
+          >Subject</ion-item-option
+        >
+        <ion-item-option (click)="openTimetableModal(lecturer.no_pekerja)"
+          >Timetable</ion-item-option
+        >
+      </div>
+    </div>
+  </ion-list>
 </ion-content>

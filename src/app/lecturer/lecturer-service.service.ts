@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { DataServiceService } from "../core/service/data-service.service";
 import { TimetableData } from "../shared/components/timetable-subjects/timetable-subjects.component";
+import { Lecturer } from "./../shared/models/Lecturer";
 
 @Injectable({
   providedIn: "root",
@@ -46,5 +47,17 @@ export class LecturerServiceService {
 
   async getLecturerSubject(id: string) {
     return this.ds.getLecturerSubjects(id);
+  }
+
+  async getFilteredLecturerList(searchString: string) {
+    let lecturerList: Array<Lecturer> = [];
+    let filteredLecturerList: Array<Lecturer> = [];
+
+    lecturerList = await this.ds.getLecturerList();
+    filteredLecturerList = lecturerList.filter((lect) =>
+      lect.nama.toLowerCase().trim().includes(searchString)
+    );
+
+    return filteredLecturerList;
   }
 }

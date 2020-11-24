@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Student } from "src/app/shared/models/Student";
+import { Lecturer } from "src/app/shared/models/Lecturer";
 
 @Injectable({
   providedIn: "root",
@@ -116,6 +117,25 @@ export class FsksmServiceService {
     result.forEach((r) => {
       delete r["no_kp"];
     });
+
+    return result;
+  }
+
+  async fetchLecturerList(
+    sessionid: number,
+    sesi: string,
+    semester: number
+  ): Promise<Array<Lecturer>> {
+    let params = new HttpParams()
+      .set("entity", "pensyarah")
+      .set("session_id", sessionid.toString())
+      .set("sesi", sesi)
+      .set("semester", semester.toString());
+
+    let result: any = await this.http
+      .get(this.apiEndpoint, { params: params })
+      .toPromise();
+    console.log(result);
 
     return result;
   }

@@ -3,6 +3,8 @@ import { TimetableData } from "../shared/components/timetable-subjects/timetable
 import { HomeServiceService } from "./home-service.service";
 import { RegisteredSubjectListData } from "src/app/shared/components/subject-list/subject-list.component";
 import { StudentSubject } from "./../shared/models/StudentSubject";
+import { DataServiceService } from "../core/service/data-service.service";
+import { GlobalEventService } from "../core/service/global-event.service";
 
 @Component({
   selector: "app-home-page",
@@ -26,7 +28,7 @@ export class HomePagePage implements OnInit {
   registeredSubjectListData: Array<RegisteredSubjectListData> = [];
   registeredSubject: Array<StudentSubject>;
 
-  constructor(private hs: HomeServiceService) {}
+  constructor(private hs: HomeServiceService, private ge: GlobalEventService) {}
 
   async ngOnInit() {
     this.id = this.hs.getID();
@@ -67,6 +69,14 @@ export class HomePagePage implements OnInit {
     } else {
       this.tabArray[1].status = 1;
       this.tabArray[0].status = 0;
+    }
+  }
+
+  scroll(event: CustomEvent) {
+    if (event.detail.velocityY > 0.2) {
+      this.ge.scrollEvent.emit(false);
+    } else if (event.detail.velocityY < -0.2) {
+      this.ge.scrollEvent.emit(true);
     }
   }
 }

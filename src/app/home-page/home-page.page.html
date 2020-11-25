@@ -1,6 +1,9 @@
-<app-page-header></app-page-header>
-
-<ion-content *ngIf="isDataLoaded">
+<ion-content
+  *ngIf="isDataLoaded"
+  scroll="test"
+  [scrollEvents]="true"
+  (ionScroll)="scroll($event)"
+>
   <div
     style="
       width: 100%;

@@ -1,0 +1,39 @@
+:host {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+}
+
+.container {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+  justify-items: center;
+  flex-direction: row;
+  div {
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: rgb(141, 141, 141);
+      margin: 0.4em 0;
+      ion-icon {
+        font-size: 1.6em;
+      }
+      ion-label {
+        font-size: 0.65em;
+      }
+    }
+  }
+}
+
+.selected {
+  color: rgb(56, 99, 190);
+}
+
+ion-footer {
+  position: static !important;
+}

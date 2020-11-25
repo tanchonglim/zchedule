@@ -6,21 +6,28 @@ import { IonicModule } from "@ionic/angular";
 import { TimetableSubjectsComponent } from "./components/timetable-subjects/timetable-subjects.component";
 import { ModalHeaderComponent } from "./components/modal-header/modal-header.component";
 import { SubjectListComponent } from "./components/subject-list/subject-list.component";
-import { PageHeaderComponent } from "./components/page-header/page-header.component";
+import { RouterModule } from "@angular/router";
+import { FooterComponent } from "./components/footer/footer.component";
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    ReactiveFormsModule,
+    RouterModule,
+  ],
   declarations: [
     TimetableSubjectsComponent,
     ModalHeaderComponent,
     SubjectListComponent,
-    PageHeaderComponent,
+    FooterComponent,
   ],
   exports: [
     TimetableSubjectsComponent,
     ModalHeaderComponent,
     SubjectListComponent,
-    PageHeaderComponent,
+    FooterComponent,
   ],
 })
 export class SharedModule {}

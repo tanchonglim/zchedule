@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { LecturerSubject } from "src/app/shared/models/LecturerSubject";
 import { StudentSubject } from "src/app/shared/models/StudentSubject";
 import { ScheduleSubject } from "src/app/shared/models/ScheduleSubject";
@@ -26,7 +26,6 @@ export class DataServiceService {
   private _scheduleSubjectList: Array<ScheduleSubject> = []; //
 
   //studentSubjects, lecturerSubjects (for searching) no store in memory currently
-
   constructor(private fsksmService: FsksmServiceService) {}
 
   /**

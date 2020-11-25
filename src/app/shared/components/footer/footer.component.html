@@ -1,0 +1,20 @@
+<ion-footer>
+  <div style="display: flex; width: 100%; justify-content: start">
+    <ion-menu-button></ion-menu-button>
+  </div>
+  <div class="container">
+    <div *ngFor="let page of pages">
+      <div (click)="select(page)">
+        <ion-icon
+          [name]="
+            isSelected(page) ? page.icon + '-sharp' : page.icon + '-outline'
+          "
+          [class.selected]="isSelected(page)"
+        ></ion-icon>
+        <ion-label [class.selected]="isSelected(page)">
+          {{ page.title }}
+        </ion-label>
+      </div>
+    </div>
+  </div>
+</ion-footer>

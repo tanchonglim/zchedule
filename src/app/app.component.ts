@@ -3,47 +3,48 @@ import { Component, OnInit } from "@angular/core";
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { GlobalEventService } from "./core/service/global-event.service";
+
+import {
+  state,
+  style,
+  transition,
+  animate,
+  trigger,
+} from "@angular/animations";
 
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
   styleUrls: ["app.component.scss"],
+  animations: [
+    trigger("openClose", [
+      state(
+        "open",
+        style({
+          opacity: 1,
+        })
+      ),
+      state(
+        "closed",
+        style({
+          transform: "translateY(100%)",
+        })
+      ),
+      transition("* <=> *", [animate("0.2s")]),
+    ]),
+  ],
 })
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
-  public appPages = [
-    {
-      title: "Home",
-      url: "/home-page",
-      icon: "home",
-    },
-    {
-      title: "Lecturer",
-      url: "/lecturer-home-page",
-      icon: "ribbon",
-    },
-    {
-      title: "Student",
-      url: "/student-home-page",
-      icon: "school",
-    },
-    {
-      title: "Subject",
-      url: "/subject-home",
-      icon: "library",
-    },
-    {
-      title: "Room",
-      url: "/room-home",
-      icon: "easel",
-    },
-  ];
-  public labels = [];
+
+  showFooter: boolean = true;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private ge: GlobalEventService
   ) {
     this.initializeApp();
   }
@@ -56,11 +57,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split("folder/")[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(
-        (page) => page.title.toLowerCase() === path.toLowerCase()
-      );
-    }
+    this.ge.scrollEvent.subscribe((e) => {
+      this.showFooter = e;
+    });
   }
 }

@@ -22,7 +22,6 @@ export class HomePagePage implements OnInit {
     },
   ];
   id: string;
-  displayingComponent: number = 0; // 0 for timetable, 1 for subject list
   timetableData: TimetableData;
   registeredSubjectListData: Array<RegisteredSubjectListData> = [];
   registeredSubject: Array<StudentSubject>;
@@ -50,10 +49,6 @@ export class HomePagePage implements OnInit {
 
   get isDataLoaded() {
     return this.timetableData && this.registeredSubjectListData;
-  }
-
-  segmentChanged(event) {
-    this.displayingComponent = Number(event.detail.value);
   }
 
   selectTab0() {

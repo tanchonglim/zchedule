@@ -1,0 +1,7 @@
+.header-md::after {
+  display: none !important;
+}
+
+:host {
+  position: absolute;
+}

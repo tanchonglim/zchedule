@@ -1,16 +1,17 @@
 ion-toggle {
   width: 80%;
 }
-$tabColor: green;
+$tabColor: rgb(184, 245, 184);
 
 .tabArr {
   border-radius: 10px 10px 0 0;
   cursor: pointer;
-  display: flex;
   margin-top: 15px;
-  padding: 20px;
+  padding: 10px;
+  width: 50%;
+  text-align: center;
 }
 
-.tabArr.selected {
+.selected {
   background: $tabColor;
 }

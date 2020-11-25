@@ -15,6 +15,10 @@ export class RegisteredSubjectsComponent implements OnInit {
   constructor(private ss: StudentServiceService) {}
 
   async ngOnInit() {
+    this.getStudentSubject();
+  }
+
+  async getStudentSubject() {
     this.studentSubject = await this.ss.getStudentSubjects(this.id);
     console.log(this.studentSubject);
     this.studentSubject.forEach((subject) => {

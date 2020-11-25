@@ -149,38 +149,8 @@ export class DataServiceService {
   }
 
   async getLecturerList(): Promise<Array<Lecturer>> {
-    // await this.getCurrentSesiSem(); //tempporary
-    // await this.getAdminSessionID(); //temporary
-    return [
-      {
-        nama: "Ali",
-        bil_pelajar: 10,
-        bil_seksyen: 10,
-        no_pekerja: 11,
-        bil_subjek: 10,
-      },
-      {
-        nama: "Ali",
-        bil_pelajar: 10,
-        bil_seksyen: 10,
-        no_pekerja: 11,
-        bil_subjek: 10,
-      },
-      {
-        nama: "Ali",
-        bil_pelajar: 10,
-        bil_seksyen: 10,
-        no_pekerja: 11,
-        bil_subjek: 10,
-      },
-      {
-        nama: "Ali",
-        bil_pelajar: 10,
-        bil_seksyen: 10,
-        no_pekerja: 11,
-        bil_subjek: 10,
-      },
-    ];
+    await this.getCurrentSesiSem(); //tempporary
+    await this.getAdminSessionID(); //temporary
 
     return this.fsksmService.fetchLecturerList(
       this._adminSessionID,

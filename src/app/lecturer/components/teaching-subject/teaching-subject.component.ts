@@ -15,10 +15,14 @@ export class TeachingSubjectComponent implements OnInit {
   constructor(private ls: LecturerServiceService) {}
 
   async ngOnInit() {
+    this.getLecturerSubject();
+  }
+
+  async getLecturerSubject() {
     this.lecturerSubject = await this.ls.getLecturerSubject(this.id);
-    console.log(this.lecturerSubject[0].bil_pelajar);
-    console.log(this.lecturerSubject[0].kod_subjek);
-    console.log(this.lecturerSubject);
+    // console.log(this.lecturerSubject[0].bil_pelajar);
+    // console.log(this.lecturerSubject[0].kod_subjek);
+    // console.log(this.lecturerSubject);
     this.registeredSubjectListData = this.lecturerSubject.map((subject) => {
       return {
         nama_subjek: subject.nama_subjek,

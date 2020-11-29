@@ -1,66 +1,58 @@
 <ion-content>
-  <ion-item>
-    <ion-label>Course</ion-label>
-    <ion-select placeholder="Select Course" [(ngModel)]="courseCode">
-      <ion-select-option value="SCSJ">SCSJ</ion-select-option>
-      <ion-select-option value="SCSV">SCSV</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <div class="global-page-top-area">
+    <div>Student</div>
+  </div>
 
-  <ion-input
-    [(ngModel)]="searchString"
-    placeholder="Input Matrics or Name"
-  ></ion-input>
+  <div class="search-card">
+    <ion-item style="width: 100%">
+      <ion-label>Course</ion-label>
+      <ion-select
+        mode="ios"
+        placeholder="Select Course"
+        [(ngModel)]="courseCode"
+      >
+        <ion-select-option value="SCSJ">SCSJ</ion-select-option>
+        <ion-select-option value="SCSV">SCSV</ion-select-option>
+      </ion-select>
+    </ion-item>
 
-  <ion-button (click)="searchStudent()">Search</ion-button>
+    <ion-item style="width: 100%">
+      <ion-label position="floating">Search by name of matrics</ion-label>
+      <ion-input [(ngModel)]="searchString"> </ion-input>
+    </ion-item>
 
-  <ion-list *ngIf="filteredStudentList">
-    <ion-list-header> Search Result(s) </ion-list-header>
-    <div *ngFor="let student of filteredStudentList; index as i ">
-      <ion-item (click)="expandCard(i)">
+    <ion-button (click)="searchStudent()">Search</ion-button>
+  </div>
+
+  <div class="search-result-container">
+    <ion-list *ngIf="filteredStudentList">
+      <ion-list-header> Search Result(s) </ion-list-header>
+
+      <ion-item
+        (click)="expandCard(i)"
+        *ngFor="let student of filteredStudentList; index as i "
+        class="search-result-item"
+      >
         <ion-label>
-          <h2>{{student.nama}}</h2>
-          <p>Course: {{student.kod_kursus}}</p>
-          <p>Year: {{student.tahun_kursus}}</p>
+          <div style="display: flex; justify-content: space-between">
+            <h2>{{student.nama}}</h2>
+            <ion-icon
+              [@rotatedState]="collapse[i]"
+              name="chevron-forward-outline"
+            ></ion-icon>
+          </div>
+          <div [@collapse]="collapse[i]">
+            <p>Course: {{student.kod_kursus}}</p>
+            <p>Year: {{student.tahun_kursus}}</p>
+            <ion-button (click)="openSubjectModal(student.no_matrik)"
+              >Subject</ion-button
+            >
+            <ion-button (click)="openTimetableModal(student.no_matrik)"
+              >Timetable</ion-button
+            >
+          </div>
         </ion-label>
       </ion-item>
-      <div *ngIf="collapse[i]" @expandCard>
-        <ion-item-option (click)="openSubjectModal(student.no_matrik)"
-          >Subject</ion-item-option
-        >
-        <ion-item-option (click)="openTimetableModal(student.no_matrik)"
-          >Timetable</ion-item-option
-        >
-      </div>
-    </div>
-  </ion-list>
-
-  <!-- <div
-    style="
-      width: 100%;
-      display: flex;
-      overflow: scroll;
-      justify-content: flex-start;
-      flex-shrink: 0;
-      background-color: yellow;
-    "
-  >
-    <div
-      class="trayTab"
-      (click)="selectTray0()"
-      [ngClass]="{'selected':trayArray[0].status == 1}"
-    >
-      a
-    </div>
-    <div
-      class="trayTab"
-      (click)="selectTray1()"
-      [ngClass]="{'selected':trayArray[1].status == 1}"
-    >
-      b
-    </div>
+    </ion-list>
   </div>
-  <div style="background: green">&nbsp;</div>
-  <div *ngIf="viewMode == 'subject'">Subjectssssssss</div>
-  <div *ngIf="viewMode == 'timetable'">Timetableeeeeeeee</div> -->
 </ion-content>

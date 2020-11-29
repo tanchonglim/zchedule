@@ -1,14 +1,16 @@
 .timetable {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
   text-align: center;
   height: 100%;
+  background-color: #43b0f1;
 }
 
 .timetable-top-header {
   display: flex;
   flex-direction: row;
+  background-color: #057dcd;
+  border: 0.5px solid grey;
   div {
     width: calc(100% / 5);
   }
@@ -17,7 +19,7 @@
 .timetable-bottom {
   display: flex;
   flex-direction: row;
-  border: 1px solid black;
+  border: 0.5px solid grey;
   height: 100%;
   position: relative;
 }
@@ -28,7 +30,7 @@
   height: 100%;
   position: absolute;
   font-size: 2em;
-  color: rgba(3, 4, 1, 0.3);
+  color: rgba(3, 4, 1, 0.1);
   font-weight: 900;
   div {
     height: calc(100% / 10);
@@ -42,7 +44,9 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  border: 1px solid black;
+  border: 0.5px solid grey;
+
+  color: #e8eef1;
   // width: calc(100% / 5);
   width: 100%;
 
@@ -59,5 +63,5 @@
 }
 .timetable-data {
   width: 20%;
-  border: 1px solid black;
+  border: 0.5px solid grey;
 }

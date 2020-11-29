@@ -29,3 +29,16 @@
   height: 100%;
   overflow: scroll;
 }
+
+.global-page-top-area {
+  background-color: purple;
+  height: 20%;
+  display: flex;
+  margin-bottom: 1rem;
+  color: white;
+  padding: 1rem;
+  align-items: center;
+  div {
+    font-size: 2rem;
+  }
+}

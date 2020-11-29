@@ -1,26 +1,43 @@
 <ion-content>
-  <ion-item>
-    <ion-label position="floating">Lecturer ID/ Lecturer Name</ion-label>
-    <ion-input [(ngModel)]="searchString" placeholder=""></ion-input>
-  </ion-item>
-  <ion-button expand="block" (click)="searchLecturer()">Search</ion-button>
+  <div class="global-page-top-area">
+    <div>Lecturer</div>
+  </div>
 
-  <ion-list *ngIf="filteredLecturerList">
-    <ion-list-header> Search Result(s) </ion-list-header>
-    <div *ngFor="let lecturer of filteredLecturerList; index as i ">
-      <ion-item (click)="expandCard(i)">
+  <div class="search-card">
+    <ion-item style="width: 100%">
+      <ion-label position="floating">Lecturer ID/ Lecturer Name</ion-label>
+      <ion-input [(ngModel)]="searchString" placeholder=""></ion-input>
+    </ion-item>
+    <ion-button expand="block" (click)="searchLecturer()">Search</ion-button>
+  </div>
+
+  <div class="search-result-container">
+    <ion-list *ngIf="filteredLecturerList">
+      <ion-list-header> Search Result(s) </ion-list-header>
+
+      <ion-item
+        *ngFor="let lecturer of filteredLecturerList; index as i "
+        (click)="expandCard(i)"
+        class="search-result-item"
+      >
         <ion-label>
-          <h2>{{lecturer.nama}}</h2>
+          <div style="display: flex; justify-content: space-between">
+            <h2>{{lecturer.nama}}</h2>
+            <ion-icon
+              [@rotatedState]="collapse[i]"
+              name="chevron-forward-outline"
+            ></ion-icon>
+          </div>
+          <div [@collapse]="collapse[i]">
+            <ion-button (click)="openSubjectModal(lecturer.no_pekerja)"
+              >Subject</ion-button
+            >
+            <ion-button (click)="openTimetableModal(lecturer.no_pekerja)"
+              >Timetable</ion-button
+            >
+          </div>
         </ion-label>
       </ion-item>
-      <div *ngIf="collapse[i]" @expandCard>
-        <ion-item-option (click)="openSubjectModal(lecturer.no_pekerja)"
-          >Subject</ion-item-option
-        >
-        <ion-item-option (click)="openTimetableModal(lecturer.no_pekerja)"
-          >Timetable</ion-item-option
-        >
-      </div>
-    </div>
-  </ion-list>
+    </ion-list>
+  </div>
 </ion-content>

@@ -54,7 +54,7 @@ export class TimetableSubjectsComponent implements OnInit {
         this.timetableBody.slots.push({
           day: day,
           timeSlot: time,
-          data: "-",
+          data: " ",
         });
       }
     }

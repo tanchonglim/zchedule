@@ -10,46 +10,31 @@ import {
   style,
   animate,
   transition,
+  AUTO_STYLE,
 } from "@angular/animations";
 
 @Component({
   selector: "app-lecturer-home-page",
   templateUrl: "./lecturer-home-page.page.html",
   animations: [
-    trigger("expandCard", [
-      transition(":enter", [
-        style({
-          opacity: 0,
-          marginTop: "-10%",
-        }),
-        animate(
-          "300ms cubic-bezier(0.35, 0, 0.25, 1)",
-          style({
-            marginTop: "0px",
-            opacity: "1",
-          })
-        ),
-      ]),
-      transition(":leave", [
-        style({
-          opacity: 1,
-          marginTop: "0px",
-        }),
-        animate(
-          "300ms cubic-bezier(0.35, 0, 0.25, 1)",
-          style({
-            marginTop: "-10%",
-            opacity: "0",
-          })
-        ),
-      ]),
+    trigger("collapse", [
+      state("true", style({ height: AUTO_STYLE, visibility: AUTO_STYLE })),
+      state("false", style({ height: "0", visibility: "hidden" })),
+      transition("false => true", animate(300 + "ms ease-out")),
+      transition("true => false", animate(300 + "ms ease-in")),
+    ]),
+    trigger("rotatedState", [
+      state("true", style({ transform: "rotate(0)" })),
+      state("false", style({ transform: "rotate(90deg)" })),
+      transition("false => true", animate("300ms ease-out")),
+      transition("true => false", animate("300ms ease-in")),
     ]),
   ],
   styleUrls: ["./lecturer-home-page.page.scss"],
 })
 export class LecturerHomePagePage implements OnInit {
   // id: string;
-  searchString: string;
+  searchString: string = "a";
   filteredLecturerList: Array<Lecturer>;
   collapse: Array<Boolean> = [];
   constructor(

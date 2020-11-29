@@ -8,7 +8,7 @@ import { Lecturer } from "src/app/shared/models/Lecturer";
   providedIn: "root",
 })
 export class FsksmServiceService {
-  apiEndpoint = "http://web.fc.utm.my/ttms/web_man_webservice_json.cgi";
+  apiEndpoint = "http://161.139.68.247/ttms/web_man_webservice_json.cgi";
 
   admin = {
     login: "ad2021",

@@ -12,7 +12,7 @@
   background-color: #057dcd;
   border: 0.5px solid grey;
   div {
-    width: calc(100% / 5);
+    width: calc(100% / 6);
   }
 }
 
@@ -25,13 +25,9 @@
 }
 
 .timetable-side-header {
-  // width: calc(100% / 6);
-  width: 100%;
+  width: calc(100% / 6);
   height: 100%;
-  position: absolute;
-  font-size: 2em;
-  color: rgba(3, 4, 1, 0.1);
-  font-weight: 900;
+  font-size: 0.8em;
   div {
     height: calc(100% / 10);
     display: flex;
@@ -45,9 +41,8 @@
   flex-wrap: wrap;
   flex-direction: row;
   border: 0.5px solid grey;
-
   color: #e8eef1;
-  // width: calc(100% / 5);
+  width: calc(100% / 5);
   width: 100%;
 
   div {

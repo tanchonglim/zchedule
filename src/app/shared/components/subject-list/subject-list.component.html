@@ -3,7 +3,7 @@
     <p>{{ ssd.sesi }}</p>
     <p>{{ ssd.semester }}</p>
   </div>
-  <div *ngIf="collapse[i]" @expandCard>
+  <div [@collapse]="collapse[i]">
     <ion-item *ngFor="let sub of ssd.subjects">
       <p>{{ sub.nama_subjek }}</p>
       <p>{{ sub.kod_subjek }}</p>

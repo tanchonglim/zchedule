@@ -16,7 +16,7 @@ export interface TimetableData {
 export class TimetableSubjectsComponent implements OnInit {
   @Input() timetableData: TimetableData;
 
-  days = ["SUN", "MON", "TUE", "WED", "THU"];
+  days = [" ", "SUN", "MON", "TUE", "WED", "THU"];
   times = [
     "8.00-8.50",
     "9.00-9.50",

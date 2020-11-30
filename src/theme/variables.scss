@@ -2,7 +2,12 @@
 // http://ionicframework.com/docs/theming/
 
 /** Ionic CSS Variables **/
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap");
+
 :root {
+  --ion-font-family: "Montserrat", sans-serif;
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;

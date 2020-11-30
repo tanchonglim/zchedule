@@ -37,6 +37,16 @@ export class TimetableSubjectsComponent implements OnInit {
     }>;
   };
 
+  // timetableBody2: {
+  //   days: Array<{
+  //     timeSlot: Array<{
+  //       start: number;
+  //       slotTaken: number; //total need
+  //       data: number;
+  //     }>;
+  //   }>;
+  // };
+
   constructor() {}
 
   ngOnInit() {

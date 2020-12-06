@@ -26,6 +26,7 @@ export class StudentServiceService {
       return subject.sesi === sesi && subject.semester === semester;
     });
 
+    let subjectType = 1;
     for (let subject of subjects) {
       let schedules = await this.ds.getScheduleSubject(
         sesi,
@@ -37,9 +38,14 @@ export class StudentServiceService {
         timetableData.slots.push({
           day: schedule.hari,
           timeSlot: schedule.masa,
-          data: subject.nama_subjek,
+          data: {
+            data: subject.nama_subjek,
+            detail: "",
+            type: subjectType,
+          },
         });
       });
+      subjectType++;
     }
 
     return timetableData;

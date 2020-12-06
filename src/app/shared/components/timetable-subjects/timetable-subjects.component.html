@@ -11,8 +11,14 @@
       </div>
     </div>
     <div class="timetable-body">
-      <div *ngFor="let slot of timetableBody.slots" class="timetable-data">
-        {{ slot.data }}
+      <div
+        *ngFor="let slot of timetableBody.slots; index as i"
+        class="timetable-data"
+        [style.height.%]="slot.span * 10"
+        [style.display]="slot.span == 0 ? 'none' : 'flex'"
+        [class]="'bg-color' + slot.data.type"
+      >
+        {{ slot.data.data }}
       </div>
     </div>
   </div>

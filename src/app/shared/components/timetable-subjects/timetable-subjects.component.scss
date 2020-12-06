@@ -2,15 +2,11 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  height: 100%;
-  background-color: #43b0f1;
 }
 
 .timetable-top-header {
   display: flex;
   flex-direction: row;
-  background-color: #057dcd;
-  border: 0.5px solid grey;
   div {
     width: calc(100% / 6);
   }
@@ -19,14 +15,12 @@
 .timetable-bottom {
   display: flex;
   flex-direction: row;
-  border: 0.5px solid grey;
   height: 100%;
   position: relative;
 }
 
 .timetable-side-header {
   width: calc(100% / 6);
-  height: 100%;
   font-size: 0.8em;
   div {
     height: calc(100% / 10);
@@ -39,12 +33,10 @@
 .timetable-body {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  border: 0.5px solid grey;
-  color: #e8eef1;
-  width: calc(100% / 5);
+  flex-direction: column;
+  color: white;
   width: 100%;
-
+  font-size: 0.8em;
   div {
     height: calc(100% / 10);
     display: flex;
@@ -54,9 +46,34 @@
     overflow-wrap: anywhere;
     overflow: hidden;
   }
-  font-size: 0.8em;
 }
+
 .timetable-data {
+  padding-left: 1.5px;
   width: 20%;
-  border: 0.5px solid grey;
+  border-left: 0.5px solid rgb(163, 163, 163);
+  border-bottom: 0.5px solid rgb(163, 163, 163);
+}
+
+.bg-color0 {
+  background-color: white;
+}
+
+.bg-color1 {
+  background-color: darkblue;
+}
+.bg-color2 {
+  background-color: darkcyan;
+}
+.bg-color3 {
+  background-color: darkgoldenrod;
+}
+.bg-color4 {
+  background-color: darkgreen;
+}
+.bg-color5 {
+  background-color: darkorchid;
+}
+.bg-color6 {
+  background-color: darkorange;
 }

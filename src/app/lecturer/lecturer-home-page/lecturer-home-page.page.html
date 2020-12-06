@@ -22,20 +22,43 @@
       >
         <ion-label>
           <div style="display: flex; justify-content: space-between">
-            <h2>{{lecturer.nama}}</h2>
+            <div style="width: 90%; overflow: hidden">
+              <h2 class="main-color">{{lecturer.nama}}</h2>
+              <sub style="color: grey; font-style: italic"
+                >{{lecturer.no_pekerja}}</sub
+              >
+            </div>
             <ion-icon
               [@rotatedState]="collapse[i]"
               name="chevron-forward-outline"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+              "
             ></ion-icon>
           </div>
           <div [@collapse]="collapse[i]">
-            <ion-button (click)="openSubjectModal(lecturer.no_pekerja, $event)"
-              >Subject</ion-button
-            >
-            <ion-button
-              (click)="openTimetableModal(lecturer.no_pekerja, $event)"
-              >Timetable</ion-button
-            >
+            <div style="width: 100%">
+              <br />
+              <p>Number of student: {{lecturer.bil_pelajar}}</p>
+              <p>Number of subject: {{lecturer.bil_subjek}}</p>
+              <p>Number of section: {{lecturer.bil_seksyen}}</p>
+            </div>
+            <div style="display: flex; flex-direction: row; width: 100%">
+              <button
+                class="btn-style"
+                (click)="openSubjectModal(lecturer.no_pekerja, $event)"
+              >
+                Subject
+              </button>
+              <button
+                class="btn-style"
+                (click)="openTimetableModal(lecturer.no_pekerja, $event)"
+              >
+                Timetable
+              </button>
+            </div>
           </div>
         </ion-label>
       </ion-item>

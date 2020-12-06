@@ -1,10 +1,16 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { PopoverController } from "@ionic/angular";
+import { random } from "lodash";
 
 export interface TimetableData {
   slots: Array<{
     day: number;
     timeSlot: number;
-    data: string;
+    data: {
+      data: string;
+      type: number;
+      detail: string;
+    };
   }>;
 }
 
@@ -33,25 +39,21 @@ export class TimetableSubjectsComponent implements OnInit {
     slots: Array<{
       day: number;
       timeSlot: number;
-      data: string;
+      span: number;
+      data: {
+        data: string;
+        type: number;
+        detail: string;
+      };
     }>;
   };
-
-  // timetableBody2: {
-  //   days: Array<{
-  //     timeSlot: Array<{
-  //       start: number;
-  //       slotTaken: number; //total need
-  //       data: number;
-  //     }>;
-  //   }>;
-  // };
 
   constructor() {}
 
   ngOnInit() {
     this.generateTimetable();
     this.appendTimetableData();
+    console.log(this.timetableBody);
   }
 
   generateTimetable() {
@@ -59,12 +61,17 @@ export class TimetableSubjectsComponent implements OnInit {
       slots: [],
     };
 
-    for (let time = 2; time <= 11; time++) {
-      for (let day = 1; day <= 5; day++) {
+    for (let day = 1; day <= 5; day++) {
+      for (let time = 2; time <= 11; time++) {
         this.timetableBody.slots.push({
           day: day,
           timeSlot: time,
-          data: " ",
+          span: 1,
+          data: {
+            data: " ",
+            type: 0,
+            detail: " ",
+          },
         });
       }
     }
@@ -79,5 +86,16 @@ export class TimetableSubjectsComponent implements OnInit {
         this.timetableBody.slots[index].data = slot.data;
       }
     });
+    let reversedArr = this.timetableBody.slots.reverse();
+
+    reversedArr.forEach((slot, i, slots) => {
+      if (i == 0) slot.span = 1;
+      if (slot.data.data !== " " && slot.data.data == slots[i + 1].data.data) {
+        slots[i + 1].span += slot.span;
+        slot.span = 0;
+      }
+    });
+    this.timetableBody.slots = reversedArr.reverse();
+    console.log(this.timetableBody);
   }
 }

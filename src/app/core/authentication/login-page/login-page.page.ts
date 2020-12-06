@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { DataServiceService } from "../../service/data-service.service";
 
 @Component({
   selector: "app-login-page",
@@ -7,7 +6,7 @@ import { DataServiceService } from "../../service/data-service.service";
   styleUrls: ["./login-page.page.scss"],
 })
 export class LoginPagePage implements OnInit {
-  constructor(private dataService: DataServiceService) {}
+  constructor() {}
 
   ngOnInit() {}
 

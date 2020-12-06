@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content [scrollEvents]="true" (ionScroll)="scroll($event)">
   <div class="global-page-top-area">
     <div>Student</div>
   </div>
@@ -44,10 +44,10 @@
           <div [@collapse]="collapse[i]">
             <p>Course: {{student.kod_kursus}}</p>
             <p>Year: {{student.tahun_kursus}}</p>
-            <ion-button (click)="openSubjectModal(student.no_matrik)"
+            <ion-button (click)="openSubjectModal(student.no_matrik, $event)"
               >Subject</ion-button
             >
-            <ion-button (click)="openTimetableModal(student.no_matrik)"
+            <ion-button (click)="openTimetableModal(student.no_matrik, $event)"
               >Timetable</ion-button
             >
           </div>

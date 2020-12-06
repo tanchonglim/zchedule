@@ -30,7 +30,10 @@ export class HomePagePage implements OnInit {
 
   constructor(private hs: HomeServiceService, private ge: GlobalEventService) {}
 
-  async ngOnInit() {
+  ngOnInit() {}
+
+  async ionViewDidEnter() {
+    console.log("home init");
     this.id = this.hs.getID();
     const sesiSemester = await this.hs.getCurrentSesiSem();
     this.timetableData = await this.hs.getTimetable(

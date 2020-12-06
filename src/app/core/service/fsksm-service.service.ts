@@ -57,7 +57,7 @@ export class FsksmServiceService {
     return result;
   }
 
-  async fetchSubjectSchedule(
+  async fetchScheduleSubject(
     sesi: string,
     semester: number,
     kod_subjek: string,

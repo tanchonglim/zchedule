@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { IonContent, ModalController } from "@ionic/angular";
 import { RegisteredSubjectsComponent } from "../components/registered-subjects/registered-subjects.component";
 import { StudentTimetableComponent } from "../components/student-timetable/student-timetable.component";
 import { StudentServiceService } from "../student-service.service";
@@ -12,6 +12,7 @@ import {
   transition,
   AUTO_STYLE,
 } from "@angular/animations";
+import { GlobalEventService } from "src/app/core/service/global-event.service";
 
 @Component({
   selector: "app-student-home-page",
@@ -33,6 +34,7 @@ import {
   styleUrls: ["./student-home-page.page.scss"],
 })
 export class StudentHomePagePage implements OnInit {
+  // @ViewChild(IonContent) content: IonContent;
   searchString: string = "A18CS02";
   courseCode: string = "SCSJ";
   collapse: Array<Boolean> = [];
@@ -40,12 +42,31 @@ export class StudentHomePagePage implements OnInit {
 
   constructor(
     public modal: ModalController,
-    private ss: StudentServiceService
+    private ss: StudentServiceService,
+    private ge: GlobalEventService
   ) {}
 
   ngOnInit() {}
 
-  async openSubjectModal(id) {
+  ionViewDidEnter() {
+    this.filteredStudentList = null;
+    console.log("std init");
+  }
+
+  scroll(event: CustomEvent) {
+    if (event.detail.velocityY > 0.2) {
+      this.ge.scrollEvent.emit(false);
+    } else if (event.detail.velocityY < -0.2) {
+      this.ge.scrollEvent.emit(true);
+    }
+  }
+
+  // scrollToTop() {
+  //   this.content.scrollToTop(400);
+  // }
+
+  async openSubjectModal(id, event) {
+    event.stopPropagation();
     const modal = await this.modal.create({
       component: RegisteredSubjectsComponent,
       componentProps: { id: id },
@@ -54,7 +75,8 @@ export class StudentHomePagePage implements OnInit {
     await modal.onWillDismiss();
   }
 
-  async openTimetableModal(id) {
+  async openTimetableModal(id, event) {
+    event.stopPropagation();
     const modal = await this.modal.create({
       component: StudentTimetableComponent,
       componentProps: { id: id },

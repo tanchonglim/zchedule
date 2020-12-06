@@ -6,7 +6,6 @@ import {
   HttpRequest,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
 import { LoadingController, ToastController } from "@ionic/angular";
 import { from, Observable } from "rxjs";
 import { catchError, finalize } from "rxjs/operators";
@@ -15,8 +14,7 @@ import { catchError, finalize } from "rxjs/operators";
 export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private toastController: ToastController,
-    private loadingController: LoadingController,
-    private router: Router
+    private loadingController: LoadingController
   ) {}
 
   intercept(

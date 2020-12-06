@@ -12,6 +12,7 @@ import {
   transition,
   AUTO_STYLE,
 } from "@angular/animations";
+import { GlobalEventService } from "src/app/core/service/global-event.service";
 
 @Component({
   selector: "app-lecturer-home-page",
@@ -39,12 +40,27 @@ export class LecturerHomePagePage implements OnInit {
   collapse: Array<Boolean> = [];
   constructor(
     public modal: ModalController,
-    private ls: LecturerServiceService
+    private ls: LecturerServiceService,
+    private ge: GlobalEventService
   ) {}
 
   ngOnInit() {}
 
-  async openSubjectModal(id) {
+  ionViewDidEnter() {
+    this.filteredLecturerList = null;
+    console.log("lect init");
+  }
+
+  scroll(event: CustomEvent) {
+    if (event.detail.velocityY > 0.2) {
+      this.ge.scrollEvent.emit(false);
+    } else if (event.detail.velocityY < -0.2) {
+      this.ge.scrollEvent.emit(true);
+    }
+  }
+
+  async openSubjectModal(id, event) {
+    event.stopPropagation();
     const modal = await this.modal.create({
       component: TeachingSubjectComponent,
       componentProps: {
@@ -55,8 +71,8 @@ export class LecturerHomePagePage implements OnInit {
     await modal.onWillDismiss();
   }
 
-  async openTimetableModal(id) {
-    // console.log(this.id);
+  async openTimetableModal(id, event) {
+    event.stopPropagation();
     const modal = await this.modal.create({
       component: LecturerTimetableComponent,
       componentProps: { id: id },

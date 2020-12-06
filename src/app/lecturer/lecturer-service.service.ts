@@ -27,16 +27,16 @@ export class LecturerServiceService {
     });
 
     for (let subject of subjects) {
-      let schedule = await this.ds.getSubjectSchedule(
+      let schedules = await this.ds.getScheduleSubject(
         sesi,
         semester,
         subject.kod_subjek,
         subject.seksyen
       );
-      schedule.dailySchedule.forEach((dailySchedule) => {
+      schedules.forEach((schedule) => {
         timetableData.slots.push({
-          day: dailySchedule.hari,
-          timeSlot: dailySchedule.masa,
+          day: schedule.hari,
+          timeSlot: schedule.masa,
           data: subject.nama_subjek,
         });
       });

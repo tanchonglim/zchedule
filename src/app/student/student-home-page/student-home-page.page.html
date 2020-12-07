@@ -6,13 +6,10 @@
   <div class="search-card">
     <ion-item style="width: 100%">
       <ion-label>Course</ion-label>
-      <ion-select
-        mode="ios"
-        placeholder="Select Course"
-        [(ngModel)]="courseCode"
-      >
-        <ion-select-option value="SCSJ">SCSJ</ion-select-option>
-        <ion-select-option value="SCSV">SCSV</ion-select-option>
+      <ion-select placeholder="Select Course" [(ngModel)]="courseCode">
+        <ion-select-option [value]="coure" *ngFor="let coure of courses"
+          >{{coure}}</ion-select-option
+        >
       </ion-select>
     </ion-item>
 
@@ -60,18 +57,18 @@
               <p>Year: {{student.tahun_kursus}}</p>
             </div>
             <div style="display: flex; flex-direction: row; width: 100%">
-              <button
+              <ion-button
                 class="btn-style"
                 (click)="openSubjectModal(student.no_matrik, $event)"
               >
                 Subject
-              </button>
-              <button
+              </ion-button>
+              <ion-button
                 class="btn-style"
                 (click)="openTimetableModal(student.no_matrik, $event)"
               >
                 Timetable
-              </button>
+              </ion-button>
             </div>
           </div>
         </ion-label>

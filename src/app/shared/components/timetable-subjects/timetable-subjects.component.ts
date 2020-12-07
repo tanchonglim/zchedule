@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { PopoverController } from "@ionic/angular";
+import { ModalController, PopoverController } from "@ionic/angular";
 import { random } from "lodash";
+import { TimetableDetailComponent } from "./timetable-detail/timetable-detail.component";
 
 export interface TimetableData {
   slots: Array<{
@@ -48,7 +49,7 @@ export class TimetableSubjectsComponent implements OnInit {
     }>;
   };
 
-  constructor() {}
+  constructor(public modalController: ModalController) {}
 
   ngOnInit() {
     this.generateTimetable();
@@ -97,5 +98,19 @@ export class TimetableSubjectsComponent implements OnInit {
     });
     this.timetableBody.slots = reversedArr.reverse();
     console.log(this.timetableBody);
+  }
+
+  async viewDetail(title, data) {
+    if (title === " ") return;
+    const modal = await this.modalController.create({
+      component: TimetableDetailComponent,
+      componentProps: {
+        title: title,
+        data: data,
+      },
+      cssClass: "timetable-data-detail",
+    });
+    await modal.present();
+    await modal.onWillDismiss();
   }
 }

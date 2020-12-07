@@ -4,42 +4,53 @@ import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "home-page",
+    redirectTo: "home",
     pathMatch: "full",
   },
   {
-    path: "home-page",
+    path: "home",
     loadChildren: () =>
       import("./home-page/home-page.module").then((m) => m.HomePagePageModule),
   },
   {
-    path: "login-page",
+    path: "login",
     loadChildren: () =>
       import("./core/authentication/login-page/login-page.module").then(
         (m) => m.LoginPagePageModule
       ),
   },
   {
-    path: "lecturer-home-page",
+    path: "lecturer",
     loadChildren: () =>
       import("./lecturer/lecturer-home-page/lecturer-home-page.module").then(
         (m) => m.LecturerHomePagePageModule
       ),
   },
   {
-    path: "student-home-page",
+    path: "student",
     loadChildren: () =>
       import("./student/student-home-page/student-home-page.module").then(
         (m) => m.StudentHomePagePageModule
       ),
   },
   {
-    path: 'subject-home',
-    loadChildren: () => import('./subject/subject-home/subject-home.module').then( m => m.SubjectHomePageModule)
+    path: "subject",
+    loadChildren: () =>
+      import("./subject/subject-home/subject-home.module").then(
+        (m) => m.SubjectHomePageModule
+      ),
   },
   {
-    path: 'room-home',
-    loadChildren: () => import('./room/room-home/room-home.module').then( m => m.RoomHomePageModule)
+    path: "room",
+    loadChildren: () =>
+      import("./room/room-home/room-home.module").then(
+        (m) => m.RoomHomePageModule
+      ),
+  },
+  {
+    path: "profile",
+    loadChildren: () =>
+      import("./profile/profile.module").then((m) => m.ProfilePageModule),
   },
 ];
 

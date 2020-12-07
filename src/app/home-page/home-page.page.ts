@@ -35,12 +35,24 @@ export class HomePagePage implements OnInit {
   async ionViewDidEnter() {
     console.log("home init");
     this.id = this.hs.getID();
+    this.getTimetableData();
+    this.getSubjectData();
+  }
+
+  get isDataLoaded() {
+    return this.timetableData && this.registeredSubjectListData;
+  }
+
+  async getTimetableData() {
     const sesiSemester = await this.hs.getCurrentSesiSem();
     this.timetableData = await this.hs.getTimetable(
       this.id,
       sesiSemester.sesi,
       sesiSemester.semester
     );
+  }
+
+  async getSubjectData() {
     this.registeredSubject = await this.hs.getStudentSubjects(this.id);
     this.registeredSubjectListData = this.registeredSubject.map((subject) => {
       return {
@@ -50,10 +62,6 @@ export class HomePagePage implements OnInit {
         sesi: subject.sesi,
       };
     });
-  }
-
-  get isDataLoaded() {
-    return this.timetableData && this.registeredSubjectListData;
   }
 
   selectTab0() {

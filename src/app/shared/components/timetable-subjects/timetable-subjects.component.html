@@ -1,22 +1,23 @@
 <div class="timetable" *ngIf="timetableBody">
   <div class="timetable-top-header">
-    <div *ngFor="let day of days">
+    <div *ngFor="let day of days" class="border">
       {{ day }}
     </div>
   </div>
   <div class="timetable-bottom">
     <div class="timetable-side-header">
-      <div *ngFor="let time of times">
+      <div *ngFor="let time of times" class="border">
         {{ time }}
       </div>
     </div>
     <div class="timetable-body">
       <div
         *ngFor="let slot of timetableBody.slots; index as i"
-        class="timetable-data"
+        class="timetable-data border"
         [style.height.%]="slot.span * 10"
         [style.display]="slot.span == 0 ? 'none' : 'flex'"
         [class]="'bg-color' + slot.data.type"
+        (click)="viewDetail(slot.data.data, slot.data.detail)"
       >
         {{ slot.data.data }}
       </div>

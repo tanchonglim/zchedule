@@ -2,6 +2,15 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  font-size: 0.7rem;
+  height: 100%;
+  border: 0.5px solid rgb(196, 196, 196);
+}
+
+.border {
+  border: 0.5px solid rgb(196, 196, 196);
+  border-left: none;
+  border-top: none;
 }
 
 .timetable-top-header {
@@ -20,8 +29,7 @@
 }
 
 .timetable-side-header {
-  width: calc(100% / 6);
-  font-size: 0.8em;
+  width: calc(100% / 5);
   div {
     height: calc(100% / 10);
     display: flex;
@@ -36,7 +44,6 @@
   flex-direction: column;
   color: white;
   width: 100%;
-  font-size: 0.8em;
   div {
     height: calc(100% / 10);
     display: flex;
@@ -51,8 +58,6 @@
 .timetable-data {
   padding-left: 1.5px;
   width: 20%;
-  border-left: 0.5px solid rgb(163, 163, 163);
-  border-bottom: 0.5px solid rgb(163, 163, 163);
 }
 
 .bg-color0 {

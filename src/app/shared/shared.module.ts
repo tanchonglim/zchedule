@@ -8,6 +8,7 @@ import { ModalHeaderComponent } from "./components/modal-header/modal-header.com
 import { SubjectListComponent } from "./components/subject-list/subject-list.component";
 import { RouterModule } from "@angular/router";
 import { FooterComponent } from "./components/footer/footer.component";
+import { TimetableDetailComponent } from "./components/timetable-subjects/timetable-detail/timetable-detail.component";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { FooterComponent } from "./components/footer/footer.component";
     ModalHeaderComponent,
     SubjectListComponent,
     FooterComponent,
+    TimetableDetailComponent,
   ],
   exports: [
     TimetableSubjectsComponent,

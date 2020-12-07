@@ -48,7 +48,7 @@ export class HomeServiceService {
           timeSlot: schedule.masa,
           data: {
             data: subject.nama_subjek,
-            detail: " ",
+            detail: `Subject Code: ${subject.kod_subjek}\nSection: ${subject.seksyen}\nVenue: ${schedule.ruang.nama_ruang}`,
             type: subjectType,
           },
         });

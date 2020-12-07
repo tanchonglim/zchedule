@@ -42,3 +42,31 @@
     font-size: 2rem;
   }
 }
+
+.timetable-data-detail .modal-wrapper {
+  // height: 20%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  position: absolute;
+  bottom: 0;
+}
+
+ion-modal.timetable-data-detail {
+  &.bottom {
+    align-items: flex-end;
+  }
+
+  --height: auto;
+
+  .ion-page {
+    position: relative;
+    display: block;
+    contain: content;
+
+    .inner-content {
+      max-height: 80vh;
+      overflow: auto;
+      padding: 10px;
+    }
+  }
+}

@@ -10,32 +10,32 @@ export class FooterComponent implements OnInit {
   pages = [
     {
       title: "Home",
-      url: "/home-page",
+      url: "/home",
       icon: "home",
     },
     {
       title: "Lecturer",
-      url: "/lecturer-home-page",
+      url: "/lecturer",
       icon: "ribbon",
     },
     {
       title: "Student",
-      url: "/student-home-page",
+      url: "/student",
       icon: "school",
     },
     {
       title: "Subject",
-      url: "/subject-home",
+      url: "/subject",
       icon: "library",
     },
     {
       title: "Room",
-      url: "/room-home",
+      url: "/room",
       icon: "easel",
     },
     {
       title: "Profile",
-      url: "/",
+      url: "/profile",
       icon: "person-circle",
     },
   ];

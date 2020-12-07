@@ -1,13 +1,32 @@
 <ion-card *ngFor="let ssd of sesiSemData; index as i">
-  <div (click)="expandCard(i)">
-    <p>{{ ssd.sesi }}</p>
+  <div (click)="expandCard(i)" style="padding: 0 15px">
+    <p
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      "
+    >
+      {{ ssd.sesi
+      }}<span class="material-icons" *ngIf="!collapse[i]">
+        keyboard_arrow_down
+      </span>
+      <span class="material-icons" *ngIf="collapse[i]">
+        keyboard_arrow_up
+      </span>
+    </p>
     <p>{{ ssd.semester }}</p>
   </div>
   <div [@collapse]="collapse[i]">
     <ion-item *ngFor="let sub of ssd.subjects">
-      <p>{{ sub.nama_subjek }}</p>
-      <p>{{ sub.kod_subjek }}</p>
-      <p>{{ sub.bil_pelajar }}</p>
+      <div style="display: flex; flex-direction: column">
+        <p class="display-sub" style="margin-top: 10px">
+          {{ sub.nama_subjek }}
+        </p>
+        <p class="display-sub">{{ sub.kod_subjek }}</p>
+        <p class="display-sub">{{ sub.bil_pelajar }}</p>
+      </div>
     </ion-item>
   </div>
 </ion-card>

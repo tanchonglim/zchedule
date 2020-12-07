@@ -12,6 +12,8 @@ import { CoreModule } from "./core/core.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SharedModule } from "./shared/shared.module";
 
+import { TooltipsModule } from "ionic-tooltips";
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -22,6 +24,7 @@ import { SharedModule } from "./shared/shared.module";
     AppRoutingModule,
     CoreModule,
     SharedModule,
+    TooltipsModule.forRoot(),
   ],
   providers: [
     StatusBar,

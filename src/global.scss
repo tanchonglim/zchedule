@@ -43,15 +43,16 @@
   }
 }
 
-.timetable-data-detail .modal-wrapper {
+.modal-float-bottom .modal-wrapper {
   // height: 20%;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: absolute;
   bottom: 0;
+  max-height: 60%;
 }
 
-ion-modal.timetable-data-detail {
+ion-modal.modal-float-bottom {
   &.bottom {
     align-items: flex-end;
   }

@@ -21,11 +21,7 @@ export class HomeServiceService {
     return this.ds.getID();
   }
 
-  async getTimetable(
-    id: string,
-    sesi: string,
-    semester: number
-  ): Promise<TimetableData> {
+  async getTimetable(id: string): Promise<TimetableData> {
     let timetableData: TimetableData = {
       slots: [],
     };
@@ -41,13 +37,22 @@ export class HomeServiceService {
         subject.kod_subjek,
         subject.seksyen
       );
+
+      let lecturerName = (
+        await this.ds.getSubjectLecturer(subject.kod_subjek)
+      ).filter((sl) => sl.seksyen === subject.seksyen)[0].nama;
+
       schedules.forEach((schedule) => {
         timetableData.slots.push({
           day: schedule.hari,
           timeSlot: schedule.masa,
           data: {
             data: subject.nama_subjek,
-            detail: `Subject Code: ${subject.kod_subjek}\nSection: ${subject.seksyen}\nVenue: ${schedule.ruang.nama_ruang}`,
+            detail: `Subject Code: ${subject.kod_subjek}\nSection: ${
+              subject.seksyen
+            }\nLecturer: ${lecturerName || "-"} \nVenue: ${
+              schedule.ruang.nama_ruang || "-"
+            }`,
             type: subjectType,
           },
         });

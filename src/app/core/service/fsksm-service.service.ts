@@ -70,7 +70,7 @@ export class FsksmServiceService {
     return result;
   }
 
-  async fetchScheduleSubject(
+  async fetchScheduleSubjects(
     sesi: string,
     semester: number,
     kod_subjek: string,
@@ -93,7 +93,7 @@ export class FsksmServiceService {
   }
 
   //this requires admin credential
-  async fetchStudentList(
+  async fetchStudents(
     sessionid: number,
     sesi: string,
     semester: number,
@@ -121,7 +121,7 @@ export class FsksmServiceService {
     return result;
   }
 
-  async fetchLecturerList(
+  async fetchLecturers(
     sessionid: number,
     sesi: string,
     semester: number
@@ -140,11 +140,42 @@ export class FsksmServiceService {
     return result;
   }
 
-  async fetchSubjectList(sesi: string, semester: number) {
+  async fetchSubjects(sesi: string, semester: number) {
     let params = new HttpParams()
       .set("entity", "subjek")
       .set("sesi", sesi)
       .set("semester", semester.toString());
+
+    let result: any = await this.http
+      .get(this.apiEndpoint, { params: params })
+      .toPromise();
+
+    return result;
+  }
+
+  async fetchSubjectSections(sesi: string, semester: number) {
+    let params = new HttpParams()
+      .set("entity", "subjek_seksyen")
+      .set("sesi", sesi)
+      .set("semester", semester.toString());
+
+    let result: any = await this.http
+      .get(this.apiEndpoint, { params: params })
+      .toPromise();
+
+    return result;
+  }
+
+  async fetchSubjectLecturer(
+    subjectCode: string,
+    sesi: string,
+    semester: number
+  ) {
+    let params = new HttpParams()
+      .set("entity", "subjek_pensyarah")
+      .set("sesi", sesi)
+      .set("semester", semester.toString())
+      .set("kod_subjek", subjectCode);
 
     let result: any = await this.http
       .get(this.apiEndpoint, { params: params })

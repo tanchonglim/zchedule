@@ -8,6 +8,8 @@ import { SubjectHomePageRoutingModule } from "./subject-home-routing.module";
 
 import { SubjectHomePage } from "./subject-home.page";
 import { SharedModule } from "src/app/shared/shared.module";
+import { SubjectDetailComponent } from "../components/subject-detail/subject-detail.component";
+import { SubjectInfoComponent } from "../components/subject-info/subject-info.component";
 
 @NgModule({
   imports: [
@@ -17,6 +19,6 @@ import { SharedModule } from "src/app/shared/shared.module";
     SubjectHomePageRoutingModule,
     SharedModule,
   ],
-  declarations: [SubjectHomePage],
+  declarations: [SubjectHomePage, SubjectDetailComponent, SubjectInfoComponent],
 })
 export class SubjectHomePageModule {}

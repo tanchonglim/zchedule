@@ -109,7 +109,7 @@ export class TimetableSubjectsComponent implements OnInit {
         title: title,
         data: data,
       },
-      cssClass: "timetable-data-detail",
+      cssClass: "modal-float-bottom",
     });
     await modal.present();
     await modal.onWillDismiss();

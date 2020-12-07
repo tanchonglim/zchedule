@@ -29,13 +29,21 @@ export class StudentServiceService {
         subject.kod_subjek,
         subject.seksyen
       );
+      let lecturerName = (
+        await this.ds.getSubjectLecturer(subject.kod_subjek)
+      ).filter((sl) => sl.seksyen === subject.seksyen)[0].nama;
+
       schedules.forEach((schedule) => {
         timetableData.slots.push({
           day: schedule.hari,
           timeSlot: schedule.masa,
           data: {
             data: subject.nama_subjek,
-            detail: "",
+            detail: `Subject Code: ${subject.kod_subjek}\nSection: ${
+              subject.seksyen
+            }\nLecturer: ${lecturerName || "-"} \nVenue: ${
+              schedule.ruang.nama_ruang || "-"
+            }`,
             type: subjectType,
           },
         });

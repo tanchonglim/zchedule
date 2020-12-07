@@ -14,7 +14,7 @@
     </ion-item>
 
     <ion-item style="width: 100%">
-      <ion-label position="floating">Search by name of matrics</ion-label>
+      <ion-label position="floating">Student Matrics / Name</ion-label>
       <ion-input [(ngModel)]="searchString"> </ion-input>
     </ion-item>
 
@@ -32,7 +32,7 @@
       >
         <ion-label>
           <div style="display: flex; justify-content: space-between">
-            <div style="width: 90%; overflow: hidden">
+            <div style="width: 90%; white-space: pre-wrap">
               <h2 class="main-color">{{student.nama}}</h2>
               <sub style="color: grey; font-style: italic"
                 >{{student.no_matrik}}</sub

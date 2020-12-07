@@ -5,8 +5,8 @@
 
   <div class="search-card">
     <ion-item style="width: 100%">
-      <ion-label position="floating">Lecturer ID/ Lecturer Name</ion-label>
-      <ion-input [(ngModel)]="searchString" placeholder=""></ion-input>
+      <ion-label position="floating">Lecturer ID / Name</ion-label>
+      <ion-input [(ngModel)]="searchString"></ion-input>
     </ion-item>
     <ion-button expand="block" (click)="searchLecturer()">Search</ion-button>
   </div>
@@ -22,7 +22,7 @@
       >
         <ion-label>
           <div style="display: flex; justify-content: space-between">
-            <div style="width: 90%; overflow: hidden">
+            <div style="width: 90%; white-space: pre-wrap">
               <h2 class="main-color">{{lecturer.nama}}</h2>
               <sub style="color: grey; font-style: italic"
                 >{{lecturer.no_pekerja}}</sub

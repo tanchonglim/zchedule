@@ -1,0 +1,59 @@
+<div
+  style="display: flex; flex-direction: column; padding: 1rem"
+  *ngIf="isDataLoaded"
+>
+  <span style="font-weight: bold; font-size: 1.1rem">
+    {{ subjectSections.nama_subjek }}
+  </span>
+  <span style="color: grey; font-size: 0.7rem; margin-bottom: 1rem">
+    {{ subjectSections.bil_pelajar }} students |
+    {{ subjectSections.bil_pensyarah }} lecturers |
+    {{ subjectSections.bil_seksyen }} sections
+  </span>
+  <div class="line"></div>
+  <span>
+    <div *ngFor="let section of subjectSections.seksyen_list">
+      <div
+        style="
+          padding: 1rem 0;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        "
+      >
+        <div
+          style="
+            padding-right: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            width: 70%;
+          "
+        >
+          Section {{ section.seksyen }} <br />
+          <span style="font-size: 0.7rem; font-weight: normal"
+            >Lecturer: {{ section.pensyarah || "-" }}<br />
+            students: {{ section.bil_pelajar }}
+          </span>
+        </div>
+        <div
+          style="
+            align-self: flex-end;
+            font-style: italic;
+            color: var(--ion-color-primary-tint);
+            font-size: 0.8rem;
+            padding: 0.5rem 1rem;
+            overflow: hidden;
+            position: relative;
+          "
+          class="ion-activatable ripple-parent"
+          (click)="openSubjectDetailModal(section.seksyen)"
+        >
+          Vew Details
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+
+      <div class="line"></div>
+    </div>
+  </span>
+</div>

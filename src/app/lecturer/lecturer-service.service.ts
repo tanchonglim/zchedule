@@ -55,9 +55,20 @@ export class LecturerServiceService {
     let filteredLecturerList: Array<Lecturer> = [];
 
     lecturerList = await this.ds.getLecturerList();
-    filteredLecturerList = lecturerList.filter((lect) =>
-      lect.nama.toLowerCase().trim().includes(searchString)
-    );
+    filteredLecturerList = lecturerList.filter((lect) => {
+      if (lect.nama && lect.no_pekerja) {
+        return (
+          lect.nama
+            .toLowerCase()
+            .trim()
+            .includes(searchString.trim().toLowerCase()) ||
+          lect.no_pekerja
+            .toString()
+            .trim()
+            .includes(searchString.trim().toLowerCase())
+        );
+      }
+    });
 
     return filteredLecturerList;
   }

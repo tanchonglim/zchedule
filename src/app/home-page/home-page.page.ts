@@ -44,12 +44,7 @@ export class HomePagePage implements OnInit {
   }
 
   async getTimetableData() {
-    const sesiSemester = await this.hs.getCurrentSesiSem();
-    this.timetableData = await this.hs.getTimetable(
-      this.id,
-      sesiSemester.sesi,
-      sesiSemester.semester
-    );
+    this.timetableData = await this.hs.getTimetable(this.id);
   }
 
   async getSubjectData() {

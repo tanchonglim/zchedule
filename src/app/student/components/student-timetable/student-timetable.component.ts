@@ -10,25 +10,19 @@ import { StudentServiceService } from "../../student-service.service";
 })
 export class StudentTimetableComponent implements OnInit {
   @Input() id: string;
-  currentSesiSem: SesiSemester;
   timetableData: TimetableData;
 
   constructor(private ss: StudentServiceService) {}
 
   async ngOnInit() {
-    this.currentSesiSem = await this.ss.getCurrentSesiSem();
     await this.getTimetableData(this.id);
   }
 
   async getTimetableData(id) {
-    this.timetableData = await this.ss.getTimetable(
-      id,
-      this.currentSesiSem.sesi,
-      this.currentSesiSem.semester
-    );
+    this.timetableData = await this.ss.getTimetable(id);
   }
 
   get isDataLoaded() {
-    return this.currentSesiSem && this.timetableData;
+    return this.timetableData;
   }
 }

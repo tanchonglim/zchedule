@@ -29,16 +29,15 @@ export class HomeServiceService {
     let timetableData: TimetableData = {
       slots: [],
     };
-    let subjects = await this.ds.getStudentSubjects(id);
-    subjects = subjects.filter((subject) => {
-      return subject.sesi === sesi && subject.semester === semester;
-    });
+    let subjects = await this.ds.getStudentSubjects(
+      id,
+      (await this.ds.getCurrentSesiSem()).sesi,
+      (await this.ds.getCurrentSesiSem()).semester
+    );
 
     let subjectType = 1;
     for (let subject of subjects) {
       let schedules = await this.ds.getScheduleSubject(
-        sesi,
-        semester,
         subject.kod_subjek,
         subject.seksyen
       );

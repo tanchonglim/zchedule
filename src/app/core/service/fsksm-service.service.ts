@@ -17,6 +17,19 @@ export class FsksmServiceService {
 
   constructor(private http: HttpClient) {}
 
+  //admin session_id
+  async getAdminSessionID(): Promise<number> {
+    let params = new HttpParams()
+      .set("entity", "authentication")
+      .set("login", this.admin.login)
+      .set("password", this.admin.password);
+
+    let result: any = await this.http
+      .get(this.apiEndpoint, { params: params })
+      .toPromise();
+    return result[0].session_id;
+  }
+
   async fetchSesiSemester(): Promise<any> {
     let params: HttpParams = new HttpParams().set("entity", "sesisemester");
 
@@ -79,19 +92,6 @@ export class FsksmServiceService {
     return result;
   }
 
-  //admin session_id
-  async getAdminSessionID(): Promise<number> {
-    let params = new HttpParams()
-      .set("entity", "authentication")
-      .set("login", this.admin.login)
-      .set("password", this.admin.password);
-
-    let result: any = await this.http
-      .get(this.apiEndpoint, { params: params })
-      .toPromise();
-    return result[0].session_id;
-  }
-
   //this requires admin credential
   async fetchStudentList(
     sessionid: number,
@@ -136,6 +136,19 @@ export class FsksmServiceService {
       .get(this.apiEndpoint, { params: params })
       .toPromise();
     console.log(result);
+
+    return result;
+  }
+
+  async fetchSubjectList(sesi: string, semester: number) {
+    let params = new HttpParams()
+      .set("entity", "subjek")
+      .set("sesi", sesi)
+      .set("semester", semester.toString());
+
+    let result: any = await this.http
+      .get(this.apiEndpoint, { params: params })
+      .toPromise();
 
     return result;
   }

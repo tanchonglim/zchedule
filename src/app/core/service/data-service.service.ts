@@ -9,6 +9,7 @@ import * as moment from "moment";
 import * as _ from "lodash";
 import { Student } from "src/app/shared/models/Student";
 import { Lecturer } from "src/app/shared/models/Lecturer";
+import { Subject } from "./../../shared/models/Subject";
 
 @Injectable({
   providedIn: "root",
@@ -49,8 +50,6 @@ export class DataServiceService {
 
   private _scheduleSubjects: Array<{
     params: {
-      sesi: string;
-      semester: number;
       kod_subjek: string;
       seksyen: number;
     };
@@ -66,6 +65,9 @@ export class DataServiceService {
     };
     students: Array<Student>;
   }> = [];
+
+  //need clear when change sesi semester
+  private _subjectList: Array<Subject> = [];
 
   //need clear when change sesi semester
   private _lecturerList: Array<Lecturer> = [];
@@ -118,7 +120,12 @@ export class DataServiceService {
     }
   }
 
-  async getStudentSubjects(id: string): Promise<Array<StudentSubject>> {
+  async getStudentSubjects(
+    id: string,
+    sesi?: string,
+    semester?: number
+  ): Promise<Array<StudentSubject>> {
+    let subjects: Array<StudentSubject>;
     //if is current user
     if (id === this._id) {
       if (!this._currentStudentSubjects) {
@@ -129,9 +136,9 @@ export class DataServiceService {
           subjects: await this.fsksmService.fetchStudentSubjects(id),
         };
 
-        return this._currentStudentSubjects.subjects;
+        subjects = this._currentStudentSubjects.subjects;
       } else {
-        return this._currentStudentSubjects.subjects;
+        subjects = this._currentStudentSubjects.subjects;
       }
 
       //if is other students
@@ -139,7 +146,7 @@ export class DataServiceService {
       let index = this._studentSubjects.findIndex((ss) => ss.param.id === id);
       //if data in memory
       if (index !== -1) {
-        return this._studentSubjects[index].subjects;
+        subjects = this._studentSubjects[index].subjects;
         //if data not in memory
       } else {
         let length = this._studentSubjects.push({
@@ -148,17 +155,29 @@ export class DataServiceService {
           },
           subjects: await this.fsksmService.fetchStudentSubjects(id),
         });
-        return this._studentSubjects[length - 1].subjects;
+        subjects = this._studentSubjects[length - 1].subjects;
       }
     }
+
+    if (!sesi || !semester) return subjects;
+
+    return subjects.filter((subject) => {
+      return subject.sesi === sesi && subject.semester === semester;
+    });
   }
 
-  async getLecturerSubjects(id: string): Promise<Array<LecturerSubject>> {
+  async getLecturerSubjects(
+    id: string,
+    sesi?: string,
+    semester?: number
+  ): Promise<Array<LecturerSubject>> {
+    let subjects: Array<LecturerSubject>;
+
     let index = this._lecturerSubjects.findIndex((ls) => ls.param.id === id);
 
     //if data in memory
     if (index !== -1) {
-      return this._lecturerSubjects[index].subjects;
+      subjects = this._lecturerSubjects[index].subjects;
       //if data not in memory
     } else {
       let length = this._lecturerSubjects.push({
@@ -167,19 +186,20 @@ export class DataServiceService {
         },
         subjects: await this.fsksmService.fetchLecturerSubjects(id),
       });
-      return this._lecturerSubjects[length - 1].subjects;
+      subjects = this._lecturerSubjects[length - 1].subjects;
     }
+
+    if (!sesi || !semester) return subjects;
+    return subjects.filter((subject) => {
+      return subject.sesi === sesi && subject.semester === semester;
+    });
   }
 
   async getScheduleSubject(
-    sesi: string,
-    semester: number,
     kod_subjek: string,
     seksyen: number
   ): Promise<Array<ScheduleSubject>> {
     let params = {
-      sesi: sesi,
-      semester: semester,
       kod_subjek: kod_subjek,
       seksyen: seksyen,
     };
@@ -195,8 +215,8 @@ export class DataServiceService {
       let length = this._scheduleSubjects.push({
         params: params,
         schedules: await this.fsksmService.fetchScheduleSubject(
-          sesi,
-          semester,
+          this._currentSesiSem.sesi,
+          this._currentSesiSem.semester,
           kod_subjek,
           seksyen
         ),
@@ -253,6 +273,17 @@ export class DataServiceService {
       return this._lecturerList;
     } else {
       return this._lecturerList;
+    }
+  }
+
+  async getSubjectList(): Promise<Array<Subject>> {
+    if (!this._subjectList.length) {
+      this._subjectList = await this.fsksmService.fetchSubjectList(
+        this._currentSesiSem.sesi,
+        this._currentSesiSem.semester
+      );
+    } else {
+      return this._subjectList;
     }
   }
 }

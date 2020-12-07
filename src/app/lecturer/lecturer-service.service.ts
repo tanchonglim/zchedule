@@ -13,24 +13,19 @@ export class LecturerServiceService {
     return this.ds.getCurrentSesiSem();
   }
 
-  async getTimetable(
-    id: string,
-    sesi: string,
-    semester: number
-  ): Promise<TimetableData> {
+  async getTimetable(id: string): Promise<TimetableData> {
     let timetableData: TimetableData = {
       slots: [],
     };
-    let subjects = await this.ds.getLecturerSubjects(id);
-    subjects = subjects.filter((subject) => {
-      return subject.sesi === sesi && subject.semester === semester;
-    });
+    let subjects = await this.ds.getLecturerSubjects(
+      id,
+      (await this.ds.getCurrentSesiSem()).sesi,
+      (await this.ds.getCurrentSesiSem()).semester
+    );
 
     let subjectType = 1;
     for (let subject of subjects) {
       let schedules = await this.ds.getScheduleSubject(
-        sesi,
-        semester,
         subject.kod_subjek,
         subject.seksyen
       );

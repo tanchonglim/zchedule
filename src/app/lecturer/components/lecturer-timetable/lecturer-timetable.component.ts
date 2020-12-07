@@ -22,11 +22,7 @@ export class LecturerTimetableComponent implements OnInit {
   }
 
   async getTimetableData(id) {
-    this.timetableData = await this.ls.getTimetable(
-      id,
-      this.currentSesiSem.sesi,
-      this.currentSesiSem.semester
-    );
+    this.timetableData = await this.ls.getTimetable(id);
   }
 
   get isDataLoaded() {

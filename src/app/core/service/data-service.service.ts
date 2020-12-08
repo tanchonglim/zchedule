@@ -12,6 +12,7 @@ import { Lecturer } from "src/app/shared/models/Lecturer";
 import { Subject } from "./../../shared/models/Subject";
 import { SubjectSection } from "src/app/shared/models/SubjectSection";
 import { SubjectLecturer } from "src/app/shared/models/SubjectLecturer";
+import { SubjectStudent } from "src/app/shared/models/SubjectStudent";
 
 @Injectable({
   providedIn: "root",
@@ -80,6 +81,15 @@ export class DataServiceService {
       kod_subjek: string;
     };
     lecturers: Array<SubjectLecturer>;
+  }> = [];
+
+  //need clear when change sesi semester
+  private _subjectstudent: Array<{
+    params: {
+      kod_subjek: string;
+      seksyen: number;
+    };
+    students: Array<SubjectStudent>;
   }> = [];
 
   //need clear when change sesi semester
@@ -252,7 +262,6 @@ export class DataServiceService {
 
     let index = this._students.findIndex((sl) => _.isEqual(sl.params, params));
 
-    console.log(this._students);
     //if data in memory
     if (index !== -1) {
       return this._students[index].students;
@@ -333,6 +342,37 @@ export class DataServiceService {
         ),
       });
       return this._subjectLecturer[length - 1].lecturers;
+    }
+  }
+
+  async getSubjectStudent(
+    kod_subjek: string,
+    seksyen: number
+  ): Promise<Array<SubjectStudent>> {
+    await this.getAdminSessionID();
+    let params = {
+      kod_subjek: kod_subjek,
+      seksyen: seksyen,
+    };
+    let index = this._subjectstudent.findIndex((sl) =>
+      _.isEqual(sl.params, params)
+    );
+
+    //if found
+    if (index !== -1) {
+      return this._subjectstudent[index].students;
+    } else {
+      let length = this._subjectstudent.push({
+        params: params,
+        students: await this.fsksmService.fetchSubjectStudent(
+          this._adminSessionID,
+          kod_subjek,
+          seksyen,
+          this._currentSesiSem.sesi,
+          this._currentSesiSem.semester
+        ),
+      });
+      return this._subjectstudent[length - 1].students;
     }
   }
 }

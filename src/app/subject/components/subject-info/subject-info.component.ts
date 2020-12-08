@@ -26,14 +26,14 @@ export class SubjectInfoComponent implements OnInit {
     return this.subjectSections;
   }
 
-  async openSubjectDetailModal(section) {
+  async openSubjectDetailModal(sectionInfo) {
     const modal = await this.modalController.create({
       component: SubjectDetailComponent,
       componentProps: {
         subjectName: this.subjectSections.nama_subjek,
         subjectCode: this.subjectCode,
 
-        section: section,
+        sectionInfo: sectionInfo,
       },
     });
     await modal.present();

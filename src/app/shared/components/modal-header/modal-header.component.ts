@@ -1,5 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { ModalController } from "@ionic/angular";
+
+/**
+ * pass empty array of tabs if no tabs
+ */
+export interface AppHeaderProps {
+  title: string;
+  subtitle: string;
+  tabs: Array<string>;
+}
 
 @Component({
   selector: "app-modal-header",
@@ -7,9 +16,21 @@ import { ModalController } from "@ionic/angular";
   styleUrls: ["./modal-header.component.scss"],
 })
 export class ModalHeaderComponent implements OnInit {
+  @Input() properties: AppHeaderProps;
+
+  @Input() selectedTab: number;
+  @Output() selectedTabChange = new EventEmitter();
+
   constructor(public modal: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.properties);
+  }
+
+  changeTab(number) {
+    this.selectedTab = number;
+    this.selectedTabChange.emit(number);
+  }
 
   dismiss() {
     this.modal.dismiss();

@@ -48,7 +48,7 @@ export class SubjectHomePage implements OnInit {
 
   async ionViewDidEnter() {
     console.log("subject init");
-    this.subjectList = await this.ss.getFilteredSubjects(" ");
+    this.subjectList = await this.ss.getSubjects();
     this.filteredSubjectList = this.subjectList;
   }
 
@@ -56,15 +56,24 @@ export class SubjectHomePage implements OnInit {
     return this.subjectList;
   }
 
-  async searchSubject() {
-    if (this.searchString) {
-      let subjectList = await this.ss.getFilteredSubjects(this.searchString);
-      this.filteredSubjectList = subjectList;
-      // this.collapse = this.filteredSubjectList.map((f) => false);
-      console.log(subjectList);
-    } else {
-      alert("Please input something");
-    }
+  async onsearch(event) {
+    let searchString = event.target.value;
+    this.filteredSubjectList = this.subjectList.filter((subject) => {
+      return (
+        subject.nama_subjek
+          .toLowerCase()
+          .trim()
+          .includes(searchString.trim().toLowerCase()) ||
+        subject.kod_subjek
+          .toLowerCase()
+          .trim()
+          .includes(searchString.trim().toLowerCase())
+      );
+    });
+  }
+
+  clearsearch() {
+    this.filteredSubjectList = this.subjectList;
   }
 
   scroll(event: CustomEvent) {

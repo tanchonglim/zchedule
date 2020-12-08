@@ -1,9 +1,50 @@
 <div class="modal-wrapper">
-  <app-modal-header></app-modal-header>
-  <ion-content *ngIf="isDataLoaded" style="height: 90%">
-    <div style="padding: 1rem; display: flex">
-      <div>{{ subjectName }}</div>
-      <div></div>
+  <ion-content>
+    <app-modal-header
+      [(selectedTab)]="selectedTab"
+      [properties]="headerModalProps"
+    ></app-modal-header>
+
+    <div *ngIf="selectedTab == 0 && isDataLoaded" class="content">
+      <app-timetable-subjects
+        [timetableData]="timetableData"
+      ></app-timetable-subjects>
+    </div>
+    <div *ngIf="selectedTab == 1 && isDataLoaded" class="content">
+      <div
+        style="
+          padding: 0.4rem;
+          width: 80%;
+          align-self: center;
+          margin-bottom: 0.5rem;
+        "
+      >
+        <ion-searchbar
+          style="--border-radius: 25px"
+          (keyup)="onsearch($event)"
+          (ionClear)="clearsearch()"
+        ></ion-searchbar>
+      </div>
+
+      <div class="line"></div>
+      <div *ngFor="let student of filteredsubjectStudents">
+        <div
+          style="
+            padding: 0.5rem 0;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <div style="width: 80%">{{ student.nama }}</div>
+          <div style="font-size: 0.8rem; color: grey">
+            {{ student.tahun_kursus }}{{ student.kod_kursus }}
+          </div>
+        </div>
+        <div class="line"></div>
+      </div>
     </div>
   </ion-content>
 </div>

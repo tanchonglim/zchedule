@@ -53,11 +53,12 @@
 }
 
 ion-modal.modal-float-bottom {
+  --height: auto;
+  background-color: #0000001a;
+
   &.bottom {
     align-items: flex-end;
   }
-
-  --height: auto;
 
   .ion-page {
     position: relative;

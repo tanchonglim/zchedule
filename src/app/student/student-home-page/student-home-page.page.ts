@@ -13,6 +13,7 @@ import {
   AUTO_STYLE,
 } from "@angular/animations";
 import { GlobalEventService } from "src/app/core/service/global-event.service";
+import { StudentDetailComponent } from "../components/student-detail/student-detail.component";
 
 @Component({
   selector: "app-student-home-page",
@@ -124,21 +125,11 @@ export class StudentHomePagePage implements OnInit {
   //   this.content.scrollToTop(400);
   // }
 
-  async openSubjectModal(id, event) {
+  async openStudentDetail(student, event) {
     event.stopPropagation();
     const modal = await this.modal.create({
-      component: RegisteredSubjectsComponent,
-      componentProps: { id: id },
-    });
-    await modal.present();
-    await modal.onWillDismiss();
-  }
-
-  async openTimetableModal(id, event) {
-    event.stopPropagation();
-    const modal = await this.modal.create({
-      component: StudentTimetableComponent,
-      componentProps: { id: id },
+      component: StudentDetailComponent,
+      componentProps: { student: student },
     });
     await modal.present();
     await modal.onWillDismiss();

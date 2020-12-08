@@ -10,6 +10,7 @@ import { LecturerHomePagePage } from "./lecturer-home-page.page";
 import { TeachingSubjectComponent } from "../components/teaching-subject/teaching-subject.component";
 import { LecturerTimetableComponent } from "../components/lecturer-timetable/lecturer-timetable.component";
 import { SharedModule } from "src/app/shared/shared.module";
+import { LecturerDetailComponent } from "../components/lecturer-detail/lecturer-detail.component";
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { SharedModule } from "src/app/shared/shared.module";
     LecturerHomePagePage,
     TeachingSubjectComponent,
     LecturerTimetableComponent,
+    LecturerDetailComponent,
   ],
 })
 export class LecturerHomePagePageModule {}

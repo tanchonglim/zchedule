@@ -32,6 +32,7 @@
   width: calc(100% / 5);
   div {
     height: calc(100% / 10);
+    min-height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -35,7 +35,9 @@ export class LecturerServiceService {
           timeSlot: schedule.masa,
           data: {
             data: subject.nama_subjek,
-            detail: "",
+            detail: `Subject Code: ${subject.kod_subjek}\nSection: ${
+              subject.seksyen < 10 ? "0" + subject.seksyen : subject.seksyen
+            }\nVenue: ${schedule.ruang.nama_ruang || "-"}`,
             type: subjectType,
           },
         });

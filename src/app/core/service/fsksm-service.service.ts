@@ -167,7 +167,7 @@ export class FsksmServiceService {
   }
 
   async fetchSubjectLecturer(
-    subjectCode: string,
+    kod_subjek: string,
     sesi: string,
     semester: number
   ) {
@@ -175,11 +175,37 @@ export class FsksmServiceService {
       .set("entity", "subjek_pensyarah")
       .set("sesi", sesi)
       .set("semester", semester.toString())
-      .set("kod_subjek", subjectCode);
+      .set("kod_subjek", kod_subjek);
 
     let result: any = await this.http
       .get(this.apiEndpoint, { params: params })
       .toPromise();
+
+    return result;
+  }
+
+  async fetchSubjectStudent(
+    sessionid: number,
+    kod_subjek: string,
+    seksyen: number,
+    sesi: string,
+    semester: number
+  ) {
+    let params = new HttpParams()
+      .set("entity", "subjek_pelajar")
+      .set("session_id", sessionid.toString())
+      .set("sesi", sesi)
+      .set("semester", semester.toString())
+      .set("kod_subjek", kod_subjek)
+      .set("seksyen", seksyen.toString());
+
+    let result: any = await this.http
+      .get(this.apiEndpoint, { params: params })
+      .toPromise();
+
+    result.forEach((r) => {
+      delete r["no_kp"];
+    });
 
     return result;
   }

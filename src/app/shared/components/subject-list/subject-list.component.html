@@ -20,12 +20,15 @@
   </div>
   <div [@collapse]="collapse[i]">
     <ion-item *ngFor="let sub of ssd.subjects">
-      <div style="display: flex; flex-direction: column">
-        <p class="display-sub" style="margin-top: 10px">
+      <div
+        style="display: flex; flex-direction: column"
+        (click)="viewSubjectDetail(sub)"
+      >
+        <p class="display-sub main-color" style="margin-top: 10px">
           {{ sub.nama_subjek }}
         </p>
-        <p class="display-sub">{{ sub.kod_subjek }}</p>
-        <p class="display-sub">{{ sub.bil_pelajar }}</p>
+        <p class="display-sub sub-title">{{ sub.kod_subjek }}</p>
+        <p class="display-sub sub-title">{{ sub.bil_pelajar }}</p>
       </div>
     </ion-item>
   </div>

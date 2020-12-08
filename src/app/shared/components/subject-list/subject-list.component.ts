@@ -7,6 +7,9 @@ import {
   transition,
   AUTO_STYLE,
 } from "@angular/animations";
+import { SubjectInfoComponent } from "src/app/subject/components/subject-info/subject-info.component";
+import { ModalController } from "@ionic/angular";
+import { Subject } from "../../models/Subject";
 
 export interface RegisteredSubjectListData {
   nama_subjek: string;
@@ -51,7 +54,7 @@ export class SubjectListComponent implements OnInit {
   sesiSemData: Array<sesiSem> = [];
   collapse: Array<Boolean> = [];
 
-  constructor() {}
+  constructor(public modalController: ModalController) {}
 
   ngOnInit() {
     console.log(this.registeredSubjectListData);
@@ -88,5 +91,17 @@ export class SubjectListComponent implements OnInit {
     let c = this.collapse[i];
     this.collapse = this.collapse.map((r) => false);
     this.collapse[i] = !c;
+  }
+
+  async viewSubjectDetail(subject: Subject) {
+    const modal = await this.modalController.create({
+      component: SubjectInfoComponent,
+      componentProps: {
+        subjectCode: subject.kod_subjek,
+      },
+      cssClass: "modal-float-bottom",
+    });
+    await modal.present();
+    await modal.onWillDismiss();
   }
 }

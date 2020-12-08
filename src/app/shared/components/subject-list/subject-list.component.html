@@ -9,12 +9,10 @@
       "
     >
       {{ ssd.sesi
-      }}<span class="material-icons" *ngIf="!collapse[i]">
-        keyboard_arrow_down
-      </span>
-      <span class="material-icons" *ngIf="collapse[i]">
-        keyboard_arrow_up
-      </span>
+      }}<ion-icon
+        [@rotatedState]="collapse[i]"
+        name="chevron-forward-outline"
+      ></ion-icon>
     </p>
     <p>{{ ssd.semester }}</p>
   </div>

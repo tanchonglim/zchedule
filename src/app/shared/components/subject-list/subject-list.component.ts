@@ -40,7 +40,7 @@ interface sesiSem {
       transition("true => false", animate(300 + "ms ease-in")),
     ]),
     trigger("rotatedState", [
-      state("true", style({ transform: "rotate(0)" })),
+      state("true", style({ transform: "rotate(-90deg)" })),
       state("false", style({ transform: "rotate(90deg)" })),
       transition("false => true", animate("300ms ease-out")),
       transition("true => false", animate("300ms ease-in")),

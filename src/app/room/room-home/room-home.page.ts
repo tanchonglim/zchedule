@@ -39,7 +39,7 @@ export class RoomHomePage implements OnInit {
 
   pageHeaderProps: PageHeaderProps = {
     title: "Room",
-    tabs: ["List", "Search"],
+    tabs: ["List", "Availability"],
   };
   selectedTab: number = 0;
 

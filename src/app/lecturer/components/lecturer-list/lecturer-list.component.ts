@@ -77,7 +77,7 @@ export class LecturerListComponent implements OnInit {
             .trim()
             .includes(searchString.trim().toLowerCase())
         );
-      }
+      } else return false;
     });
     this.collapse = this.filteredLecturerList.map(() => false);
   }

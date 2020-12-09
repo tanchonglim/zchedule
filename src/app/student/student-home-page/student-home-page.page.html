@@ -1,89 +1,98 @@
 <app-page-header [properties]="pageHeaderProps"></app-page-header>
 
 <ion-content [scrollEvents]="true" (ionScroll)="scroll($event)">
-  <!-- <div class="global-page-top-area">
-    <div>Student</div>
-  </div> -->
-
   <div class="search-card">
     <ion-item style="width: 100%">
       <ion-label>Course</ion-label>
-      <ion-select placeholder="Select Course" [(ngModel)]="courseCode">
+      <ion-select
+        placeholder="Select Course"
+        value="SCSJ"
+        (ionChange)="changeCourse($event)"
+      >
         <ion-select-option [value]="coure" *ngFor="let coure of courses"
           >{{coure}}</ion-select-option
         >
       </ion-select>
     </ion-item>
 
-    <ion-item style="width: 100%">
-      <ion-label position="floating">Student Matrics / Name</ion-label>
-      <ion-input [(ngModel)]="searchString"> </ion-input>
-    </ion-item>
-
-    <ion-button (click)="searchStudent()">Search</ion-button>
+    <ion-searchbar
+      *ngIf="studentList"
+      style="--border-radius: 25px"
+      placeholder="Search by student name/ID"
+      (keyup)="onsearch($event)"
+      (ionClear)="clearsearch()"
+    ></ion-searchbar>
   </div>
 
-  <div class="search-result-container">
-    <ion-list *ngIf="filteredStudentList">
-      <ion-list-header> Search Result(s) </ion-list-header>
-
-      <ion-item
-        (click)="expandCard(i)"
-        *ngFor="let student of filteredStudentList; index as i "
-        class="search-result-item"
+  <div class="search-result-container" *ngIf="studentList">
+    <ion-list *ngIf="filteredStudentList && filteredStudentList.length">
+      <ion-virtual-scroll
+        [items]="filteredStudentList"
+        approxItemHeight="320px"
       >
-        <ion-label>
-          <div style="display: flex; justify-content: space-between">
-            <div style="width: 90%; white-space: pre-wrap">
-              <h2 class="main-color">{{student.nama}}</h2>
-              <sub style="color: grey; font-style: italic"
-                >{{student.no_matrik}}</sub
-              >
-            </div>
-            <ion-icon
-              [@rotatedState]="collapse[i]"
-              name="chevron-forward-outline"
-            ></ion-icon>
-          </div>
-          <div
-            [@collapse]="collapse[i]"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-            "
-          >
-            <div style="width: 100%">
-              <br />
-              <p>Course: {{student.kod_kursus}}</p>
-              <p>Year: {{student.tahun_kursus}}</p>
+        <ion-item
+          (click)="expandCard(i)"
+          *virtualItem="let student ; index as i "
+          class="search-result-item"
+        >
+          <ion-label styl>
+            <div style="display: flex; justify-content: space-between">
+              <div style="width: 90%; white-space: pre-wrap">
+                <h2 class="main-color">{{student.nama}}</h2>
+                <sub style="color: grey; font-style: italic"
+                  >{{student.no_matrik}}</sub
+                >
+              </div>
+              <ion-icon
+                [@rotatedState]="collapse[i]"
+                name="chevron-forward-outline"
+              ></ion-icon>
             </div>
             <div
+              [@collapse]="collapse[i]"
               style="
                 display: flex;
-                flex-direction: row;
-                width: 100%;
-                justify-content: center;
+                flex-direction: column;
+                justify-content: space-between;
               "
             >
-              <span
-                (click)="openStudentDetail(student, $event)"
-                class="ion-activatable ripple-parent"
+              <div style="width: 100%">
+                <br />
+                <p>Course: {{student.kod_kursus}}</p>
+                <p>Year: {{student.tahun_kursus}}</p>
+              </div>
+              <div
                 style="
-                  color: var(--ion-color-primary);
-                  overflow: hidden;
-                  position: relative;
-                  text-align: center;
-                  padding: 0.3rem 1rem;
+                  display: flex;
+                  flex-direction: row;
+                  width: 100%;
+                  justify-content: center;
                 "
               >
-                View Detail
-                <ion-ripple-effect></ion-ripple-effect>
-              </span>
+                <span
+                  (click)="openStudentDetail(student, $event)"
+                  class="ion-activatable ripple-parent"
+                  style="
+                    color: var(--ion-color-primary);
+                    overflow: hidden;
+                    position: relative;
+                    text-align: center;
+                    padding: 0.3rem 1rem;
+                  "
+                >
+                  View Detail
+                  <ion-ripple-effect></ion-ripple-effect>
+                </span>
+              </div>
             </div>
-          </div>
-        </ion-label>
-      </ion-item>
+          </ion-label>
+        </ion-item>
+      </ion-virtual-scroll>
     </ion-list>
+
+    <div *ngIf="!filteredStudentList || !filteredStudentList.length">
+      <app-no-result></app-no-result>
+    </div>
   </div>
+  <div *ngIf="!studentList">loading..</div>
 </ion-content>

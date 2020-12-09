@@ -37,8 +37,6 @@ import { PageHeaderProps } from "src/app/shared/components/page-header/page-head
 })
 export class StudentHomePagePage implements OnInit {
   // @ViewChild(IonContent) content: IonContent;
-  searchString: string = "A18CS02";
-  courseCode: string = "SCSJ";
   collapse: Array<Boolean> = [];
   filteredStudentList: Array<Student>;
   studentList: Array<Student>;
@@ -116,10 +114,9 @@ export class StudentHomePagePage implements OnInit {
   ngOnInit() {}
 
   async ionViewDidEnter() {
-    this.studentList = await this.ss.getFilteredStudentList("", "SCSJ");
+    this.studentList = await this.ss.getStudentList("SCSJ");
     this.filteredStudentList = this.studentList;
     this.collapse = this.filteredStudentList.map(() => false);
-    console.log("std init");
   }
 
   scroll(event: CustomEvent) {
@@ -144,21 +141,35 @@ export class StudentHomePagePage implements OnInit {
     await modal.onWillDismiss();
   }
 
-  async searchStudent() {
-    let courseCode = this.courseCode;
-    let searchString = this.searchString;
+  async changeCourse(event) {
+    let course = event.target.value;
+    this.studentList = await this.ss.getStudentList(course);
+    this.filteredStudentList = this.studentList;
+    this.collapse = this.filteredStudentList.map(() => false);
+  }
 
-    if (searchString && courseCode) {
-      let studentList = await this.ss.getFilteredStudentList(
-        searchString,
-        courseCode
-      );
-      this.filteredStudentList = studentList;
-      this.collapse = this.filteredStudentList.map(() => false);
-      console.log(studentList);
-    } else {
-      alert("Please input something");
-    }
+  onsearch(event) {
+    let searchString = event.target.value;
+    this.filteredStudentList = this.studentList.filter((student) => {
+      if (student.nama && student.no_matrik)
+        return (
+          student.nama
+            .toLowerCase()
+            .trim()
+            .includes(searchString.trim().toLowerCase()) ||
+          student.no_matrik
+            .toLowerCase()
+            .trim()
+            .includes(searchString.trim().toLowerCase())
+        );
+      else return false;
+    });
+    this.collapse = this.filteredStudentList.map(() => false);
+  }
+
+  clearsearch() {
+    this.filteredStudentList = this.studentList;
+    this.collapse = this.filteredStudentList.map(() => false);
   }
 
   expandCard(i) {

@@ -12,6 +12,7 @@ import { ModalController } from "@ionic/angular";
 import { GlobalEventService } from "./../../core/service/global-event.service";
 import { RoomServiceService } from "./../room-service.service";
 import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
+import { CalendarComponentOptions } from "ion2-calendar";
 
 @Component({
   selector: "app-room-home",
@@ -20,14 +21,14 @@ import { PageHeaderProps } from "src/app/shared/components/page-header/page-head
     trigger("collapse", [
       state("true", style({ height: AUTO_STYLE, visibility: AUTO_STYLE })),
       state("false", style({ height: "0", visibility: "hidden" })),
-      transition("false => true", animate(300 + "ms ease-out")),
-      transition("true => false", animate(300 + "ms ease-in")),
+      transition("false => true", animate(100 + "ms ease-out")),
+      transition("true => false", animate(100 + "ms ease-in")),
     ]),
     trigger("rotatedState", [
       state("true", style({ transform: "rotate(-90deg)" })),
       state("false", style({ transform: "rotate(90deg)" })),
-      transition("false => true", animate("300ms ease-out")),
-      transition("true => false", animate("300ms ease-in")),
+      transition("false => true", animate("100ms ease-out")),
+      transition("true => false", animate("100ms ease-in")),
     ]),
   ],
   styleUrls: ["./room-home.page.scss"],

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { DataServiceService } from "../core/service/data-service.service";
 import { TimetableData } from "../shared/components/timetable-subjects/timetable-subjects.component";
 import { Student } from "../shared/models/Student";
-import * as _ from "lodash";
+import { flatMap } from "lodash";
 
 @Injectable({
   providedIn: "root",
@@ -59,14 +59,14 @@ export class StudentServiceService {
     return this.ds.getStudentSubjects(id);
   }
 
-  async getFilteredStudentList(searchString: string, kod_kursus: string) {
+  async getStudentList(kod_kursus: string) {
     await this.ds.getCurrentSesiSem(); //temp
     await this.ds.getAdminSessionID(); //temp
 
     //fliter logic
     let offset = 0;
     let studentList: Array<any> = [];
-    let filteredStudentList: Array<Student> = [];
+    let allStudentList: Array<Student> = [];
 
     do {
       let promises = [
@@ -75,28 +75,15 @@ export class StudentServiceService {
         this.ds.getStudentList(kod_kursus, 100, offset + 200),
       ];
       studentList = await Promise.all(promises);
-
-      filteredStudentList = [
-        ...filteredStudentList,
-        ..._.flatMap(studentList).filter((student) => {
-          if (student.nama && student.no_matrik)
-            return (
-              student.nama
-                .toLowerCase()
-                .trim()
-                .includes(searchString.trim().toLowerCase()) ||
-              student.no_matrik
-                .toLowerCase()
-                .trim()
-                .includes(searchString.trim().toLowerCase())
-            );
-          else return false;
+      allStudentList = [
+        ...allStudentList,
+        ...flatMap(studentList).filter((student) => {
+          return student.nama && student.no_matrik;
         }),
       ];
-
       offset += 300;
     } while (studentList[2].length > 1);
 
-    return filteredStudentList;
+    return allStudentList;
   }
 }

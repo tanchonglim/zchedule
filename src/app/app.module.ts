@@ -11,8 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { CoreModule } from "./core/core.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SharedModule } from "./shared/shared.module";
-
-import { TooltipsModule } from "ionic-tooltips";
+import { CalendarModule } from "ion2-calendar";
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +23,7 @@ import { TooltipsModule } from "ionic-tooltips";
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    TooltipsModule.forRoot(),
+    CalendarModule,
   ],
   providers: [
     StatusBar,

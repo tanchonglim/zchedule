@@ -1,19 +1,19 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { LecturerSubject } from "src/app/shared/models/LecturerSubject";
 import { StudentSubject } from "src/app/shared/models/StudentSubject";
 import { ScheduleSubject } from "src/app/shared/models/ScheduleSubject";
 import { FsksmServiceService } from "./fsksm-service.service";
 import { SesiSemester } from "src/app/shared/models/SesiSemester";
 
-import * as moment from "moment";
-import * as _ from "lodash";
-import { Student } from "src/app/shared/models/Student";
-import { Lecturer } from "src/app/shared/models/Lecturer";
+import { Student } from "./../../shared/models/Student";
+import { Lecturer } from "./../../shared/models/Lecturer";
 import { Subject } from "./../../shared/models/Subject";
-import { SubjectSection } from "src/app/shared/models/SubjectSection";
-import { SubjectLecturer } from "src/app/shared/models/SubjectLecturer";
-import { SubjectStudent } from "src/app/shared/models/SubjectStudent";
+import { SubjectSection } from "./../../shared/models/SubjectSection";
+import { SubjectLecturer } from "./../../shared/models/SubjectLecturer";
+import { SubjectStudent } from "./../../shared/models/SubjectStudent";
 import { Room } from "./../../shared/models/Room";
+
+import { isEqual } from "lodash";
 
 @Injectable({
   providedIn: "root",
@@ -231,7 +231,7 @@ export class DataServiceService {
       seksyen: seksyen,
     };
     let index = this._scheduleSubjects.findIndex((ss) =>
-      _.isEqual(ss.params, params)
+      isEqual(ss.params, params)
     );
     //if data in memory
     if (index !== -1) {
@@ -264,7 +264,7 @@ export class DataServiceService {
       offset: offset,
     };
 
-    let index = this._students.findIndex((sl) => _.isEqual(sl.params, params));
+    let index = this._students.findIndex((sl) => isEqual(sl.params, params));
 
     //if data in memory
     if (index !== -1) {
@@ -330,7 +330,7 @@ export class DataServiceService {
       kod_subjek: kod_subjek,
     };
     let index = this._subjectLecturer.findIndex((sl) =>
-      _.isEqual(sl.params, params)
+      isEqual(sl.params, params)
     );
 
     //if found
@@ -359,7 +359,7 @@ export class DataServiceService {
       seksyen: seksyen,
     };
     let index = this._subjectstudent.findIndex((sl) =>
-      _.isEqual(sl.params, params)
+      isEqual(sl.params, params)
     );
 
     //if found

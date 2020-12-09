@@ -12,11 +12,8 @@ import { Lecturer } from "src/app/shared/models/Lecturer";
 import { Subject } from "./../../shared/models/Subject";
 import { SubjectSection } from "src/app/shared/models/SubjectSection";
 import { SubjectLecturer } from "src/app/shared/models/SubjectLecturer";
-<<<<<<< Updated upstream
 import { SubjectStudent } from "src/app/shared/models/SubjectStudent";
-=======
 import { Room } from "./../../shared/models/Room";
->>>>>>> Stashed changes
 
 @Injectable({
   providedIn: "root",
@@ -389,4 +386,6 @@ export class DataServiceService {
       return this._rooms;
     } else {
       return this._rooms;
+    }
+  }
 }

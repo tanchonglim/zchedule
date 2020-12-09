@@ -12,7 +12,11 @@ import { Lecturer } from "src/app/shared/models/Lecturer";
 import { Subject } from "./../../shared/models/Subject";
 import { SubjectSection } from "src/app/shared/models/SubjectSection";
 import { SubjectLecturer } from "src/app/shared/models/SubjectLecturer";
+<<<<<<< Updated upstream
 import { SubjectStudent } from "src/app/shared/models/SubjectStudent";
+=======
+import { Room } from "./../../shared/models/Room";
+>>>>>>> Stashed changes
 
 @Injectable({
   providedIn: "root",
@@ -71,6 +75,9 @@ export class DataServiceService {
 
   //need clear when change sesi semester
   private _subjects: Array<Subject> = [];
+
+  //need clear when change sesi semester
+  private _rooms: Array<Room> = [];
 
   //need clear when change sesi semester
   private _subjectSections: Array<SubjectSection> = [];
@@ -375,4 +382,11 @@ export class DataServiceService {
       return this._subjectstudent[length - 1].students;
     }
   }
+
+  async getRoomList(): Promise<Array<Room>> {
+    if (!this._rooms.length) {
+      this._rooms = await this.fsksmService.fetchRooms();
+      return this._rooms;
+    } else {
+      return this._rooms;
 }

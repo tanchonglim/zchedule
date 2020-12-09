@@ -30,6 +30,7 @@ export class TeachingSubjectComponent implements OnInit {
         semester: subject.semester,
         sesi: subject.sesi,
         bil_pelajar: subject.bil_pelajar,
+        seksyen: subject.seksyen,
       };
     });
   }

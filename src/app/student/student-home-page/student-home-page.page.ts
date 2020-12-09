@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { IonContent, ModalController } from "@ionic/angular";
-import { RegisteredSubjectsComponent } from "../components/registered-subjects/registered-subjects.component";
-import { StudentTimetableComponent } from "../components/student-timetable/student-timetable.component";
+// import { RegisteredSubjectsComponent } from "../components/registered-subjects/registered-subjects.component";
+// import { StudentTimetableComponent } from "../components/student-timetable/student-timetable.component";
 import { StudentServiceService } from "../student-service.service";
 import { Student } from "src/app/shared/models/Student";
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  AUTO_STYLE,
-} from "@angular/animations";
+// import {
+//   trigger,
+//   state,
+//   style,
+//   animate,
+//   transition,
+//   AUTO_STYLE,
+// } from "@angular/animations";
 import { GlobalEventService } from "src/app/core/service/global-event.service";
 import { StudentDetailComponent } from "../components/student-detail/student-detail.component";
 import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
@@ -19,25 +19,24 @@ import { PageHeaderProps } from "src/app/shared/components/page-header/page-head
 @Component({
   selector: "app-student-home-page",
   templateUrl: "./student-home-page.page.html",
-  animations: [
-    trigger("collapse", [
-      state("true", style({ height: AUTO_STYLE, visibility: AUTO_STYLE })),
-      state("false", style({ height: "0", visibility: "hidden" })),
-      transition("false => true", animate(300 + "ms ease-out")),
-      transition("true => false", animate(300 + "ms ease-in")),
-    ]),
-    trigger("rotatedState", [
-      state("true", style({ transform: "rotate(-90deg)" })),
-      state("false", style({ transform: "rotate(90deg)" })),
-      transition("false => true", animate("300ms ease-out")),
-      transition("true => false", animate("300ms ease-in")),
-    ]),
-  ],
+  // animations: [
+  //   trigger("collapse", [
+  //     state("true", style({ height: AUTO_STYLE, visibility: AUTO_STYLE })),
+  //     state("false", style({ height: "0", visibility: "hidden" })),
+  //     transition("false => true", animate(300 + "ms ease-out")),
+  //     transition("true => false", animate(300 + "ms ease-in")),
+  //   ]),
+  //   trigger("rotatedState", [
+  //     state("true", style({ transform: "rotate(-90deg)" })),
+  //     state("false", style({ transform: "rotate(90deg)" })),
+  //     transition("false => true", animate("300ms ease-out")),
+  //     transition("true => false", animate("300ms ease-in")),
+  //   ]),
+  // ],
   styleUrls: ["./student-home-page.page.scss"],
 })
 export class StudentHomePagePage implements OnInit {
   // @ViewChild(IonContent) content: IonContent;
-  collapse: Array<Boolean> = [];
   filteredStudentList: Array<Student>;
   studentList: Array<Student>;
 
@@ -116,7 +115,7 @@ export class StudentHomePagePage implements OnInit {
   async ionViewDidEnter() {
     this.studentList = await this.ss.getStudentList("SCSJ");
     this.filteredStudentList = this.studentList;
-    this.collapse = this.filteredStudentList.map(() => false);
+    // this.collapse = this.filteredStudentList.map(() => false);
   }
 
   scroll(event: CustomEvent) {
@@ -131,7 +130,7 @@ export class StudentHomePagePage implements OnInit {
   //   this.content.scrollToTop(400);
   // }
 
-  async openStudentDetail(student, event) {
+  async openStudentDetail(student) {
     event.stopPropagation();
     const modal = await this.modal.create({
       component: StudentDetailComponent,
@@ -145,7 +144,7 @@ export class StudentHomePagePage implements OnInit {
     let course = event.target.value;
     this.studentList = await this.ss.getStudentList(course);
     this.filteredStudentList = this.studentList;
-    this.collapse = this.filteredStudentList.map(() => false);
+    // this.collapse = this.filteredStudentList.map(() => false);
   }
 
   onsearch(event) {
@@ -164,17 +163,11 @@ export class StudentHomePagePage implements OnInit {
         );
       else return false;
     });
-    this.collapse = this.filteredStudentList.map(() => false);
+    // this.collapse = this.filteredStudentList.map(() => false);
   }
 
   clearsearch() {
     this.filteredStudentList = this.studentList;
-    this.collapse = this.filteredStudentList.map(() => false);
-  }
-
-  expandCard(i) {
-    let c = this.collapse[i];
-    this.collapse = this.collapse.map(() => false);
-    this.collapse[i] = !c;
+    // this.collapse = this.filteredStudentList.map(() => false);
   }
 }

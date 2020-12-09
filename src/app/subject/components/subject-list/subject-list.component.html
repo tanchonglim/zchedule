@@ -9,31 +9,37 @@
   </div>
   <div class="search-result-container">
     <ion-list *ngIf="filteredSubjectList && filteredSubjectList.length">
-      <ion-item
-        *ngFor="let subject of filteredSubjectList; index as i"
-        (click)="viewSubjectDetail(subject)"
-        class="search-result-item"
+      <ion-virtual-scroll
+        [items]="filteredSubjectList"
+        approxItemHeight="200px"
       >
-        <ion-label>
-          <div style="display: flex; justify-content: space-between">
-            <div style="width: 90%; white-space: pre-wrap">
-              <h2>{{ subject.nama_subjek }}</h2>
-              <sub style="color: grey; font-style: italic">{{
-                subject.kod_subjek
-              }}</sub>
+        <ion-item
+          *virtualItem="let subject"
+          (click)="viewSubjectDetail(subject)"
+          class="search-result-item"
+        >
+          <ion-label>
+            <div style="display: flex; justify-content: space-between">
+              <div style="width: 90%; white-space: pre-wrap">
+                <h2>{{ subject.nama_subjek }}</h2>
+                <sub style="color: grey; font-style: italic">{{
+                  subject.kod_subjek
+                }}</sub>
+              </div>
+              <ion-icon
+                name="chevron-forward-outline"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                "
+              ></ion-icon>
             </div>
-            <ion-icon
-              name="chevron-forward-outline"
-              style="
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-              "
-            ></ion-icon>
-          </div>
-        </ion-label>
-      </ion-item>
+          </ion-label>
+        </ion-item>
+      </ion-virtual-scroll>
     </ion-list>
+
     <app-no-result
       *ngIf="!filteredSubjectList || !filteredSubjectList.length"
     ></app-no-result>

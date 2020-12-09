@@ -6,30 +6,30 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        font-size: 1.3rem;
       "
     >
-      {{ ssd.sesi
-      }}<ion-icon
+      {{ ssd.sesi + " - " + ssd.semester }}
+      <ion-icon
         [@rotatedState]="collapse[i]"
         name="chevron-forward-outline"
       ></ion-icon>
     </p>
-    <p>{{ ssd.semester }}</p>
   </div>
   <div [@collapse]="collapse[i]">
     <ion-item *ngFor="let sub of ssd.subjects">
-      <div
-        style="display: flex; flex-direction: column"
-        (click)="viewSubjectDetail(sub)"
-      >
-        <p
-          class="display-sub main-color"
-          style="margin-top: 10px; text-transform: uppercase"
-        >
-          {{ sub.nama_subjek }}
+      <div style="display: flex; flex-direction: column">
+        <p style="margin-top: 10px">
+          <span style="text-transform: uppercase"> {{ sub.nama_subjek }} </span>
+          <br />
+          <i style="font-size: 0.8rem">{{ sub.kod_subjek }}</i>
+          <br />
+          Section: {{ sub.seksyen < 10 ? "0" + sub.seksyen : sub.seksyen }}
+          <br />
+          <span *ngIf="sub.bil_pelajar">
+            Number of Students: {{ sub.bil_pelajar }}
+          </span>
         </p>
-        <p class="display-sub sub-title">{{ sub.kod_subjek }}</p>
-        <p class="display-sub sub-title">{{ sub.bil_pelajar }}</p>
       </div>
     </ion-item>
   </div>

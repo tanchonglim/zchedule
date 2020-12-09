@@ -4,14 +4,23 @@
       [(selectedTab)]="selectedTab"
       [properties]="headerModalProps"
     ></app-modal-header>
-
     <div *ngIf="selectedTab == 0" class="content">
+      <h2 class="title">Basic Information</h2>
+      <ion-card>
+        <ion-card-content>
+          <p><b> Students:</b> {{ lecturer.bil_pelajar }}</p>
+          <p><b> Number of sections:</b> {{ lecturer.bil_seksyen }}</p>
+          <p><b> Number of subjects:</b> {{ lecturer.bil_subjek }}</p>
+        </ion-card-content>
+      </ion-card>
+      <h2 class="title">Teaching Subjects</h2>
+      <app-teaching-subject [id]="lecturer.no_pekerja"></app-teaching-subject>
+    </div>
+
+    <div *ngIf="selectedTab == 1" class="content">
       <app-lecturer-timetable
         [id]="lecturer.no_pekerja"
       ></app-lecturer-timetable>
-    </div>
-    <div *ngIf="selectedTab == 1" class="content">
-      <app-teaching-subject [id]="lecturer.no_pekerja"></app-teaching-subject>
     </div>
   </ion-content>
 </div>

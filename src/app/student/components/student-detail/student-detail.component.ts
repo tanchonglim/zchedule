@@ -19,7 +19,7 @@ export class StudentDetailComponent implements OnInit {
     this.headerModalProps = {
       title: this.student.nama,
       subtitle: this.student.no_matrik.toString(),
-      tabs: ["Schedules", "Subjects"],
+      tabs: ["Info", "Schedules"],
     };
     console.log(this.student);
   }

@@ -18,7 +18,7 @@ export class LecturerDetailComponent implements OnInit {
     this.headerModalProps = {
       title: this.lecturer.nama,
       subtitle: this.lecturer.no_pekerja.toString(),
-      tabs: ["Schedules", "Subjects"],
+      tabs: ["Info", "Schedule"],
     };
   }
 }

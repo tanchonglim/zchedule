@@ -12,7 +12,6 @@ import { ModalController } from "@ionic/angular";
 import { GlobalEventService } from "./../../core/service/global-event.service";
 import { RoomServiceService } from "./../room-service.service";
 import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
-import { CalendarComponentOptions } from "ion2-calendar";
 
 @Component({
   selector: "app-room-home",
@@ -36,6 +35,7 @@ import { CalendarComponentOptions } from "ion2-calendar";
 export class RoomHomePage implements OnInit {
   searchString: string = "B11BK2";
   filteredRoomList: Array<Room>;
+  roomList: Array<Room>;
   collapse: Array<Boolean> = [];
 
   pageHeaderProps: PageHeaderProps = {
@@ -52,8 +52,9 @@ export class RoomHomePage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewDidEnter() {
-    this.filteredRoomList = null;
+  async ionViewDidEnter() {
+    this.roomList = await this.rs.getRoomList();
+    this.filteredRoomList = this.roomList;
     console.log("room init");
   }
 
@@ -65,20 +66,25 @@ export class RoomHomePage implements OnInit {
     }
   }
 
-  async searchRoom() {
-    if (this.searchString) {
-      let roomList = await this.rs.getFilteredRoomList(this.searchString);
-      this.filteredRoomList = roomList;
-      this.collapse = this.filteredRoomList.map((f) => false);
-      console.log(roomList);
-    } else {
-      alert("Please input something");
-    }
+  onsearch(event) {
+    let searchString = event.target.value;
+    this.filteredRoomList = this.roomList.filter((room) => {
+      return (
+        room.kod_ruang
+          .toLowerCase()
+          .trim()
+          .includes(searchString.trim().toLowerCase()) ||
+        room.nama_ruang_singkatan
+          .toLowerCase()
+          .trim()
+          .includes(searchString.trim().toLowerCase())
+      );
+    });
   }
 
-  expandCard(i) {
-    let c = this.collapse[i];
-    this.collapse = this.collapse.map((r) => false);
-    this.collapse[i] = !c;
+  clearsearch() {
+    this.filteredRoomList = this.roomList;
   }
+
+  async openRoomDetail(room) {}
 }

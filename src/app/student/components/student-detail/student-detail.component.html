@@ -6,12 +6,22 @@
     ></app-modal-header>
 
     <div *ngIf="selectedTab == 0" class="content">
-      <app-student-timetable [id]="student.no_matrik"></app-student-timetable>
-    </div>
-    <div *ngIf="selectedTab == 1" class="content">
+      <h2 class="title">Basic Information</h2>
+      <ion-card>
+        <ion-card-content>
+          <p><b> Course:</b> {{ student.kod_kursus }}</p>
+          <p><b> Year:</b> {{ student.tahun_kursus }}</p>
+          <p><b> Faculty:</b> {{ student.kod_fakulti }}</p>
+          <p><b> Subjects taken:</b> {{ student.bil_subjek }}</p>
+        </ion-card-content>
+      </ion-card>
+      <h2 class="title">Subjects Taken</h2>
       <app-registered-subjects
         [id]="student.no_matrik"
       ></app-registered-subjects>
+    </div>
+    <div *ngIf="selectedTab == 1" class="content">
+      <app-student-timetable [id]="student.no_matrik"></app-student-timetable>
     </div>
   </ion-content>
 </div>

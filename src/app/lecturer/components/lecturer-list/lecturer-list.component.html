@@ -8,30 +8,30 @@
 </div>
 <div class="search-result-container" *ngIf="lecturerList">
   <ion-list *ngIf="filteredLecturerList && filteredLecturerList.length">
-    <ion-item
-      *ngFor="let lecturer of filteredLecturerList; index as i"
-      (click)="expandCard(i)"
-      class="search-result-item"
-    >
-      <ion-label>
-        <div style="display: flex; justify-content: space-between">
-          <div style="width: 90%; white-space: pre-wrap">
-            <h2>{{ lecturer.nama }}</h2>
-            <sub style="color: grey; font-style: italic">{{
-              lecturer.no_pekerja
-            }}</sub>
+    <ion-virtual-scroll [items]="filteredLecturerList" approxItemHeight="110px">
+      <ion-item
+        *virtualItem="let lecturer; index as i"
+        (click)="openLecturerDetail(lecturer)"
+        class="search-result-item"
+      >
+        <ion-label>
+          <div style="display: flex; justify-content: space-between">
+            <div style="width: 90%; white-space: pre-wrap">
+              <h2>{{ lecturer.nama }}</h2>
+              <sub style="color: grey; font-style: italic">{{
+                lecturer.no_pekerja
+              }}</sub>
+            </div>
+            <ion-icon
+              name="chevron-forward-outline"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+              "
+            ></ion-icon>
           </div>
-          <ion-icon
-            [@rotatedState]="collapse[i]"
-            name="chevron-forward-outline"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-            "
-          ></ion-icon>
-        </div>
-        <div [@collapse]="collapse[i]">
+          <!-- <div [@collapse]="collapse[i]">
           <div style="width: 100%">
             <br />
             <p>Number of student: {{ lecturer.bil_pelajar }}</p>
@@ -47,7 +47,7 @@
             "
           >
             <span
-              (click)="openDetailPage(lecturer, $event)"
+              (click)="openLecturerDetail(lecturer, $event)"
               class="ion-activatable ripple-parent"
               style="
                 color: var(--ion-color-primary);
@@ -62,9 +62,10 @@
               <ion-ripple-effect></ion-ripple-effect>
             </span>
           </div>
-        </div>
-      </ion-label>
-    </ion-item>
+        </div> -->
+        </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
   </ion-list>
   <app-no-result
     *ngIf="!filteredLecturerList || !filteredLecturerList.length"

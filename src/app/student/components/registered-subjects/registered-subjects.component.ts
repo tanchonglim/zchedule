@@ -20,13 +20,14 @@ export class RegisteredSubjectsComponent implements OnInit {
 
   async getStudentSubject() {
     this.studentSubject = await this.ss.getStudentSubjects(this.id);
-    console.log(this.studentSubject);
     this.studentSubject.forEach((subject) => {
+      console.log(subject);
       this.registeredSubjectListData.push({
         nama_subjek: subject.nama_subjek,
         kod_subjek: subject.kod_subjek,
         semester: subject.semester,
         sesi: subject.sesi,
+        seksyen: subject.seksyen,
       });
     });
     console.log(this.registeredSubjectListData);

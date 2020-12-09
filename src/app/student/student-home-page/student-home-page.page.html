@@ -28,10 +28,10 @@
     <ion-list *ngIf="filteredStudentList && filteredStudentList.length">
       <ion-virtual-scroll
         [items]="filteredStudentList"
-        approxItemHeight="320px"
+        approxItemHeight="110px"
       >
         <ion-item
-          (click)="expandCard(i)"
+          (click)="openStudentDetail(student)"
           *virtualItem="let student ; index as i "
           class="search-result-item"
         >
@@ -43,47 +43,7 @@
                   >{{student.no_matrik}}</sub
                 >
               </div>
-              <ion-icon
-                [@rotatedState]="collapse[i]"
-                name="chevron-forward-outline"
-              ></ion-icon>
-            </div>
-            <div
-              [@collapse]="collapse[i]"
-              style="
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-              "
-            >
-              <div style="width: 100%">
-                <br />
-                <p>Course: {{student.kod_kursus}}</p>
-                <p>Year: {{student.tahun_kursus}}</p>
-              </div>
-              <div
-                style="
-                  display: flex;
-                  flex-direction: row;
-                  width: 100%;
-                  justify-content: center;
-                "
-              >
-                <span
-                  (click)="openStudentDetail(student, $event)"
-                  class="ion-activatable ripple-parent"
-                  style="
-                    color: var(--ion-color-primary);
-                    overflow: hidden;
-                    position: relative;
-                    text-align: center;
-                    padding: 0.3rem 1rem;
-                  "
-                >
-                  View Detail
-                  <ion-ripple-effect></ion-ripple-effect>
-                </span>
-              </div>
+              <ion-icon name="chevron-forward-outline"></ion-icon>
             </div>
           </ion-label>
         </ion-item>

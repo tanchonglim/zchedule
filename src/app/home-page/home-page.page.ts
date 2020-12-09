@@ -55,6 +55,7 @@ export class HomePagePage implements OnInit {
         kod_subjek: subject.kod_subjek,
         semester: subject.semester,
         sesi: subject.sesi,
+        seksyen: subject.seksyen,
       };
     });
   }

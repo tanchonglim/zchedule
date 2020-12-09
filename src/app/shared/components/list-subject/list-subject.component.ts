@@ -7,9 +7,7 @@ import {
   transition,
   AUTO_STYLE,
 } from "@angular/animations";
-import { SubjectInfoComponent } from "src/app/subject/components/subject-info/subject-info.component";
 import { ModalController } from "@ionic/angular";
-import { Subject } from "../../models/Subject";
 
 export interface RegisteredSubjectListData {
   nama_subjek: string;
@@ -17,6 +15,7 @@ export interface RegisteredSubjectListData {
   sesi: string;
   semester: number;
   bil_pelajar?: number;
+  seksyen: number;
 }
 
 interface sesiSem {
@@ -26,6 +25,7 @@ interface sesiSem {
     nama_subjek: string;
     kod_subjek: string;
     bil_pelajar?: number;
+    seksyen: number;
   }>;
 }
 
@@ -57,8 +57,8 @@ export class ListSubjectComponent implements OnInit {
   constructor(public modalController: ModalController) {}
 
   ngOnInit() {
-    console.log(this.registeredSubjectListData);
     this.collapse = this.registeredSubjectListData.map((r) => false);
+    this.collapse[0] = true;
     this.registeredSubjectListData.forEach((subject) => {
       let sesiSem = this.sesiSemData.find(
         (d) => d.sesi == subject.sesi && d.semester == subject.semester
@@ -69,6 +69,7 @@ export class ListSubjectComponent implements OnInit {
           nama_subjek: subject.nama_subjek,
           kod_subjek: subject.kod_subjek,
           bil_pelajar: subject.bil_pelajar,
+          seksyen: subject.seksyen,
         });
       } else {
         this.sesiSemData.push({
@@ -79,6 +80,7 @@ export class ListSubjectComponent implements OnInit {
               nama_subjek: subject.nama_subjek,
               kod_subjek: subject.kod_subjek,
               bil_pelajar: subject.bil_pelajar,
+              seksyen: subject.seksyen,
             },
           ],
         });
@@ -91,17 +93,5 @@ export class ListSubjectComponent implements OnInit {
     let c = this.collapse[i];
     this.collapse = this.collapse.map((r) => false);
     this.collapse[i] = !c;
-  }
-
-  async viewSubjectDetail(subject: Subject) {
-    const modal = await this.modalController.create({
-      component: SubjectInfoComponent,
-      componentProps: {
-        subjectCode: subject.kod_subjek,
-      },
-      cssClass: "modal-float-bottom",
-    });
-    await modal.present();
-    await modal.onWillDismiss();
   }
 }

@@ -44,7 +44,6 @@
 }
 
 .modal-float-bottom .modal-wrapper {
-  // height: 20%;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: absolute;
@@ -53,8 +52,8 @@
 }
 
 ion-modal.modal-float-bottom {
+  background-color: #00000042;
   --height: auto;
-  background-color: #0000001a;
 
   &.bottom {
     align-items: flex-end;
@@ -71,4 +70,18 @@ ion-modal.modal-float-bottom {
       padding: 10px;
     }
   }
+}
+
+.sc-ion-modal-md-h:first-of-type {
+  --backdrop-opacity: 0 !important;
+}
+
+.searchbar-input {
+  -webkit-padding-end: 0.5rem !important;
+  padding-inline-end: 0.5rem !important;
+}
+
+.sc-ion-searchbar-md-h {
+  --box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
 }

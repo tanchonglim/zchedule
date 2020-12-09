@@ -11,6 +11,7 @@ import { TeachingSubjectComponent } from "../components/teaching-subject/teachin
 import { LecturerTimetableComponent } from "../components/lecturer-timetable/lecturer-timetable.component";
 import { SharedModule } from "src/app/shared/shared.module";
 import { LecturerDetailComponent } from "../components/lecturer-detail/lecturer-detail.component";
+import { LecturerListComponent } from "../components/lecturer-list/lecturer-list.component";
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { LecturerDetailComponent } from "../components/lecturer-detail/lecturer-
     TeachingSubjectComponent,
     LecturerTimetableComponent,
     LecturerDetailComponent,
+    LecturerListComponent,
   ],
 })
 export class LecturerHomePagePageModule {}

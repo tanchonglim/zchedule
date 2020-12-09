@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { TimetableData } from "../shared/components/timetable-subjects/timetable-subjects.component";
 import { HomeServiceService } from "./home-service.service";
-import { RegisteredSubjectListData } from "src/app/shared/components/subject-list/subject-list.component";
 import { StudentSubject } from "./../shared/models/StudentSubject";
 import { DataServiceService } from "../core/service/data-service.service";
 import { GlobalEventService } from "../core/service/global-event.service";
+import { RegisteredSubjectListData } from "../shared/components/list-subject/list-subject.component";
 
 @Component({
   selector: "app-home-page",

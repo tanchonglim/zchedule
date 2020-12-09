@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Navigation, Router } from "@angular/router";
+import { NavController } from "@ionic/angular";
 
 @Component({
   selector: "app-footer",
@@ -46,6 +47,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
     this.currentPage = this.pages[0];
+    console.log();
   }
 
   select(page) {

@@ -1,58 +1,31 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { LecturerTimetableComponent } from "../components/lecturer-timetable/lecturer-timetable.component";
-import { TeachingSubjectComponent } from "../components/teaching-subject/teaching-subject.component";
 import { LecturerServiceService } from "./../lecturer-service.service";
-import { Lecturer } from "./../../shared/models/Lecturer";
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  AUTO_STYLE,
-} from "@angular/animations";
+
 import { GlobalEventService } from "src/app/core/service/global-event.service";
-import { LecturerDetailComponent } from "./../components/lecturer-detail/lecturer-detail.component";
 import { Router } from "@angular/router";
+import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
 
 @Component({
   selector: "app-lecturer-home-page",
   templateUrl: "./lecturer-home-page.page.html",
-  animations: [
-    trigger("collapse", [
-      state("true", style({ height: AUTO_STYLE, visibility: AUTO_STYLE })),
-      state("false", style({ height: "0", visibility: "hidden" })),
-      transition("false => true", animate(300 + "ms ease-out")),
-      transition("true => false", animate(300 + "ms ease-in")),
-    ]),
-    trigger("rotatedState", [
-      state("true", style({ transform: "rotate(-90deg)" })),
-      state("false", style({ transform: "rotate(90deg)" })),
-      transition("false => true", animate("300ms ease-out")),
-      transition("true => false", animate("300ms ease-in")),
-    ]),
-  ],
+
   styleUrls: ["./lecturer-home-page.page.scss"],
 })
 export class LecturerHomePagePage implements OnInit {
-  // id: string;
-  searchString: string = "a";
-  filteredLecturerList: Array<Lecturer>;
-  collapse: Array<Boolean> = [];
+  pageHeaderProps: PageHeaderProps = {
+    title: "Lecturer",
+    tabs: ["List", "Analysis"],
+  };
+  selectedTab: number = 0;
+
   constructor(
     public modal: ModalController,
-    private ls: LecturerServiceService,
     private ge: GlobalEventService,
     public router: Router
   ) {}
 
   ngOnInit() {}
-
-  ionViewDidEnter() {
-    this.filteredLecturerList = null;
-    console.log("lect init");
-  }
 
   scroll(event: CustomEvent) {
     if (event.detail.velocityY > 0.2) {
@@ -60,37 +33,5 @@ export class LecturerHomePagePage implements OnInit {
     } else if (event.detail.velocityY < -0.2) {
       this.ge.scrollEvent.emit(true);
     }
-  }
-
-  async openDetailPage(lecturer, event) {
-    event.stopPropagation();
-
-    const modal = await this.modal.create({
-      component: LecturerDetailComponent,
-      componentProps: {
-        lecturer: lecturer,
-      },
-    });
-    await modal.present();
-    await modal.onWillDismiss();
-  }
-
-  async searchLecturer() {
-    if (this.searchString) {
-      let lecturertList = await this.ls.getFilteredLecturerList(
-        this.searchString
-      );
-      this.filteredLecturerList = lecturertList;
-      this.collapse = this.filteredLecturerList.map((f) => false);
-      console.log(lecturertList);
-    } else {
-      alert("Please input something");
-    }
-  }
-
-  expandCard(i) {
-    let c = this.collapse[i];
-    this.collapse = this.collapse.map((r) => false);
-    this.collapse[i] = !c;
   }
 }

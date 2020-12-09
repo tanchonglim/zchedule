@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { AppHeaderProps } from "src/app/shared/components/modal-header/modal-header.component";
+import { ModalHeaderProps } from "src/app/shared/components/modal-header/modal-header.component";
 import { Lecturer } from "./../../../shared/models/Lecturer";
 
 @Component({
@@ -9,7 +9,7 @@ import { Lecturer } from "./../../../shared/models/Lecturer";
 })
 export class LecturerDetailComponent implements OnInit {
   @Input() lecturer: Lecturer;
-  headerModalProps: AppHeaderProps;
+  headerModalProps: ModalHeaderProps;
   selectedTab: number = 0;
 
   constructor() {}

@@ -11,6 +11,7 @@ import {
 import { ModalController } from "@ionic/angular";
 import { GlobalEventService } from "./../../core/service/global-event.service";
 import { RoomServiceService } from "./../room-service.service";
+import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
 
 @Component({
   selector: "app-room-home",
@@ -35,6 +36,12 @@ export class RoomHomePage implements OnInit {
   searchString: string = "B11BK2";
   filteredRoomList: Array<Room>;
   collapse: Array<Boolean> = [];
+
+  pageHeaderProps: PageHeaderProps = {
+    title: "Room",
+    tabs: ["List", "Search"],
+  };
+  selectedTab: number = 0;
 
   constructor(
     public modal: ModalController,

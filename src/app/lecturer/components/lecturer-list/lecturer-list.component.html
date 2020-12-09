@@ -1,0 +1,73 @@
+<div class="search-card" *ngIf="lecturerList">
+  <ion-searchbar
+    style="--border-radius: 25px"
+    placeholder="Search by lecturer name/ID"
+    (keyup)="onsearch($event)"
+    (ionClear)="clearsearch()"
+  ></ion-searchbar>
+</div>
+<div class="search-result-container" *ngIf="lecturerList">
+  <ion-list *ngIf="filteredLecturerList && filteredLecturerList.length">
+    <ion-item
+      *ngFor="let lecturer of filteredLecturerList; index as i"
+      (click)="expandCard(i)"
+      class="search-result-item"
+    >
+      <ion-label>
+        <div style="display: flex; justify-content: space-between">
+          <div style="width: 90%; white-space: pre-wrap">
+            <h2>{{ lecturer.nama }}</h2>
+            <sub style="color: grey; font-style: italic">{{
+              lecturer.no_pekerja
+            }}</sub>
+          </div>
+          <ion-icon
+            [@rotatedState]="collapse[i]"
+            name="chevron-forward-outline"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+            "
+          ></ion-icon>
+        </div>
+        <div [@collapse]="collapse[i]">
+          <div style="width: 100%">
+            <br />
+            <p>Number of student: {{ lecturer.bil_pelajar }}</p>
+            <p>Number of subject: {{ lecturer.bil_subjek }}</p>
+            <p>Number of section: {{ lecturer.bil_seksyen }}</p>
+          </div>
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              width: 100%;
+              justify-content: center;
+            "
+          >
+            <span
+              (click)="openDetailPage(lecturer, $event)"
+              class="ion-activatable ripple-parent"
+              style="
+                color: var(--ion-color-primary);
+                overflow: hidden;
+                position: relative;
+                text-align: center;
+                padding: 0.3rem 1rem;
+                border-radius: 20px;
+              "
+            >
+              View Detail
+              <ion-ripple-effect></ion-ripple-effect>
+            </span>
+          </div>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <app-no-result
+    *ngIf="!filteredLecturerList || !filteredLecturerList.length"
+  ></app-no-result>
+</div>
+<div *ngIf="!lecturerList">loading..</div>

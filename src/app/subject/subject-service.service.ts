@@ -35,7 +35,7 @@ export class SubjectServiceService {
           timeSlot: schedule.masa,
           data: {
             data: schedule.ruang.nama_ruang,
-            detail: "",
+            detail: null,
             type: 1,
           },
         };

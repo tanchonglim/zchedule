@@ -102,6 +102,7 @@ export class TimetableSubjectsComponent implements OnInit {
 
   async viewDetail(title, data) {
     if (title === " ") return;
+    if (!data) return;
     const modal = await this.modalController.create({
       component: TimetableDetailComponent,
       componentProps: {

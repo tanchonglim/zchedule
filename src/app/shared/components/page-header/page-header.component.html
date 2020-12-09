@@ -1,0 +1,24 @@
+<ion-header>
+  <div class="header">
+    <div style="font-size: 1.4rem">
+      {{ properties.title }}
+    </div>
+  </div>
+</ion-header>
+<div *ngIf="properties.tabs.length">
+  <div class="tab-container">
+    <span
+      class="tab"
+      [class.selected]="selectedTab == i"
+      (click)="changeTab(i)"
+      *ngFor="let tab of properties.tabs; index as i"
+    >
+      {{ tab }}
+    </span>
+  </div>
+  <div
+    class="tab-underline"
+    [style.width.%]="100 / properties.tabs.length"
+    [style.left.%]="(selectedTab / properties.tabs.length) * 100"
+  ></div>
+</div>

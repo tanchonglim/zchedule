@@ -10,6 +10,7 @@ import { SubjectHomePage } from "./subject-home.page";
 import { SharedModule } from "src/app/shared/shared.module";
 import { SubjectDetailComponent } from "../components/subject-detail/subject-detail.component";
 import { SubjectInfoComponent } from "../components/subject-info/subject-info.component";
+import { SubjectListComponent } from "../components/subject-list/subject-list.component";
 
 @NgModule({
   imports: [
@@ -19,6 +20,11 @@ import { SubjectInfoComponent } from "../components/subject-info/subject-info.co
     SubjectHomePageRoutingModule,
     SharedModule,
   ],
-  declarations: [SubjectHomePage, SubjectDetailComponent, SubjectInfoComponent],
+  declarations: [
+    SubjectHomePage,
+    SubjectDetailComponent,
+    SubjectInfoComponent,
+    SubjectListComponent,
+  ],
 })
 export class SubjectHomePageModule {}

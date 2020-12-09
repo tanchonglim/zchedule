@@ -1,76 +1,14 @@
+<app-page-header
+  [properties]="pageHeaderProps"
+  [(selectedTab)]="selectedTab"
+></app-page-header>
+
 <ion-content [scrollEvents]="true" (ionScroll)="scroll($event)">
-  <div class="global-page-top-area">
-    <div>Lecturer</div>
+  <div *ngIf="selectedTab==0">
+    <app-lecturer-list></app-lecturer-list>
   </div>
-
-  <div class="search-card">
-    <ion-item style="width: 100%">
-      <ion-label position="floating">Lecturer ID / Name</ion-label>
-      <ion-input [(ngModel)]="searchString"></ion-input>
-    </ion-item>
-    <ion-button expand="block" (click)="searchLecturer()">Search</ion-button>
-  </div>
-
-  <div class="search-result-container">
-    <ion-list *ngIf="filteredLecturerList">
-      <ion-list-header> Search Result(s) </ion-list-header>
-
-      <ion-item
-        *ngFor="let lecturer of filteredLecturerList; index as i "
-        (click)="expandCard(i)"
-        class="search-result-item"
-      >
-        <ion-label>
-          <div style="display: flex; justify-content: space-between">
-            <div style="width: 90%; white-space: pre-wrap">
-              <h2 class="main-color">{{lecturer.nama}}</h2>
-              <sub style="color: grey; font-style: italic"
-                >{{lecturer.no_pekerja}}</sub
-              >
-            </div>
-            <ion-icon
-              [@rotatedState]="collapse[i]"
-              name="chevron-forward-outline"
-              style="
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-              "
-            ></ion-icon>
-          </div>
-          <div [@collapse]="collapse[i]">
-            <div style="width: 100%">
-              <br />
-              <p>Number of student: {{lecturer.bil_pelajar}}</p>
-              <p>Number of subject: {{lecturer.bil_subjek}}</p>
-              <p>Number of section: {{lecturer.bil_seksyen}}</p>
-            </div>
-            <div
-              style="
-                display: flex;
-                flex-direction: row;
-                width: 100%;
-                justify-content: center;
-              "
-            >
-              <span
-                (click)="openDetailPage(lecturer, $event)"
-                class="ion-activatable ripple-parent"
-                style="
-                  color: var(--ion-color-primary);
-                  overflow: hidden;
-                  position: relative;
-                  text-align: center;
-                  padding: 0.3rem 1rem;
-                "
-              >
-                View Detail
-                <ion-ripple-effect></ion-ripple-effect>
-              </span>
-            </div>
-          </div>
-        </ion-label>
-      </ion-item>
-    </ion-list>
+  <div *ngIf="selectedTab==1">
+    <div>Construction...</div>
+    <div></div>
   </div>
 </ion-content>

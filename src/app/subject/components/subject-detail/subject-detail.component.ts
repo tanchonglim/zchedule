@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { TimetableData } from "src/app/shared/components/timetable-subjects/timetable-subjects.component";
 import { SubjectStudent } from "src/app/shared/models/SubjectStudent";
 import { SubjectServiceService } from "../../subject-service.service";
-import { AppHeaderProps } from "./../../../shared/components/modal-header/modal-header.component";
+import { ModalHeaderProps } from "./../../../shared/components/modal-header/modal-header.component";
 
 @Component({
   selector: "app-subject-detail",
@@ -22,7 +22,7 @@ export class SubjectDetailComponent implements OnInit {
   subjectStudents: Array<SubjectStudent>;
   filteredsubjectStudents: Array<SubjectStudent>;
 
-  headerModalProps: AppHeaderProps;
+  headerModalProps: ModalHeaderProps;
   selectedTab: number = 0;
 
   constructor(private ss: SubjectServiceService) {}

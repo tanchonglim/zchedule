@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Input } from "@angular/core";
-import { AppHeaderProps } from "src/app/shared/components/modal-header/modal-header.component";
+import { ModalHeaderProps } from "src/app/shared/components/modal-header/modal-header.component";
 import { Student } from "src/app/shared/models/Student";
 
 @Component({
@@ -10,7 +10,7 @@ import { Student } from "src/app/shared/models/Student";
 })
 export class StudentDetailComponent implements OnInit {
   @Input() student: Student;
-  headerModalProps: AppHeaderProps;
+  headerModalProps: ModalHeaderProps;
   selectedTab: number = 0;
 
   constructor() {}

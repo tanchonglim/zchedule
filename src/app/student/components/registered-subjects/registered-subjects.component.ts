@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { RegisteredSubjectListData } from "src/app/shared/components/subject-list/subject-list.component";
 import { StudentSubject } from "src/app/shared/models/StudentSubject";
 import { StudentServiceService } from "../../student-service.service";
+import { RegisteredSubjectListData } from "src/app/shared/components/list-subject/list-subject.component";
 
 @Component({
   selector: "app-registered-subjects",

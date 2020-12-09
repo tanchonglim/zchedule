@@ -30,8 +30,8 @@ interface sesiSem {
 }
 
 @Component({
-  selector: "app-subject-list",
-  templateUrl: "./subject-list.component.html",
+  selector: "app-list-subject",
+  templateUrl: "./list-subject.component.html",
   animations: [
     trigger("collapse", [
       state("true", style({ height: AUTO_STYLE, visibility: AUTO_STYLE })),
@@ -46,9 +46,9 @@ interface sesiSem {
       transition("true => false", animate("300ms ease-in")),
     ]),
   ],
-  styleUrls: ["./subject-list.component.scss"],
+  styleUrls: ["./list-subject.component.scss"],
 })
-export class SubjectListComponent implements OnInit {
+export class ListSubjectComponent implements OnInit {
   @Input() registeredSubjectListData: Array<RegisteredSubjectListData>;
 
   sesiSemData: Array<sesiSem> = [];

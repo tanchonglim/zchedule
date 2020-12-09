@@ -14,6 +14,7 @@ import {
 } from "@angular/animations";
 import { GlobalEventService } from "src/app/core/service/global-event.service";
 import { StudentDetailComponent } from "../components/student-detail/student-detail.component";
+import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
 
 @Component({
   selector: "app-student-home-page",
@@ -40,6 +41,7 @@ export class StudentHomePagePage implements OnInit {
   courseCode: string = "SCSJ";
   collapse: Array<Boolean> = [];
   filteredStudentList: Array<Student>;
+  studentList: Array<Student>;
 
   courses = [
     "SBEA",
@@ -100,6 +102,11 @@ export class StudentHomePagePage implements OnInit {
     "SSPB",
   ];
 
+  pageHeaderProps: PageHeaderProps = {
+    title: "Student",
+    tabs: [],
+  };
+
   constructor(
     public modal: ModalController,
     private ss: StudentServiceService,
@@ -108,8 +115,10 @@ export class StudentHomePagePage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewDidEnter() {
-    this.filteredStudentList = null;
+  async ionViewDidEnter() {
+    this.studentList = await this.ss.getFilteredStudentList("", "SCSJ");
+    this.filteredStudentList = this.studentList;
+    this.collapse = this.filteredStudentList.map(() => false);
     console.log("std init");
   }
 
@@ -145,7 +154,7 @@ export class StudentHomePagePage implements OnInit {
         courseCode
       );
       this.filteredStudentList = studentList;
-      this.collapse = this.filteredStudentList.map((r) => false);
+      this.collapse = this.filteredStudentList.map(() => false);
       console.log(studentList);
     } else {
       alert("Please input something");
@@ -154,7 +163,7 @@ export class StudentHomePagePage implements OnInit {
 
   expandCard(i) {
     let c = this.collapse[i];
-    this.collapse = this.collapse.map((r) => false);
+    this.collapse = this.collapse.map(() => false);
     this.collapse[i] = !c;
   }
 }

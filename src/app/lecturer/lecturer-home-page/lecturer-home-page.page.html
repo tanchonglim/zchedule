@@ -45,19 +45,28 @@
               <p>Number of subject: {{lecturer.bil_subjek}}</p>
               <p>Number of section: {{lecturer.bil_seksyen}}</p>
             </div>
-            <div style="display: flex; flex-direction: row; width: 100%">
-              <ion-button
-                class="btn-style"
-                (click)="openSubjectModal(lecturer.no_pekerja, $event)"
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: center;
+              "
+            >
+              <span
+                (click)="openDetailPage(lecturer, $event)"
+                class="ion-activatable ripple-parent"
+                style="
+                  color: var(--ion-color-primary);
+                  overflow: hidden;
+                  position: relative;
+                  text-align: center;
+                  padding: 0.3rem 1rem;
+                "
               >
-                Subject
-              </ion-button>
-              <ion-button
-                class="btn-style"
-                (click)="openTimetableModal(lecturer.no_pekerja, $event)"
-              >
-                Timetable
-              </ion-button>
+                View Detail
+                <ion-ripple-effect></ion-ripple-effect>
+              </span>
             </div>
           </div>
         </ion-label>

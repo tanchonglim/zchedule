@@ -1,8 +1,8 @@
 <div class="modal-wrapper">
-  <app-modal-header></app-modal-header>
-  <ion-content *ngIf="lecturerSubject">
+  <!-- <app-modal-header></app-modal-header> -->
+  <div *ngIf="lecturerSubject">
     <app-subject-list
       [registeredSubjectListData]="registeredSubjectListData"
     ></app-subject-list>
-  </ion-content>
+  </div>
 </div>

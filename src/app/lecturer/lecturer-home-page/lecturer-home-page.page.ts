@@ -13,6 +13,8 @@ import {
   AUTO_STYLE,
 } from "@angular/animations";
 import { GlobalEventService } from "src/app/core/service/global-event.service";
+import { LecturerDetailComponent } from "./../components/lecturer-detail/lecturer-detail.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-lecturer-home-page",
@@ -41,7 +43,8 @@ export class LecturerHomePagePage implements OnInit {
   constructor(
     public modal: ModalController,
     private ls: LecturerServiceService,
-    private ge: GlobalEventService
+    private ge: GlobalEventService,
+    public router: Router
   ) {}
 
   ngOnInit() {}
@@ -59,23 +62,14 @@ export class LecturerHomePagePage implements OnInit {
     }
   }
 
-  async openSubjectModal(id, event) {
+  async openDetailPage(lecturer, event) {
     event.stopPropagation();
-    const modal = await this.modal.create({
-      component: TeachingSubjectComponent,
-      componentProps: {
-        id: id,
-      },
-    });
-    await modal.present();
-    await modal.onWillDismiss();
-  }
 
-  async openTimetableModal(id, event) {
-    event.stopPropagation();
     const modal = await this.modal.create({
-      component: LecturerTimetableComponent,
-      componentProps: { id: id },
+      component: LecturerDetailComponent,
+      componentProps: {
+        lecturer: lecturer,
+      },
     });
     await modal.present();
     await modal.onWillDismiss();

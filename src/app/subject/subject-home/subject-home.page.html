@@ -4,11 +4,18 @@
   </div>
 
   <div class="search-card">
-    <ion-item style="width: 100%">
+    <ion-searchbar
+      style="--border-radius: 25px"
+      placeholder="Search by subject name/code"
+      (keyup)="onsearch($event)"
+      (ionClear)="clearsearch()"
+    ></ion-searchbar>
+
+    <!-- <ion-item style="width: 100%">
       <ion-label position="floating">Subject Name / Code</ion-label>
       <ion-input [(ngModel)]="searchString"></ion-input>
     </ion-item>
-    <ion-button expand="block" (click)="searchSubject()">Search</ion-button>
+    <ion-button expand="block" (click)="searchSubject()">Search</ion-button> -->
   </div>
 
   <div class="search-result-container">

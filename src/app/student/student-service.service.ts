@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { DataServiceService } from "../core/service/data-service.service";
 import { TimetableData } from "../shared/components/timetable-subjects/timetable-subjects.component";
 import { Student } from "../shared/models/Student";
+import * as _ from "lodash";
 
 @Injectable({
   providedIn: "root",
@@ -64,14 +65,20 @@ export class StudentServiceService {
 
     //fliter logic
     let offset = 0;
-    let studentList: Array<Student> = [];
+    let studentList: Array<any> = [];
     let filteredStudentList: Array<Student> = [];
-    console.log(searchString, kod_kursus);
+
     do {
-      studentList = await this.ds.getStudentList(kod_kursus, 100, offset);
+      let promises = [
+        this.ds.getStudentList(kod_kursus, 100, offset),
+        this.ds.getStudentList(kod_kursus, 100, offset + 100),
+        this.ds.getStudentList(kod_kursus, 100, offset + 200),
+      ];
+      studentList = await Promise.all(promises);
+
       filteredStudentList = [
         ...filteredStudentList,
-        ...studentList.filter((student) => {
+        ..._.flatMap(studentList).filter((student) => {
           if (student.nama && student.no_matrik)
             return (
               student.nama
@@ -87,8 +94,8 @@ export class StudentServiceService {
         }),
       ];
 
-      offset += 100;
-    } while (studentList.length > 1);
+      offset += 300;
+    } while (studentList[2].length > 1);
 
     return filteredStudentList;
   }

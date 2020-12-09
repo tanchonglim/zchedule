@@ -1,0 +1,17 @@
+<div class="modal-wrapper">
+  <ion-content>
+    <app-modal-header
+      [(selectedTab)]="selectedTab"
+      [properties]="headerModalProps"
+    ></app-modal-header>
+
+    <div *ngIf="selectedTab == 0" class="content">
+      <app-lecturer-timetable
+        [id]="lecturer.no_pekerja"
+      ></app-lecturer-timetable>
+    </div>
+    <div *ngIf="selectedTab == 1" class="content">
+      <app-teaching-subject [id]="lecturer.no_pekerja"></app-teaching-subject>
+    </div>
+  </ion-content>
+</div>

@@ -29,7 +29,9 @@
             width: 70%;
           "
         >
-          Section {{ section.seksyen }} <br />
+          Section
+          {{ section.seksyen < 10 ? "0" + section.seksyen : section.seksyen }}
+          <br />
           <span style="font-size: 0.7rem; font-weight: normal"
             >Lecturer: {{ section.pensyarah || "-" }}<br />
             students: {{ section.bil_pelajar }}
@@ -46,7 +48,7 @@
             position: relative;
           "
           class="ion-activatable ripple-parent"
-          (click)="openSubjectDetailModal(section.seksyen)"
+          (click)="openSubjectDetailModal(section)"
         >
           Vew Details
           <ion-ripple-effect></ion-ripple-effect>

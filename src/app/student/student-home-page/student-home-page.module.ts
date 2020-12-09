@@ -10,6 +10,7 @@ import { StudentHomePagePage } from "./student-home-page.page";
 import { RegisteredSubjectsComponent } from "../components/registered-subjects/registered-subjects.component";
 import { SharedModule } from "src/app/shared/shared.module";
 import { StudentTimetableComponent } from "../components/student-timetable/student-timetable.component";
+import { StudentDetailComponent } from "../components/student-detail/student-detail.component";
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { StudentTimetableComponent } from "../components/student-timetable/stude
     StudentHomePagePage,
     RegisteredSubjectsComponent,
     StudentTimetableComponent,
+    StudentDetailComponent,
   ],
 })
 export class StudentHomePagePageModule {}

@@ -56,19 +56,28 @@
               <p>Course: {{student.kod_kursus}}</p>
               <p>Year: {{student.tahun_kursus}}</p>
             </div>
-            <div style="display: flex; flex-direction: row; width: 100%">
-              <ion-button
-                class="btn-style"
-                (click)="openSubjectModal(student.no_matrik, $event)"
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: center;
+              "
+            >
+              <span
+                (click)="openStudentDetail(student, $event)"
+                class="ion-activatable ripple-parent"
+                style="
+                  color: var(--ion-color-primary);
+                  overflow: hidden;
+                  position: relative;
+                  text-align: center;
+                  padding: 0.3rem 1rem;
+                "
               >
-                Subject
-              </ion-button>
-              <ion-button
-                class="btn-style"
-                (click)="openTimetableModal(student.no_matrik, $event)"
-              >
-                Timetable
-              </ion-button>
+                View Detail
+                <ion-ripple-effect></ion-ripple-effect>
+              </span>
             </div>
           </div>
         </ion-label>

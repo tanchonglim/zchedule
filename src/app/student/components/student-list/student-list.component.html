@@ -1,0 +1,51 @@
+<div class="search-card">
+  <ion-item style="width: 100%">
+    <ion-label>Course</ion-label>
+    <ion-select
+      placeholder="Select Course"
+      value="SCSJ"
+      (ionChange)="changeCourse($event)"
+    >
+      <ion-select-option [value]="coure" *ngFor="let coure of courses">{{
+        coure
+      }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-searchbar
+    *ngIf="studentList"
+    style="--border-radius: 25px"
+    placeholder="Search by student name/ID"
+    (keyup)="onsearch($event)"
+    (ionClear)="clearsearch()"
+  ></ion-searchbar>
+</div>
+
+<div class="search-result-container" *ngIf="studentList">
+  <ion-list *ngIf="filteredStudentList && filteredStudentList.length">
+    <ion-virtual-scroll [items]="filteredStudentList" approxItemHeight="110px">
+      <ion-item
+        (click)="openStudentDetail(student)"
+        *virtualItem="let student; index as i"
+        class="search-result-item"
+      >
+        <ion-label styl>
+          <div style="display: flex; justify-content: space-between">
+            <div style="width: 90%; white-space: pre-wrap">
+              <h2 class="main-color">{{ student.nama }}</h2>
+              <sub style="color: grey; font-style: italic">{{
+                student.no_matrik
+              }}</sub>
+            </div>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ion-list>
+
+  <div *ngIf="!filteredStudentList || !filteredStudentList.length">
+    <app-no-result></app-no-result>
+  </div>
+</div>
+<div *ngIf="!studentList">loading..</div>

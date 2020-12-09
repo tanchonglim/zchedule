@@ -18,8 +18,8 @@ export class StudentDetailComponent implements OnInit {
   ngOnInit() {
     this.headerModalProps = {
       title: this.student.nama,
-      subtitle: this.student.no_matrik.toString(),
-      tabs: ["Info", "Schedules"],
+      subtitle: null,
+      tabs: ["Info", "Timetable"],
     };
     console.log(this.student);
   }

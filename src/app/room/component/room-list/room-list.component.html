@@ -1,0 +1,45 @@
+<div *ngIf="roomList">
+  <div class="search-card">
+    <ion-searchbar
+      style="--border-radius: 25px"
+      placeholder="Search by room name/ID"
+      (keyup)="onsearch($event)"
+      (ionClear)="clearsearch()"
+    ></ion-searchbar>
+  </div>
+
+  <div class="search-result-container">
+    <ion-list *ngIf="filteredRoomList && filteredRoomList.length">
+      <ion-virtual-scroll [items]="filteredRoomList" approxItemHeight="200px">
+        <ion-item
+          *virtualItem="let room"
+          (click)="openRoomDetail(room)"
+          class="search-result-item"
+        >
+          <ion-label>
+            <div style="display: flex; justify-content: space-between">
+              <div style="width: 90%; white-space: pre-wrap">
+                <h2 class="main-color">{{ room.nama_ruang }}</h2>
+                <sub style="color: grey; font-style: italic">{{
+                  room.kod_ruang
+                }}</sub>
+              </div>
+              <ion-icon
+                name="chevron-forward-outline"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                "
+              ></ion-icon>
+            </div>
+          </ion-label>
+        </ion-item>
+      </ion-virtual-scroll>
+    </ion-list>
+    <div *ngIf="!filteredRoomList || !filteredRoomList.length">
+      <app-no-result></app-no-result>
+    </div>
+  </div>
+</div>
+<div *ngIf="!roomList">loading..</div>

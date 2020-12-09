@@ -8,6 +8,8 @@ import { RoomHomePageRoutingModule } from "./room-home-routing.module";
 
 import { RoomHomePage } from "./room-home.page";
 import { SharedModule } from "src/app/shared/shared.module";
+import { RoomListComponent } from "../component/room-list/room-list.component";
+import { RoomDetailComponent } from "../component/room-detail/room-detail.component";
 
 @NgModule({
   imports: [
@@ -17,6 +19,6 @@ import { SharedModule } from "src/app/shared/shared.module";
     RoomHomePageRoutingModule,
     SharedModule,
   ],
-  declarations: [RoomHomePage],
+  declarations: [RoomHomePage, RoomListComponent, RoomDetailComponent],
 })
 export class RoomHomePageModule {}

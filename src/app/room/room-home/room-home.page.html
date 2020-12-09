@@ -5,67 +5,7 @@
 
 <ion-content [scrollEvents]="true" (ionScroll)="scroll($event)">
   <div *ngIf="selectedTab==0">
-    <div class="search-card">
-      <ion-searchbar
-        style="--border-radius: 25px"
-        placeholder="Search by room name/ID"
-        (keyup)="onsearch($event)"
-        (ionClear)="clearsearch()"
-      ></ion-searchbar>
-    </div>
-
-    <div class="search-result-container">
-      <ion-list *ngIf="filteredRoomList">
-        <ion-virtual-scroll [items]="filteredRoomList" approxItemHeight="200px">
-          <ion-item
-            *virtualItem="let room  "
-            (click)="openRoomDetail(room)"
-            class="search-result-item"
-          >
-            <ion-label>
-              <div style="display: flex; justify-content: space-between">
-                <div style="width: 90%; white-space: pre-wrap">
-                  <h2 class="main-color">{{room.nama_ruang}}</h2>
-                  <sub style="color: grey; font-style: italic"
-                    >{{room.kod_ruang}}</sub
-                  >
-                </div>
-                <ion-icon
-                  name="chevron-forward-outline"
-                  style="
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                  "
-                ></ion-icon>
-              </div>
-              <!-- <div [@collapse]="collapse[i]">
-                <div style="width: 100%">
-                  <br />
-                  <ion-grid>
-                    <ion-row>
-                      <ion-col>Type</ion-col>
-                      <ion-col>: {{room.jenis}}</ion-col>
-                    </ion-row>
-                    <ion-row>
-                      <ion-col>Capacity</ion-col>
-                      <ion-col>: {{room.kapasiti}}</ion-col>
-                    </ion-row>
-                    <ion-row>
-                      <ion-col>Faculty</ion-col>
-                      <ion-col>: {{room.kod_fakulti}}</ion-col>
-                    </ion-row>
-                  </ion-grid>
-                </div>
-                <div style="display: flex; flex-direction: row; width: 100%">
-                  <ion-button class="btn-style"> Timetable </ion-button>
-                </div>
-              </div> -->
-            </ion-label>
-          </ion-item>
-        </ion-virtual-scroll>
-      </ion-list>
-    </div>
+    <app-room-list></app-room-list>
   </div>
   <div *ngIf="selectedTab==1">
     <!-- new componenet -->

@@ -11,6 +11,7 @@ import { RegisteredSubjectsComponent } from "../components/registered-subjects/r
 import { SharedModule } from "src/app/shared/shared.module";
 import { StudentTimetableComponent } from "../components/student-timetable/student-timetable.component";
 import { StudentDetailComponent } from "../components/student-detail/student-detail.component";
+import { StudentListComponent } from "../components/student-list/student-list.component";
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { StudentDetailComponent } from "../components/student-detail/student-det
     RegisteredSubjectsComponent,
     StudentTimetableComponent,
     StudentDetailComponent,
+    StudentListComponent,
   ],
 })
 export class StudentHomePagePageModule {}

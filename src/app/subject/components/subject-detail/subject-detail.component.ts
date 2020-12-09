@@ -39,7 +39,7 @@ export class SubjectDetailComponent implements OnInit {
           : this.sectionInfo.seksyen
       }`,
       subtitle: `${this.sectionInfo.pensyarah || " "}`,
-      tabs: ["Schedule", "Students"],
+      tabs: ["Timetable", "Students"],
     };
   }
 

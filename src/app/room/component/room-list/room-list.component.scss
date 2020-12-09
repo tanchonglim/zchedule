@@ -1,0 +1,25 @@
+.search-card {
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.search-result-container {
+  padding-bottom: 4rem;
+}
+
+.btn-style {
+  width: 100%;
+}
+
+.main-color {
+  // color: var(--ion-color-primary);
+}
+
+ion-col {
+  padding: 0px;
+}

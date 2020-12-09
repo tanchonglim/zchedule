@@ -34,8 +34,12 @@
               >
             </div>
             <ion-icon
-              [@rotatedState]="collapse[i]"
               name="chevron-forward-outline"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+              "
             ></ion-icon>
           </div>
           <!-- <div [@collapse]="collapse[i]">

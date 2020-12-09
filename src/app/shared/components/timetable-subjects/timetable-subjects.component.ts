@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ModalController, PopoverController } from "@ionic/angular";
 import { random } from "lodash";
 import { TimetableDetailComponent } from "./timetable-detail/timetable-detail.component";
-import { TooltipsModule } from "ionic-tooltips";
 
 export interface TimetableData {
   slots: Array<{

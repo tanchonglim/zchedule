@@ -209,4 +209,14 @@ export class FsksmServiceService {
 
     return result;
   }
+
+  async fetchRooms() {
+    let params = new HttpParams().set("entity", "ruang");
+
+    let result: any = await this.http
+      .get(this.apiEndpoint, { params: params })
+      .toPromise();
+
+    return result;
+  }
 }

@@ -3,7 +3,6 @@ import { ModalHeaderProps } from "src/app/shared/components/modal-header/modal-h
 import { Lecturer } from "./../../../shared/models/Lecturer";
 import { TimetableData } from "./../../../shared/components/timetable-subjects/timetable-subjects.component";
 import { LecturerServiceService } from "../../lecturer-service.service";
-import { LecturerSubject } from "./../../../shared/models/LecturerSubject";
 import { RegisteredSubjectListData } from "./../../../shared/components/list-subject/list-subject.component";
 
 @Component({
@@ -15,6 +14,7 @@ export class LecturerDetailComponent implements OnInit {
   @Input() lecturer: Lecturer;
   timetableData: TimetableData;
   registeredSubjectListData: Array<RegisteredSubjectListData>;
+
   headerModalProps: ModalHeaderProps;
   selectedTab: number = 0;
 

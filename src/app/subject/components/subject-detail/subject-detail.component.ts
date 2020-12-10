@@ -27,11 +27,7 @@ export class SubjectDetailComponent implements OnInit {
 
   constructor(private ss: SubjectServiceService) {}
 
-  async ngOnInit() {
-    console.log(this.subjectCode, this.sectionInfo);
-    this.getTimetableData();
-    this.getSubjectStudents();
-
+  ngOnInit() {
     this.headerModalProps = {
       title: `${this.subjectName} - ${
         this.sectionInfo.seksyen < 10
@@ -41,6 +37,9 @@ export class SubjectDetailComponent implements OnInit {
       subtitle: `${this.sectionInfo.pensyarah || " "}`,
       tabs: ["Timetable", "Students"],
     };
+
+    this.getTimetableData();
+    this.getSubjectStudents();
   }
 
   async getTimetableData() {

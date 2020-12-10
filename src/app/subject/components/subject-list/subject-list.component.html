@@ -46,6 +46,4 @@
   </div>
 </div>
 
-<div *ngIf="!subjectList">
-  <app-loading></app-loading>
-</div>
+<app-loading *ngIf="!subjectList"></app-loading>

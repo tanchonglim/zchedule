@@ -21,9 +21,13 @@ export class SubjectListComponent implements OnInit {
 
   async ngOnInit() {
     setTimeout(async () => {
-      this.subjectList = await this.ss.getSubjects();
-      this.filteredSubjectList = this.subjectList;
+      this.getSubject();
     }, 100);
+  }
+
+  async getSubject() {
+    this.subjectList = await this.ss.getSubjects();
+    this.filteredSubjectList = this.subjectList;
   }
 
   async onsearch(event) {

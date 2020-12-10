@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { IonContent, ModalController } from "@ionic/angular";
+import { ModalController } from "@ionic/angular";
 import { GlobalEventService } from "src/app/core/service/global-event.service";
 import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
 
@@ -10,18 +10,14 @@ import { PageHeaderProps } from "src/app/shared/components/page-header/page-head
   styleUrls: ["./student-home-page.page.scss"],
 })
 export class StudentHomePagePage implements OnInit {
-  // @ViewChild(IonContent) content: IonContent;
-
   pageHeaderProps: PageHeaderProps = {
     title: "Student",
     tabs: [],
   };
 
-  constructor(public modal: ModalController, private ge: GlobalEventService) {}
+  constructor(private ge: GlobalEventService) {}
 
   ngOnInit() {}
-
-  async ionViewDidEnter() {}
 
   scroll(event: CustomEvent) {
     if (event.detail.velocityY > 0.2) {
@@ -30,8 +26,4 @@ export class StudentHomePagePage implements OnInit {
       this.ge.scrollEvent.emit(true);
     }
   }
-
-  // scrollToTop() {
-  //   this.content.scrollToTop(400);
-  // }
 }

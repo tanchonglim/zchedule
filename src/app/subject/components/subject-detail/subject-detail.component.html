@@ -14,14 +14,7 @@
     <app-loading *ngIf="!timetableData"></app-loading>
     <div *ngIf="selectedTab == 1" class="content">
       <div *ngIf="filteredsubjectStudents">
-        <div
-          style="
-            padding: 0.4rem;
-            width: 80%;
-            align-self: center;
-            margin-bottom: 0.5rem;
-          "
-        >
+        <div style="padding: 0.4rem; align-self: center; margin-bottom: 0.5rem">
           <ion-searchbar
             style="--border-radius: 25px"
             (keyup)="onsearch($event)"

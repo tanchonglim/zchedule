@@ -12,18 +12,18 @@ import { SubjectDetailComponent } from "../subject-detail/subject-detail.compone
 export class SubjectInfoComponent implements OnInit {
   @Input() subjectCode: string;
   subjectSections: SubjectSection;
+
   constructor(
     private ss: SubjectServiceService,
     public modalController: ModalController
   ) {}
 
   async ngOnInit() {
-    this.subjectSections = await this.ss.getSubjectSections(this.subjectCode);
-    console.log(this.subjectSections);
+    this.getSubjectSections();
   }
 
-  get isDataLoaded() {
-    return this.subjectSections;
+  async getSubjectSections() {
+    this.subjectSections = await this.ss.getSubjectSections(this.subjectCode);
   }
 
   async openSubjectDetailModal(sectionInfo) {

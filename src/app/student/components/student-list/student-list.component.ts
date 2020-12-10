@@ -12,8 +12,9 @@ import { StudentDetailComponent } from "../student-detail/student-detail.compone
 export class StudentListComponent implements OnInit {
   filteredStudentList: Array<Student>;
   studentList: Array<Student>;
-  searchString: string;
 
+  searchString: string;
+  initialCourse = "SCSJ";
   courses = [
     "SBEA",
     "SBEC",
@@ -78,8 +79,12 @@ export class StudentListComponent implements OnInit {
     private ss: StudentServiceService
   ) {}
 
-  async ngOnInit() {
-    this.studentList = await this.ss.getStudentList("SCSJ");
+  ngOnInit() {
+    this.getStudentList(this.initialCourse);
+  }
+
+  async getStudentList(course) {
+    this.studentList = await this.ss.getStudentList(course);
     this.filteredStudentList = this.studentList;
   }
 
@@ -95,11 +100,9 @@ export class StudentListComponent implements OnInit {
 
   async changeCourse(event) {
     this.searchString = null;
-    let course = event.target.value;
     this.studentList = null;
-    this.studentList = await this.ss.getStudentList(course);
-    this.filteredStudentList = this.studentList;
-    // this.collapse = this.filteredStudentList.map(() => false);
+    let course = event.target.value;
+    this.getStudentList(course);
   }
 
   onsearch(event) {
@@ -119,11 +122,9 @@ export class StudentListComponent implements OnInit {
         );
       else return false;
     });
-    // this.collapse = this.filteredStudentList.map(() => false);
   }
 
   clearsearch() {
     this.filteredStudentList = this.studentList;
-    // this.collapse = this.filteredStudentList.map(() => false);
   }
 }

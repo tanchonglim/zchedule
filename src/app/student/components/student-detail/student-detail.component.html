@@ -21,18 +21,16 @@
         *ngIf="registeredSubjectListData"
         [registeredSubjectListData]="registeredSubjectListData"
       ></app-list-subject>
-      <div *ngIf="!registeredSubjectListData">
-        <app-loading></app-loading>
-      </div>
+
+      <app-loading *ngIf="!registeredSubjectListData"></app-loading>
     </div>
     <div *ngIf="selectedTab == 1" class="content">
       <app-timetable-subjects
         *ngIf="timetableData"
         [timetableData]="timetableData"
       ></app-timetable-subjects>
-      <div *ngIf="!timetableData">
-        <app-loading></app-loading>
-      </div>
+
+      <app-loading *ngIf="!timetableData"></app-loading>
     </div>
   </ion-content>
 </div>

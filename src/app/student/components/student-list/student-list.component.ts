@@ -12,6 +12,7 @@ import { StudentDetailComponent } from "../student-detail/student-detail.compone
 export class StudentListComponent implements OnInit {
   filteredStudentList: Array<Student>;
   studentList: Array<Student>;
+  searchString: string;
 
   courses = [
     "SBEA",
@@ -93,6 +94,7 @@ export class StudentListComponent implements OnInit {
   }
 
   async changeCourse(event) {
+    this.searchString = null;
     let course = event.target.value;
     this.studentList = null;
     this.studentList = await this.ss.getStudentList(course);
@@ -101,6 +103,7 @@ export class StudentListComponent implements OnInit {
   }
 
   onsearch(event) {
+    if (!this.studentList || !this.studentList.length) return;
     let searchString = event.target.value;
     this.filteredStudentList = this.studentList.filter((student) => {
       if (student.nama && student.no_matrik)

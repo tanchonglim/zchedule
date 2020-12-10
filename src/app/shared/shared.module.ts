@@ -11,6 +11,7 @@ import { TimetableDetailComponent } from "./components/timetable-subjects/timeta
 import { NoResultComponent } from "./components/no-result/no-result.component";
 import { PageHeaderComponent } from "./components/page-header/page-header.component";
 import { ListSubjectComponent } from "./components/list-subject/list-subject.component";
+import { LoadingComponent } from "./components/loading/loading.component";
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { ListSubjectComponent } from "./components/list-subject/list-subject.com
     TimetableDetailComponent,
     NoResultComponent,
     PageHeaderComponent,
+    LoadingComponent,
   ],
   exports: [
     TimetableSubjectsComponent,
@@ -36,6 +38,7 @@ import { ListSubjectComponent } from "./components/list-subject/list-subject.com
     FooterComponent,
     NoResultComponent,
     PageHeaderComponent,
+    LoadingComponent,
   ],
 })
 export class SharedModule {}

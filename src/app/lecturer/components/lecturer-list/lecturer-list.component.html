@@ -1,4 +1,4 @@
-<div class="search-card" *ngIf="lecturerList">
+<div class="search-card">
   <ion-searchbar
     style="--border-radius: 25px"
     placeholder="Search by lecturer name/ID"
@@ -71,4 +71,6 @@
     *ngIf="!filteredLecturerList || !filteredLecturerList.length"
   ></app-no-result>
 </div>
-<div *ngIf="!lecturerList">loading..</div>
+<div *ngIf="!lecturerList">
+  <app-loading></app-loading>
+</div>

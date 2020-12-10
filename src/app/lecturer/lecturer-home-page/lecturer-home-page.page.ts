@@ -1,9 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
-import { LecturerServiceService } from "./../lecturer-service.service";
-
 import { GlobalEventService } from "src/app/core/service/global-event.service";
-import { Router } from "@angular/router";
 import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
 
 @Component({
@@ -19,11 +15,7 @@ export class LecturerHomePagePage implements OnInit {
   };
   selectedTab: number = 0;
 
-  constructor(
-    public modal: ModalController,
-    private ge: GlobalEventService,
-    public router: Router
-  ) {}
+  constructor(private ge: GlobalEventService) {}
 
   ngOnInit() {}
 

@@ -56,7 +56,17 @@ export class StudentServiceService {
   }
 
   async getStudentSubjects(id: string) {
-    return this.ds.getStudentSubjects(id);
+    let studentSubjects = await this.ds.getStudentSubjects(id);
+
+    return studentSubjects.map((subject) => {
+      return {
+        nama_subjek: subject.nama_subjek,
+        kod_subjek: subject.kod_subjek,
+        semester: subject.semester,
+        sesi: subject.sesi,
+        seksyen: subject.seksyen,
+      };
+    });
   }
 
   async getStudentList(kod_kursus: string) {

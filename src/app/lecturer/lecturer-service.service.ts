@@ -13,6 +13,10 @@ export class LecturerServiceService {
     return this.ds.getCurrentSesiSem();
   }
 
+  async getLecturerList() {
+    return this.ds.getLecturerList();
+  }
+
   async getTimetable(id: string): Promise<TimetableData> {
     let timetableData: TimetableData = {
       slots: [],
@@ -48,11 +52,17 @@ export class LecturerServiceService {
     return timetableData;
   }
 
-  async getLecturerSubject(id: string) {
-    return this.ds.getLecturerSubjects(id);
-  }
-
-  async getLecturerList() {
-    return this.ds.getLecturerList();
+  async getLecturerSubjectData(id: string) {
+    let lecturerSubject = await this.ds.getLecturerSubjects(id);
+    return lecturerSubject.map((subject) => {
+      return {
+        nama_subjek: subject.nama_subjek,
+        kod_subjek: subject.kod_subjek,
+        semester: subject.semester,
+        sesi: subject.sesi,
+        bil_pelajar: subject.bil_pelajar,
+        seksyen: subject.seksyen,
+      };
+    });
   }
 }

@@ -71,9 +71,4 @@ export class SubjectDetailComponent implements OnInit {
   clearsearch() {
     this.filteredsubjectStudents = this.subjectStudents;
   }
-
-  get isDataLoaded() {
-    // return this.subjectSections;
-    return this.timetableData && this.subjectStudents;
-  }
 }

@@ -5,46 +5,51 @@
       [properties]="headerModalProps"
     ></app-modal-header>
 
-    <div *ngIf="selectedTab == 0 && isDataLoaded" class="content">
+    <div *ngIf="selectedTab == 0" class="content">
       <app-timetable-subjects
+        *ngIf="timetableData"
         [timetableData]="timetableData"
       ></app-timetable-subjects>
     </div>
-    <div *ngIf="selectedTab == 1 && isDataLoaded" class="content">
-      <div
-        style="
-          padding: 0.4rem;
-          width: 80%;
-          align-self: center;
-          margin-bottom: 0.5rem;
-        "
-      >
-        <ion-searchbar
-          style="--border-radius: 25px"
-          (keyup)="onsearch($event)"
-          (ionClear)="clearsearch()"
-        ></ion-searchbar>
-      </div>
-
-      <div class="line"></div>
-      <div *ngFor="let student of filteredsubjectStudents">
+    <app-loading *ngIf="!timetableData"></app-loading>
+    <div *ngIf="selectedTab == 1" class="content">
+      <div *ngIf="filteredsubjectStudents">
         <div
           style="
-            padding: 0.5rem 0;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
+            padding: 0.4rem;
+            width: 80%;
+            align-self: center;
+            margin-bottom: 0.5rem;
           "
         >
-          <div style="width: 80%">{{ student.nama }}</div>
-          <div style="font-size: 0.8rem; color: grey">
-            {{ student.tahun_kursus }}{{ student.kod_kursus }}
-          </div>
+          <ion-searchbar
+            style="--border-radius: 25px"
+            (keyup)="onsearch($event)"
+            (ionClear)="clearsearch()"
+          ></ion-searchbar>
         </div>
+
         <div class="line"></div>
+        <div *ngFor="let student of filteredsubjectStudents">
+          <div
+            style="
+              padding: 0.5rem 0;
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <div style="width: 80%">{{ student.nama }}</div>
+            <div style="font-size: 0.8rem; color: grey">
+              {{ student.tahun_kursus }}{{ student.kod_kursus }}
+            </div>
+          </div>
+          <div class="line"></div>
+        </div>
       </div>
+      <app-loading *ngIf="!filteredsubjectStudents"></app-loading>
     </div>
   </ion-content>
 </div>

@@ -17,13 +17,12 @@
     </div>
   </ion-header>
   <div class="home-content" *ngIf="selectedTab==0">
-   
-      <app-timetable-subjects
-        [timetableData]="timetableData"
-        *ngIf="timetableData"
-      >
-      </app-timetable-subjects>
- 
+    <app-timetable-subjects
+      [timetableData]="timetableData"
+      *ngIf="timetableData"
+    >
+    </app-timetable-subjects>
+    <app-loading *ngIf="!timetableData"></app-loading>
   </div>
   <div class="home-content" *ngIf="selectedTab==1">
     <app-list-subject
@@ -31,5 +30,6 @@
       *ngIf="registeredSubjectListData"
     >
     </app-list-subject>
+    <app-loading *ngIf="!registeredSubjectListData"></app-loading>
   </div>
 </ion-content>

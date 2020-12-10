@@ -48,7 +48,15 @@ export class RoomAvailabilityComponent implements OnInit {
   collapse: Array<Boolean> = [];
 
   flag: boolean = true;
-  timeslot: Array<number> = [];
+  timeslot: Array<{
+    time: number;
+    value: string;
+  }> = [];
+
+  tempTimeslot: Array<{
+    time: number;
+    value: string;
+  }> = [];
 
   public time = [
     { val: "07:00 AM - 07:50 AM", isChecked: true },
@@ -109,19 +117,26 @@ export class RoomAvailabilityComponent implements OnInit {
 
   radioGroupChangeDay(event) {
     console.log(event.detail);
-    this.selectedRadioDay = event.detail;
+    this.selectedRadioDay = event.detail.value;
   }
 
-  // radioGroupChangeTimeslot(event) {
-  //   console.log(event.slot);
-  //   this.selectedRadioTimeslot.push = event.slot;
-  // }
+  radioGroupChangeTimeslot(event) {
+    this.tempTimeslot = [];
+    this.time.forEach((t, index) => {
+      if (t.isChecked) {
+        this.tempTimeslot.push({
+          time: index + 1,
+          value: this.time[index].val,
+        });
+      }
+    });
+  }
 
   async getFilteredRoom() {
     console.log(this.selectedRadioDay);
     this.time.forEach((t, index) => {
       if (t.isChecked) {
-        this.timeslot.push(index + 1);
+        this.timeslot.push({ time: index + 1, value: this.time[index].val });
       }
     });
     console.log(this.timeslot);

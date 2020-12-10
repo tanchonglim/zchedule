@@ -2,7 +2,7 @@
   <div class="search-card">
     <ion-searchbar
       style="--border-radius: 25px"
-      placeholder="Search by room name/ID"
+      placeholder="Search by room name/code"
       (keyup)="onsearch($event)"
       (ionClear)="clearsearch()"
     ></ion-searchbar>
@@ -19,10 +19,12 @@
           <ion-label>
             <div style="display: flex; justify-content: space-between">
               <div style="width: 90%; white-space: pre-wrap">
-                <h2 class="main-color">{{ room.nama_ruang }}</h2>
-                <sub style="color: grey; font-style: italic">{{
-                  room.kod_ruang
-                }}</sub>
+                <h2 class="main-color">
+                  {{ room.nama_ruang }} [{{ room.nama_ruang_singkatan }}]
+                </h2>
+                <sub style="color: grey; font-style: italic">
+                  {{ room.kod_ruang }}
+                </sub>
               </div>
               <ion-icon
                 name="chevron-forward-outline"

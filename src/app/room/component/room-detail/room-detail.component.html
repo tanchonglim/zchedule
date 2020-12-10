@@ -8,8 +8,12 @@
       <h2 class="title">Room Information</h2>
       <ion-card>
         <ion-card-content>
-          <p><b> Room Name:</b> {{ room.nama_ruang }}</p>
-          <p><b> Room Code:</b> {{ room.nama_ruang_singkatan }}</p>
+          <p>
+            <b> Room Name:</b> {{ room.nama_ruang }} ({{
+              room.nama_ruang_singkatan
+            }})
+          </p>
+          <p><b> Room Code:</b> {{ room.kod_ruang }}</p>
           <p><b> Capacity:</b> {{ room.kapasiti }}</p>
           <p><b> Type:</b> {{ room.jenis }}</p>
           <p><b> Faculty:</b> {{ room.kod_fakulti }}</p>

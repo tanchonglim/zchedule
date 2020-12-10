@@ -3,8 +3,7 @@ import { DataServiceService } from "../core/service/data-service.service";
 import { Room } from "./../shared/models/Room";
 import { ScheduleRoom } from "./../shared/models/ScheduleRoom";
 import { TimetableData } from "src/app/shared/components/timetable-subjects/timetable-subjects.component";
-import { orderBy } from "lodash";
-import { isEqual } from "lodash";
+import { flatten, groupBy, isEqual, orderBy, values } from "lodash";
 
 @Injectable({
   providedIn: "root",
@@ -38,18 +37,32 @@ export class RoomServiceService {
 
     let timetableData: TimetableData = { slots: [] };
 
-    let type = 1;
-    schedules.forEach((schedule, index) => {
-      if (index !== 0 && !isEqual(schedule.subjek, schedules[index - 1].subjek))
-        type++;
-      console.log(schedule);
+    let schedulesGroup: Array<Array<ScheduleRoom>>;
+
+    schedulesGroup = flatten(
+      values(groupBy(schedules, "hari")).map((s) => values(groupBy(s, "masa")))
+    );
+    console.log(schedulesGroup);
+    schedulesGroup.forEach((schedule, index) => {
+      let data = "";
+      schedule.forEach((s) => {
+        data += `${s.subjek.kod_subjek}\n`;
+      });
+
+      let detail = "";
+      schedule.forEach((s) => {
+        detail += `Subject: ${s.subjek.kod_subjek}- ${
+          s.subjek.seksyen < 10 ? "0" + s.subjek.seksyen : s.subjek.seksyen
+        }\n`;
+      });
+
       timetableData.slots.push({
-        day: schedule.hari,
-        timeSlot: schedule.masa,
+        day: schedule[0].hari,
+        timeSlot: schedule[0].masa,
         data: {
-          data: schedule.subjek.kod_subjek,
-          detail: "",
-          type: type,
+          data: data,
+          detail: detail,
+          type: index + 1,
         },
       });
     });

@@ -31,11 +31,15 @@ export class RoomListComponent implements OnInit {
     let searchString = event.target.value;
     this.filteredRoomList = this.roomList.filter((room) => {
       return (
-        room.kod_ruang
+        room.nama_ruang_singkatan
           .toLowerCase()
           .trim()
           .includes(searchString.trim().toLowerCase()) ||
-        room.nama_ruang_singkatan
+        room.nama_ruang
+          .toLowerCase()
+          .trim()
+          .includes(searchString.trim().toLowerCase()) ||
+        room.kod_ruang
           .toLowerCase()
           .trim()
           .includes(searchString.trim().toLowerCase())

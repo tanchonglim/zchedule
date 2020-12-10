@@ -21,7 +21,7 @@ export class RoomServiceService {
   //   return await this.ds.getRoomList();
   // }
 
-  async getRoomSchedule(kod_ruang: string) {
+  async getRoomSchedule(kod_ruang: string): Promise<Array<ScheduleRoom>> {
     return await this.ds.getRoomSchedules(kod_ruang);
   }
 }

@@ -20,6 +20,11 @@ import { RoomAvailabilityComponent } from "./../component/room-availability/room
     RoomHomePageRoutingModule,
     SharedModule,
   ],
-  declarations: [RoomHomePage, RoomListComponent, RoomDetailComponent],
+  declarations: [
+    RoomHomePage,
+    RoomListComponent,
+    RoomDetailComponent,
+    RoomAvailabilityComponent,
+  ],
 })
 export class RoomHomePageModule {}

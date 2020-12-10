@@ -38,7 +38,10 @@ import { ScheduleRoom } from "./../../../shared/models/ScheduleRoom";
   styleUrls: ["./room-availability.component.scss"],
 })
 export class RoomAvailabilityComponent implements OnInit {
-  selectedDate: CalendarResult;
+  dateRange: {
+    from: CalendarResult;
+    to: CalendarResult;
+  };
   selectedRadioDay: any;
   selectedRadioTimeslot: Array<number> = [];
   collapse1: boolean = false;
@@ -87,6 +90,7 @@ export class RoomAvailabilityComponent implements OnInit {
   async openCalendar() {
     const options: CalendarModalOptions = {
       title: "",
+      pickMode: "range",
       to: new Date((await this.rs.getCurrentSesiSem()).tarikh_tamat),
     };
 
@@ -98,9 +102,9 @@ export class RoomAvailabilityComponent implements OnInit {
     myCalendar.present();
 
     const event: any = await myCalendar.onDidDismiss();
-    const date: CalendarResult = event.data;
-    console.log(date);
-    this.selectedDate = date;
+    if (event.data) {
+      this.dateRange = event.data;
+    }
   }
 
   expandCard1() {
@@ -132,7 +136,11 @@ export class RoomAvailabilityComponent implements OnInit {
     });
   }
 
-  async getFilteredRoom() {
+  async getFilteredRoomViaDay() {
+    // if (this.selectedRadioDay.value == "" && this.tempTimeslot.length > 0) {
+    //   alert("Please input something!");
+    //   return;
+    // }
     console.log(this.selectedRadioDay);
     this.time.forEach((t, index) => {
       if (t.isChecked) {
@@ -145,19 +153,74 @@ export class RoomAvailabilityComponent implements OnInit {
 
     if (this.flag == true) {
       roomList.forEach(async (room) => {
-        let schedule: any = await this.rs.getRoomSchedule(room.kod_ruang);
-        let availableAnytime = schedule.filter((res) => res.id_jws);
+        let schedules: Array<ScheduleRoom> = await this.rs.getRoomSchedule(
+          room.kod_ruang
+        );
 
-        if (availableAnytime.length == 0) this.availableRoomList.push(room);
-
-        if (
-          schedule.hari != this.selectedRadioDay &&
-          schedule.masa != this.selectedRadioTimeslot
-        )
+        if (!schedules.length) {
           this.availableRoomList.push(room);
+          console.log("push empty", room);
+        } else {
+          let isClash = schedules.find((schedule) => {
+            //find equal both
+            if (
+              schedule.hari == this.selectedRadioDay &&
+              this.timeslot.find((ts) => ts.time == schedule.masa)
+            )
+              return true;
+          });
+
+          if (!isClash) {
+            //push
+            this.availableRoomList.push(room);
+          }
+        }
       });
       console.log(this.availableRoomList);
       this.flag = false;
+    }
+  }
+
+  async getFilteredRoomViaDate() {
+    // if (this.selectedDate.time == 0) {
+    //   alert("Please input something!");
+    //   return;
+    // }
+    let dateStringFrom = new Date(this.dateRange.from.string);
+    let dateStringTo = new Date(this.dateRange.to.string);
+
+    // dateStringFrom = this.dateRange.from.string;
+    // dateStringTo = this.dateRange.to.string;
+
+    // dateStringFrom.setHours(0, 0, 0, 0);
+    // dateStringTo.setHours(0, 0, 0, 0);
+
+    this.time.forEach((t, index) => {
+      if (t.isChecked) {
+        this.timeslot.push({ time: index + 1, value: this.time[index].val });
+      }
+    });
+    console.log(this.timeslot);
+    console.log(dateStringFrom);
+    console.log(dateStringTo);
+
+    let roomList = await this.rs.getRoomList();
+
+    if (this.flag == true) {
+      roomList.forEach(async (room) => {
+        let schedule: any = await this.rs.getRoomSchedule(room.kod_ruang);
+        let availableAnytime = schedule.filter((res) => res.id_jws);
+        // console.log(schedule);
+
+        if (availableAnytime.length == 0) this.availableRoomList.push(room);
+
+        this.timeslot.forEach((t) => {
+          if (schedule.hari != this.selectedRadioDay || schedule.masa != t.time)
+            this.availableRoomList.push(room);
+        });
+      });
+      console.log(this.availableRoomList);
+      // this.flag = false;
     }
   }
 

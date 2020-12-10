@@ -392,6 +392,7 @@ export class DataServiceService {
   async getRoomList(): Promise<Array<Room>> {
     if (!this._rooms.length) {
       this._rooms = await this.fsksmService.fetchRooms();
+      console.log(this._rooms)
       return this._rooms;
     } else {
       return this._rooms;

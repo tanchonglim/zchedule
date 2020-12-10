@@ -1,52 +1,35 @@
-<ion-content
-  *ngIf="isDataLoaded"
-  [scrollEvents]="true"
-  (ionScroll)="scroll($event)"
->
-  <div
-    style="
-      width: 100%;
-      display: flex;
-      overflow: scroll;
-      justify-content: center;
-      flex-shrink: 0;
-    "
-    class="main-color"
-  >
-    <!-- background-color: rgb(252, 252, 181); -->
-    <div
-      class="tabArr"
-      (click)="selectTab0()"
-      [ngClass]="{'selected':tabArray[0].status == 1}"
-    >
-      Timetable
+<ion-content [scrollEvents]="true" (ionScroll)="scroll($event)">
+  <ion-header>
+    <div class="home-header">
+      <span class="header-title"> Hello, Name </span>
+      <span class="select-tab">
+        <div
+          class="tab"
+          [class.selected]="selectedTab==i"
+          *ngFor="let tab of tabs;index as i"
+          (click)="selectTab(i)"
+        >
+          <ion-icon
+            [name]="selectedTab==i ? tab.icon :tab.icon+'-outline' "
+          ></ion-icon>
+        </div>
+      </span>
     </div>
-    <div
-      class="tabArr"
-      (click)="selectTab1()"
-      [ngClass]="{'selected':tabArray[1].status == 1}"
+  </ion-header>
+  <div class="home-content" *ngIf="selectedTab==0">
+   
+      <app-timetable-subjects
+        [timetableData]="timetableData"
+        *ngIf="timetableData"
+      >
+      </app-timetable-subjects>
+ 
+  </div>
+  <div class="home-content" *ngIf="selectedTab==1">
+    <app-list-subject
+      [registeredSubjectListData]="registeredSubjectListData"
+      *ngIf="registeredSubjectListData"
     >
-      Subject
-    </div>
-  </div>
-  <!-- <div style="background: green">&nbsp;</div> -->
-  <!-- <div *ngIf="viewMode == 'subject'">Subjectssssssss</div>
-  <div *ngIf="viewMode == 'timetable'">Timetableeeeeeeee</div> -->
-
-  <div
-    style="height: 100%"
-    [class.selected]="tabArray[1].status == 0"
-    *ngIf="tabArray[0].status"
-  >
-    <app-timetable-subjects [timetableData]="timetableData">
-    </app-timetable-subjects>
-  </div>
-  <div
-    style="height: 100%"
-    [class.selected]="tabArray[1].status == 1"
-    *ngIf="tabArray[1].status"
-  >
-    <app-list-subject [registeredSubjectListData]="registeredSubjectListData">
     </app-list-subject>
   </div>
 </ion-content>

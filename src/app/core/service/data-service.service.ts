@@ -14,6 +14,7 @@ import { SubjectStudent } from "./../../shared/models/SubjectStudent";
 import { Room } from "./../../shared/models/Room";
 
 import { isEqual } from "lodash";
+import { ScheduleRoom } from "./../../shared/models/ScheduleRoom";
 
 @Injectable({
   providedIn: "root",
@@ -75,6 +76,9 @@ export class DataServiceService {
 
   //need clear when change sesi semester
   private _rooms: Array<Room> = [];
+
+  //need clear when change sesi semester
+  private _roomsSchedule: Array<ScheduleRoom> = [];
 
   //need clear when change sesi semester
   private _subjectSections: Array<SubjectSection> = [];
@@ -386,6 +390,19 @@ export class DataServiceService {
       return this._rooms;
     } else {
       return this._rooms;
+    }
+  }
+
+  async getRoomSchedules(kod_ruang: string): Promise<Array<ScheduleRoom>> {
+    if (!this._roomsSchedule.length) {
+      this._roomsSchedule = await this.fsksmService.fetchRoomSchedule(
+        kod_ruang,
+        this._currentSesiSem.sesi,
+        this._currentSesiSem.semester
+      );
+      return this._roomsSchedule;
+    } else {
+      return this._roomsSchedule;
     }
   }
 }

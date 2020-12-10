@@ -219,4 +219,18 @@ export class FsksmServiceService {
 
     return result;
   }
+
+  async fetchRoomSchedule(kod_ruang: string, sesi: string, semester: number) {
+    let params = new HttpParams()
+      .set("entity", "jadual_ruang")
+      .set("sesi", sesi)
+      .set("semester", semester.toString())
+      .set("kod_ruang", kod_ruang);
+
+    let result: any = await this.http
+      .get(this.apiEndpoint, { params: params })
+      .toPromise();
+
+    return result;
+  }
 }

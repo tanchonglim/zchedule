@@ -10,6 +10,7 @@ import { RoomHomePage } from "./room-home.page";
 import { SharedModule } from "src/app/shared/shared.module";
 import { RoomListComponent } from "../component/room-list/room-list.component";
 import { RoomDetailComponent } from "../component/room-detail/room-detail.component";
+import { RoomAvailabilityComponent } from "./../component/room-availability/room-availability.component";
 
 @NgModule({
   imports: [

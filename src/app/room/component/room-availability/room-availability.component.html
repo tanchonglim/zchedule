@@ -1,3 +1,152 @@
+<div class="ion-activatable" (click)="openCalendar()">
+  <ion-icon
+    name="calendar-outline"
+    class="calendar-icon"
+    style="font-size: large"
+  ></ion-icon>
+</div>
 <p>
-  room-availability works!
+  <span *ngIf="!selectedDate">Select a date</span>
+  <span *ngIf="selectedDate">
+    {{ selectedDate.dateObj | date: "d MMMM yyyy" }}
+  </span>
 </p>
+<div style="display: flex; flex-direction: column">
+  <div>
+    <ion-list>
+      <ion-radio-group value="day" (ionChange)="radioGroupChangeDay($event)">
+        <div style="display: flex; flex-direction: row" (click)="expandCard1()">
+          <ion-list-header>
+            <ion-label>Select a day</ion-label>
+          </ion-list-header>
+          <ion-icon
+            [@rotatedState]="collapse1"
+            name="chevron-forward-outline"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+            "
+          ></ion-icon>
+        </div>
+
+        <div [@collapse]="collapse1">
+          <ion-item>
+            <ion-label>Sunday</ion-label>
+            <ion-radio slot="start" value="AHAD"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Monday</ion-label>
+            <ion-radio slot="start" value="ISNIN"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Tuesday</ion-label>
+            <ion-radio slot="start" value="SELASA"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Wednesday</ion-label>
+            <ion-radio slot="start" value="RABU"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Thursday</ion-label>
+            <ion-radio slot="start" value="KHAMIS"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Friday</ion-label>
+            <ion-radio slot="start" value="JUMAAT"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Saturday</ion-label>
+            <ion-radio slot="start" value="SABTU"></ion-radio>
+          </ion-item>
+        </div>
+      </ion-radio-group>
+    </ion-list>
+  </div>
+  <div>
+    <ion-list>
+      <div style="display: flex; flex-direction: row" (click)="expandCard2()">
+        <ion-list-header>
+          <ion-label>Select a time slot</ion-label>
+        </ion-list-header>
+        <ion-icon
+          [@rotatedState]="collapse2"
+          name="chevron-forward-outline"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        ></ion-icon>
+      </div>
+
+      <div [@collapse]="collapse2">
+        <ion-list>
+          <ion-item *ngFor="let entry of time">
+            <ion-label>{{ entry.val }}</ion-label>
+            <ion-checkbox
+              slot="end"
+              [(ngModel)]="entry.isChecked"
+            ></ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-list>
+  </div>
+</div>
+
+<ion-button (click)="getFilteredRoom()"> Search </ion-button>
+
+<div class="search-result-container">
+  <ion-list *ngIf="availableRoomList">
+    <ion-virtual-scroll [items]="availableRoomList" approxItemHeight="320px">
+      <ion-item
+        *virtualItem="let room; index as i"
+        (click)="expandCard(i)"
+        class="search-result-item"
+      >
+        <ion-label>
+          <div style="display: flex; justify-content: space-between">
+            <div style="width: 90%; white-space: pre-wrap">
+              <h2 class="main-color">{{ room.nama_ruang }}</h2>
+              <sub style="color: grey; font-style: italic">{{
+                room.kod_ruang
+              }}</sub>
+            </div>
+            <ion-icon
+              [@rotatedState]="collapse[i]"
+              name="chevron-forward-outline"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+              "
+            ></ion-icon>
+          </div>
+          <div [@collapse]="collapse[i]">
+            <div style="width: 100%">
+              <br />
+              <ion-grid>
+                <ion-row>
+                  <ion-col>Type</ion-col>
+                  <ion-col>: {{ room.jenis }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>Capacity</ion-col>
+                  <ion-col>: {{ room.kapasiti }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>Faculty</ion-col>
+                  <ion-col>: {{ room.kod_fakulti }}</ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+            <div style="display: flex; flex-direction: row; width: 100%">
+              <ion-button class="btn-style"> Timetable </ion-button>
+            </div>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ion-list>
+</div>

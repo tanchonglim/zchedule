@@ -1,3 +1,31 @@
-<p>
-  room-detail works!
-</p>
+<div class="modal-wrapper">
+  <ion-content>
+    <app-modal-header
+      [(selectedTab)]="selectedTab"
+      [properties]="headerModalProps"
+    ></app-modal-header>
+    <div *ngIf="selectedTab == 0" class="content">
+      <h2 class="title">Room Information</h2>
+      <ion-card>
+        <ion-card-content>
+          <p><b> Room Name:</b> {{ room.nama_ruang }}</p>
+          <p><b> Room Code:</b> {{ room.nama_ruang_singkatan }}</p>
+          <p><b> Capacity:</b> {{ room.kapasiti }}</p>
+          <p><b> Type:</b> {{ room.jenis }}</p>
+          <p><b> Faculty:</b> {{ room.kod_fakulti }}</p>
+          <p><b> Department:</b> {{ room.kod_jabatan }}</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div *ngIf="selectedTab == 1" class="content">
+      <app-timetable-subjects
+        *ngIf="timetableData"
+        [timetableData]="timetableData"
+      ></app-timetable-subjects>
+      <div *ngIf="!timetableData">
+        <app-loading></app-loading>
+      </div>
+    </div>
+  </ion-content>
+</div>

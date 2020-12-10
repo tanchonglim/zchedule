@@ -230,7 +230,7 @@ export class FsksmServiceService {
     let result: any = await this.http
       .get(this.apiEndpoint, { params: params })
       .toPromise();
-
+    result = result.filter((r) => r.id_jws);
     return result;
   }
 }

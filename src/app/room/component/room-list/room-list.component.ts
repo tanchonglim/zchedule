@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { ModalController } from "@ionic/angular";
 import { Room } from "src/app/shared/models/Room";
 import { RoomServiceService } from "../../room-service.service";
+import { RoomDetailComponent } from "./../room-detail/room-detail.component";
 
 @Component({
   selector: "app-room-list",
@@ -11,9 +13,16 @@ export class RoomListComponent implements OnInit {
   filteredRoomList: Array<Room>;
   roomList: Array<Room>;
 
-  constructor(private rs: RoomServiceService) {}
+  constructor(
+    private rs: RoomServiceService,
+    public modalController: ModalController
+  ) {}
 
   async ngOnInit() {
+    this.getRoomList();
+  }
+
+  async getRoomList() {
     this.roomList = await this.rs.getRoomList();
     this.filteredRoomList = this.roomList;
   }
@@ -39,6 +48,12 @@ export class RoomListComponent implements OnInit {
   }
 
   async openRoomDetail(room) {
-    console.log(room);
+    const modal = await this.modalController.create({
+      component: RoomDetailComponent,
+      componentProps: {
+        room: room,
+      },
+    });
+    await modal.present();
   }
 }

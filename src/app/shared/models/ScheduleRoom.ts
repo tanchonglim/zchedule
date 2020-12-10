@@ -6,8 +6,8 @@ export interface ScheduleRoom {
   tarikh_tamat: string;
   catatan: string;
   tarikh_mula: string;
-  hari: string;
-  masa: string;
+  hari: number;
+  masa: number;
   id_jws: number;
   kod_perkara: string;
 }

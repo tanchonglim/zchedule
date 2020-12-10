@@ -78,7 +78,12 @@ export class DataServiceService {
   private _rooms: Array<Room> = [];
 
   //need clear when change sesi semester
-  private _roomsSchedule: Array<ScheduleRoom> = [];
+  private _roomSchedule: Array<{
+    params: {
+      kod_ruang: string;
+    };
+    schedule: Array<ScheduleRoom>;
+  }> = [];
 
   //need clear when change sesi semester
   private _subjectSections: Array<SubjectSection> = [];
@@ -394,15 +399,25 @@ export class DataServiceService {
   }
 
   async getRoomSchedules(kod_ruang: string): Promise<Array<ScheduleRoom>> {
-    if (!this._roomsSchedule.length) {
-      this._roomsSchedule = await this.fsksmService.fetchRoomSchedule(
-        kod_ruang,
-        this._currentSesiSem.sesi,
-        this._currentSesiSem.semester
-      );
-      return this._roomsSchedule;
+    let params = {
+      kod_ruang: kod_ruang,
+    };
+    let index = this._roomSchedule.findIndex(
+      (rs) => rs.params.kod_ruang == kod_ruang
+    );
+    if (index == -1) {
+      let length = this._roomSchedule.push({
+        params: params,
+        schedule: await this.fsksmService.fetchRoomSchedule(
+          kod_ruang,
+          this._currentSesiSem.sesi,
+          this._currentSesiSem.semester
+        ),
+      });
+
+      return this._roomSchedule[length - 1].schedule;
     } else {
-      return this._roomsSchedule;
+      return this._roomSchedule[index].schedule;
     }
   }
 }

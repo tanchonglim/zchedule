@@ -38,15 +38,12 @@ export class SubjectDetailComponent implements OnInit {
       tabs: ["Timetable", "Students"],
     };
 
-    this.getTimetableData();
+    this.getTimetableData(this.subjectCode, this.sectionInfo.seksyen);
     this.getSubjectStudents();
   }
 
-  async getTimetableData() {
-    this.timetableData = await this.ss.getTimetabledata(
-      this.subjectCode,
-      this.sectionInfo.seksyen
-    );
+  async getTimetableData(subjectCode, section) {
+    this.timetableData = await this.ss.getTimetabledata(subjectCode, section);
   }
 
   async getSubjectStudents() {

@@ -4,6 +4,7 @@
       [(selectedTab)]="selectedTab"
       [properties]="headerModalProps"
     ></app-modal-header>
+
     <div *ngIf="selectedTab == 0" class="content">
       <h2 class="title">Room Information</h2>
       <ion-card>
@@ -27,9 +28,8 @@
         *ngIf="timetableData"
         [timetableData]="timetableData"
       ></app-timetable-subjects>
-      <div *ngIf="!timetableData">
-        <app-loading></app-loading>
-      </div>
+
+      <app-loading *ngIf="!timetableData"></app-loading>
     </div>
   </ion-content>
 </div>

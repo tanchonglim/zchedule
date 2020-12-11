@@ -6,6 +6,7 @@
     (ionClear)="clearsearch()"
   ></ion-searchbar>
 </div>
+
 <div class="search-result-container" *ngIf="lecturerList">
   <ion-list *ngIf="filteredLecturerList && filteredLecturerList.length">
     <ion-virtual-scroll [items]="filteredLecturerList" approxItemHeight="110px">
@@ -39,6 +40,5 @@
     *ngIf="!filteredLecturerList || !filteredLecturerList.length"
   ></app-no-result>
 </div>
-<div *ngIf="!lecturerList">
-  <app-loading></app-loading>
-</div>
+
+<app-loading *ngIf="!lecturerList"></app-loading>

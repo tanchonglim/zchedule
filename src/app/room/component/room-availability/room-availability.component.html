@@ -89,10 +89,7 @@
 
     <div [@collapse]="collapse2">
       <ion-list>
-        <ion-item
-          *ngFor="let entry of time"
-          (ionChange)="radioGroupChangeTimeslot()"
-        >
+        <ion-item *ngFor="let entry of timeslot">
           <ion-label>{{ entry.val }}</ion-label>
           <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
         </ion-item>
@@ -101,3 +98,42 @@
   </ion-list>
 </div>
 <ion-button (click)="getAvailableRoom()"> Search </ion-button>
+
+<div class="search-result-container" *ngIf="availableRoomList">
+  <ion-list *ngIf="availableRoomList && availableRoomList.length">
+    <ion-virtual-scroll [items]="availableRoomList" approxItemHeight="110px">
+      <ion-item
+        (click)="openRoomDetail(room)"
+        *virtualItem="let room"
+        class="search-result-item"
+      >
+        <ion-label>
+          <div style="display: flex; justify-content: space-between">
+            <div style="width: 90%; white-space: pre-wrap">
+              <h2 class="main-color">
+                {{ room.nama_ruang }} [{{ room.nama_ruang_singkatan }}]
+              </h2>
+              <sub style="color: grey; font-style: italic">
+                {{ room.kod_ruang }}
+              </sub>
+            </div>
+            <ion-icon
+              name="chevron-forward-outline"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+              "
+            ></ion-icon>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ion-list>
+
+  <app-no-result
+    *ngIf="!availableRoomList || !availableRoomList.length"
+  ></app-no-result>
+</div>
+
+<!-- <app-loading *ngIf="!availableRoomList"></app-loading> -->

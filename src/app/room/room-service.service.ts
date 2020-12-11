@@ -77,4 +77,45 @@ export class RoomServiceService {
 
     return timetableData;
   }
+
+  async getAvailableRoom(
+    timeslot: Array<{ val: string; isChecked: boolean; slot: number }>,
+    selectedDay: number,
+    from: string,
+    to: string
+  ): Promise<Array<Room>> {
+    let availableRoomList = [];
+    if (selectedDay == null) {
+      alert("Please select a day!");
+      return;
+    }
+
+    let roomList = await this.getRoomList();
+    for (let room of roomList) {
+      let schedules: Array<ScheduleRoom> = await this.getRoomSchedule(
+        room.kod_ruang
+      );
+      if (!schedules.length) {
+        availableRoomList.push(room);
+      } else {
+        let isClash = schedules.find((schedule) => {
+          if (
+            schedule.hari == selectedDay &&
+            timeslot
+              .filter((ts) => ts.isChecked)
+              .find((ts) => ts.slot == schedule.masa) &&
+            ((from >= schedule.tarikh_mula && to >= schedule.tarikh_mula) ||
+              (to <= schedule.tarikh_tamat && from <= schedule.tarikh_tamat))
+          )
+            return true;
+        });
+
+        if (!isClash) {
+          availableRoomList.push(room);
+        }
+      }
+    }
+
+    return availableRoomList;
+  }
 }

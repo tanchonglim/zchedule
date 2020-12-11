@@ -17,6 +17,7 @@ import {
 import { RoomServiceService } from "./../../room-service.service";
 import { Room } from "./../../../shared/models/Room";
 import { ScheduleRoom } from "./../../../shared/models/ScheduleRoom";
+import { RoomDetailComponent } from "./../room-detail/room-detail.component";
 
 @Component({
   selector: "app-room-availability",
@@ -42,42 +43,38 @@ export class RoomAvailabilityComponent implements OnInit {
     from: CalendarResult;
     to: CalendarResult;
   };
-  selectedRadioDay: any;
-  selectedRadioTimeslot: Array<number> = [];
+  sdateRangeFrom: string; //s for selected
+  sdateRangeTo: string; //s for selected
+
+  selectedRadioDay: number;
   collapse1: boolean = false;
   collapse2: boolean = false;
 
-  availableRoomList: Array<Room> = [];
+  availableRoomList: Array<Room> = null;
   collapse: Array<Boolean> = [];
 
-  flag: boolean = true;
-  timeslot: Array<{
-    time: number;
-    value: string;
-  }> = [];
+  // timeslot: Array<{
+  //   time: number;
+  //   value: string;
+  // }> = [];
 
-  tempTimeslot: Array<{
-    time: number;
-    value: string;
-  }> = [];
-
-  public time = [
-    { val: "07:00 AM - 07:50 AM", isChecked: true },
-    { val: "08:00 AM - 08:50 AM", isChecked: true },
-    { val: "09:00 AM - 09:50 AM", isChecked: true },
-    { val: "10:00 AM - 10:50 AM", isChecked: true },
-    { val: "11:00 AM - 11:50 AM", isChecked: true },
-    { val: "12:00 PM - 12:50 PM", isChecked: true },
-    { val: "01:00 PM - 01:50 PM", isChecked: true },
-    { val: "02:00 PM - 02:50 PM", isChecked: true },
-    { val: "03:00 PM - 03:50 PM", isChecked: false },
-    { val: "04:00 PM - 04:50 PM", isChecked: false },
-    { val: "05:00 PM - 05:50 PM", isChecked: false },
-    { val: "06:00 PM - 06:50 PM", isChecked: false },
-    { val: "07:00 PM - 07:50 PM", isChecked: false },
-    { val: "08:00 PM - 08:50 PM", isChecked: false },
-    { val: "09:00 PM - 09:50 PM", isChecked: false },
-    { val: "10:00 PM - 10:50 PM", isChecked: false },
+  public timeslot = [
+    { val: "07:00 AM - 07:50 AM", isChecked: true, slot: 1 },
+    { val: "08:00 AM - 08:50 AM", isChecked: true, slot: 2 },
+    { val: "09:00 AM - 09:50 AM", isChecked: true, slot: 3 },
+    { val: "10:00 AM - 10:50 AM", isChecked: true, slot: 4 },
+    { val: "11:00 AM - 11:50 AM", isChecked: true, slot: 5 },
+    { val: "12:00 PM - 12:50 PM", isChecked: true, slot: 6 },
+    { val: "01:00 PM - 01:50 PM", isChecked: true, slot: 7 },
+    { val: "02:00 PM - 02:50 PM", isChecked: true, slot: 8 },
+    { val: "03:00 PM - 03:50 PM", isChecked: false, slot: 9 },
+    { val: "04:00 PM - 04:50 PM", isChecked: false, slot: 10 },
+    { val: "05:00 PM - 05:50 PM", isChecked: false, slot: 11 },
+    { val: "06:00 PM - 06:50 PM", isChecked: false, slot: 12 },
+    { val: "07:00 PM - 07:50 PM", isChecked: false, slot: 13 },
+    { val: "08:00 PM - 08:50 PM", isChecked: false, slot: 14 },
+    { val: "09:00 PM - 09:50 PM", isChecked: false, slot: 15 },
+    { val: "10:00 PM - 10:50 PM", isChecked: false, slot: 16 },
   ];
 
   constructor(
@@ -85,12 +82,16 @@ export class RoomAvailabilityComponent implements OnInit {
     private rs: RoomServiceService
   ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.sdateRangeFrom = (await this.rs.getCurrentSesiSem()).tarikh_mula;
+    this.sdateRangeTo = (await this.rs.getCurrentSesiSem()).tarikh_tamat;
+  }
 
   async openCalendar() {
     const options: CalendarModalOptions = {
       title: "",
       pickMode: "range",
+      from: new Date((await this.rs.getCurrentSesiSem()).tarikh_mula),
       to: new Date((await this.rs.getCurrentSesiSem()).tarikh_tamat),
     };
 
@@ -104,6 +105,7 @@ export class RoomAvailabilityComponent implements OnInit {
     const event: any = await myCalendar.onDidDismiss();
     if (event.data) {
       this.dateRange = event.data;
+      this.getDateRange();
     }
   }
 
@@ -124,53 +126,34 @@ export class RoomAvailabilityComponent implements OnInit {
     this.selectedRadioDay = event.detail.value;
   }
 
-  radioGroupChangeTimeslot(event) {
-    this.tempTimeslot = [];
-    this.time.forEach((t, index) => {
-      if (t.isChecked) {
-        this.tempTimeslot.push({
-          time: index + 1,
-          value: this.time[index].val,
-        });
-      }
-    });
-  }
-
   expandCard(i) {
     let c = this.collapse[i];
     this.collapse = this.collapse.map((r) => false);
     this.collapse[i] = !c;
   }
 
+  async getDateRange() {
+    this.sdateRangeFrom = this.dateRange.from.string;
+    this.sdateRangeTo = this.dateRange.to.string;
+  }
+
   async getAvailableRoom() {
-    this.availableRoomList = [];
-    this.time.forEach((t, index) => {
-      if (t.isChecked) {
-        this.timeslot.push({ time: index + 1, value: this.time[index].val });
-      }
-    });
-
-    let roomList = await this.rs.getRoomList();
-    for (let room of roomList) {
-      let schedules: Array<ScheduleRoom> = await this.rs.getRoomSchedule(
-        room.kod_ruang
-      );
-      if (!schedules.length) {
-        this.availableRoomList.push(room);
-      } else {
-        let isClash = schedules.find((schedule) => {
-          if (
-            schedule.hari == this.selectedRadioDay &&
-            this.timeslot.find((ts) => ts.time == schedule.masa)
-          )
-            return true;
-        });
-
-        if (!isClash) {
-          this.availableRoomList.push(room);
-        }
-      }
-    }
+    this.availableRoomList = await this.rs.getAvailableRoom(
+      this.timeslot,
+      this.selectedRadioDay,
+      this.sdateRangeFrom,
+      this.sdateRangeTo
+    );
     console.log(this.availableRoomList);
+  }
+
+  async openRoomDetail(room) {
+    const modal = await this.modalCtrl.create({
+      component: RoomDetailComponent,
+      componentProps: {
+        room: room,
+      },
+    });
+    await modal.present();
   }
 }

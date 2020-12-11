@@ -63,13 +63,13 @@ export class RoomAvailabilityComponent implements OnInit {
 
   public time = [
     { val: "07:00 AM - 07:50 AM", isChecked: true },
-    { val: "08:00 AM - 08:50 AM", isChecked: false },
-    { val: "09:00 AM - 09:50 AM", isChecked: false },
-    { val: "10:00 AM - 10:50 AM", isChecked: false },
-    { val: "11:00 AM - 11:50 AM", isChecked: false },
-    { val: "12:00 PM - 12:50 PM", isChecked: false },
-    { val: "01:00 PM - 01:50 PM", isChecked: false },
-    { val: "02:00 PM - 02:50 PM", isChecked: false },
+    { val: "08:00 AM - 08:50 AM", isChecked: true },
+    { val: "09:00 AM - 09:50 AM", isChecked: true },
+    { val: "10:00 AM - 10:50 AM", isChecked: true },
+    { val: "11:00 AM - 11:50 AM", isChecked: true },
+    { val: "12:00 PM - 12:50 PM", isChecked: true },
+    { val: "01:00 PM - 01:50 PM", isChecked: true },
+    { val: "02:00 PM - 02:50 PM", isChecked: true },
     { val: "03:00 PM - 03:50 PM", isChecked: false },
     { val: "04:00 PM - 04:50 PM", isChecked: false },
     { val: "05:00 PM - 05:50 PM", isChecked: false },
@@ -136,97 +136,45 @@ export class RoomAvailabilityComponent implements OnInit {
     });
   }
 
+  expandCard(i) {
+    let c = this.collapse[i];
+    this.collapse = this.collapse.map((r) => false);
+    this.collapse[i] = !c;
+  }
+
   async getFilteredRoomViaDay() {
-    // if (this.selectedRadioDay.value == "" && this.tempTimeslot.length > 0) {
-    //   alert("Please input something!");
-    //   return;
-    // }
     console.log(this.selectedRadioDay);
     this.time.forEach((t, index) => {
       if (t.isChecked) {
         this.timeslot.push({ time: index + 1, value: this.time[index].val });
       }
     });
-    console.log(this.timeslot);
 
     let roomList = await this.rs.getRoomList();
 
-    if (this.flag == true) {
-      roomList.forEach(async (room) => {
-        let schedules: Array<ScheduleRoom> = await this.rs.getRoomSchedule(
-          room.kod_ruang
-        );
+    roomList.forEach(async (room) => {
+      let schedules: Array<ScheduleRoom> = await this.rs.getRoomSchedule(
+        room.kod_ruang
+      );
 
-        if (!schedules.length) {
+      if (!schedules.length) {
+        this.availableRoomList.push(room);
+        // console.log("push empty", room);
+      } else {
+        let isClash = schedules.find((schedule) => {
+          //find equal both
+          if (
+            schedule.hari == this.selectedRadioDay &&
+            this.timeslot.find((ts) => ts.time == schedule.masa)
+          )
+            return true;
+        });
+
+        if (!isClash) {
           this.availableRoomList.push(room);
-          console.log("push empty", room);
-        } else {
-          let isClash = schedules.find((schedule) => {
-            //find equal both
-            if (
-              schedule.hari == this.selectedRadioDay &&
-              this.timeslot.find((ts) => ts.time == schedule.masa)
-            )
-              return true;
-          });
-
-          if (!isClash) {
-            //push
-            this.availableRoomList.push(room);
-          }
         }
-      });
-      console.log(this.availableRoomList);
-      this.flag = false;
-    }
-  }
-
-  async getFilteredRoomViaDate() {
-    // if (this.selectedDate.time == 0) {
-    //   alert("Please input something!");
-    //   return;
-    // }
-    let dateStringFrom = new Date(this.dateRange.from.string);
-    let dateStringTo = new Date(this.dateRange.to.string);
-
-    // dateStringFrom = this.dateRange.from.string;
-    // dateStringTo = this.dateRange.to.string;
-
-    // dateStringFrom.setHours(0, 0, 0, 0);
-    // dateStringTo.setHours(0, 0, 0, 0);
-
-    this.time.forEach((t, index) => {
-      if (t.isChecked) {
-        this.timeslot.push({ time: index + 1, value: this.time[index].val });
       }
     });
-    console.log(this.timeslot);
-    console.log(dateStringFrom);
-    console.log(dateStringTo);
-
-    let roomList = await this.rs.getRoomList();
-
-    if (this.flag == true) {
-      roomList.forEach(async (room) => {
-        let schedule: any = await this.rs.getRoomSchedule(room.kod_ruang);
-        let availableAnytime = schedule.filter((res) => res.id_jws);
-        // console.log(schedule);
-
-        if (availableAnytime.length == 0) this.availableRoomList.push(room);
-
-        this.timeslot.forEach((t) => {
-          if (schedule.hari != this.selectedRadioDay || schedule.masa != t.time)
-            this.availableRoomList.push(room);
-        });
-      });
-      console.log(this.availableRoomList);
-      // this.flag = false;
-    }
-  }
-
-  expandCard(i) {
-    let c = this.collapse[i];
-    this.collapse = this.collapse.map((r) => false);
-    this.collapse[i] = !c;
+    console.log(this.availableRoomList);
   }
 }

@@ -217,6 +217,7 @@ export class FsksmServiceService {
       .get(this.apiEndpoint, { params: params })
       .toPromise();
 
+    result = result.filter((r) => r.kod_fakulti == "FSKSM");
     return result;
   }
 
@@ -231,6 +232,7 @@ export class FsksmServiceService {
       .get(this.apiEndpoint, { params: params })
       .toPromise();
     result = result.filter((r) => r.id_jws);
+
     return result;
   }
 }

@@ -3,7 +3,7 @@ import { DataServiceService } from "../core/service/data-service.service";
 import { Room } from "./../shared/models/Room";
 import { ScheduleRoom } from "./../shared/models/ScheduleRoom";
 import { TimetableData } from "src/app/shared/components/timetable-subjects/timetable-subjects.component";
-import { flatten, groupBy, isEqual, orderBy, values } from "lodash";
+import { flatten, groupBy, isEqual, orderBy, pick, values } from "lodash";
 
 @Injectable({
   providedIn: "root",
@@ -39,31 +39,39 @@ export class RoomServiceService {
 
     let schedulesGroup: Array<Array<ScheduleRoom>>;
 
-    schedulesGroup = flatten(
-      values(groupBy(schedules, "hari")).map((s) => values(groupBy(s, "masa")))
+    schedulesGroup = values(
+      groupBy(schedules, (schedule) => schedule.hari + "-" + schedule.masa)
     );
-    console.log(schedulesGroup);
-    schedulesGroup.forEach((schedule, index) => {
-      let data = "";
-      schedule.forEach((s) => {
-        data += `${s.subjek.kod_subjek}\n`;
-      });
 
-      let detail = "";
-      schedule.forEach((s) => {
-        detail += `Subject: ${s.subjek.kod_subjek}- ${
-          s.subjek.seksyen < 10 ? "0" + s.subjek.seksyen : s.subjek.seksyen
-        }\n`;
-      });
-
-      timetableData.slots.push({
-        day: schedule[0].hari,
-        timeSlot: schedule[0].masa,
-        data: {
-          data: data,
-          detail: detail,
-          type: index + 1,
-        },
+    let schedulesGroupType = values(
+      groupBy(schedulesGroup, (schedule) => {
+        return schedule
+          .map((s) => s.subjek.kod_subjek + s.subjek.seksyen)
+          .toString();
+      })
+    );
+    schedulesGroupType.forEach((type, index) => {
+      type.forEach((schedule) => {
+        let data = "";
+        schedule.forEach((s, i) => {
+          if (i > 0) data += "\n";
+          data += `${s.subjek.kod_subjek}`;
+        });
+        let detail = "";
+        schedule.forEach((s) => {
+          detail += `Subject: ${s.subjek.kod_subjek}- ${
+            s.subjek.seksyen < 10 ? "0" + s.subjek.seksyen : s.subjek.seksyen
+          }\n`;
+        });
+        timetableData.slots.push({
+          day: schedule[0].hari,
+          timeSlot: schedule[0].masa,
+          data: {
+            data: data,
+            detail: detail,
+            type: index + 1,
+          },
+        });
       });
     });
 

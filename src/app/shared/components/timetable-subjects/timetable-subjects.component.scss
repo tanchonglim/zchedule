@@ -61,55 +61,20 @@
 .timetable-data {
   padding-left: 1.5px;
   width: 20%;
-  white-space: pre-wrap;
+  white-space: pre-line;
 }
 
-.bg-color0 {
-  background-color: white;
-}
+$colours: "0" white, "1" rgb(85, 203, 211), "2" rgb(199, 218, 199),
+  "3" rgb(255, 182, 140), "4" rgb(255, 103, 135), "5" rgb(254, 142, 123),
+  "6" rgb(40, 109, 114), "7" rgb(131, 63, 63), "8" rgb(173, 180, 66),
+  "9" rgb(205, 139, 98), "10" rgb(138, 133, 131), "11" rgb(24, 188, 236),
+  "12" rgb(253, 155, 103), "13" rgb(254, 207, 185), "14" rgb(251, 166, 199),
+  "15" rgb(199, 148, 231), "16" rgb(133, 123, 186), "17" rgb(255, 180, 0),
+  "18" rgb(199, 148, 231), "19" rgb(133, 123, 186), "20" rgb(255, 180, 0);
 
-.bg-color1 {
-  background-color: rgb(85, 203, 211);
-}
-.bg-color2 {
-  background-color: rgb(199, 218, 199);
-}
-.bg-color3 {
-  background-color: rgb(255, 182, 140);
-}
-.bg-color4 {
-  background-color: rgb(254, 142, 123);
-}
-.bg-color5 {
-  background-color: rgb(255, 103, 135);
-}
-.bg-color6 {
-  background-color: rgb(40, 109, 114);
-}
-.bg-color7 {
-  background-color: rgb(40, 109, 114);
-}
-.bg-color8 {
-  background-color: rgb(40, 109, 114);
-}
-.bg-color9 {
-  background-color: rgb(40, 109, 114);
-}
-.bg-color10 {
-  background-color: rgb(40, 109, 114);
-}
-.bg-color11 {
-  background-color: rgb(40, 109, 114);
-}
-.bg-color12 {
-  background-color: rgb(40, 109, 114);
-}
-.bg-color13 {
-  background-color: rgb(40, 109, 114);
-}
-.bg-color14 {
-  background-color: rgb(40, 109, 114);
-}
-.bg-color15 {
-  background-color: rgb(40, 109, 114);
+@each $i in $colours {
+  .bg-color#{nth($i, 1)} {
+    // background-color: rgb(random(255), random(255), random(255));
+    background-color: nth($i, 2);
+  }
 }

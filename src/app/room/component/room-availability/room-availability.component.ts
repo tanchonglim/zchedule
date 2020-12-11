@@ -142,8 +142,8 @@ export class RoomAvailabilityComponent implements OnInit {
     this.collapse[i] = !c;
   }
 
-  async getFilteredRoomViaDay() {
-    console.log(this.selectedRadioDay);
+  async getAvailableRoom() {
+    this.availableRoomList = [];
     this.time.forEach((t, index) => {
       if (t.isChecked) {
         this.timeslot.push({ time: index + 1, value: this.time[index].val });
@@ -151,18 +151,14 @@ export class RoomAvailabilityComponent implements OnInit {
     });
 
     let roomList = await this.rs.getRoomList();
-
-    roomList.forEach(async (room) => {
+    for (let room of roomList) {
       let schedules: Array<ScheduleRoom> = await this.rs.getRoomSchedule(
         room.kod_ruang
       );
-
       if (!schedules.length) {
         this.availableRoomList.push(room);
-        // console.log("push empty", room);
       } else {
         let isClash = schedules.find((schedule) => {
-          //find equal both
           if (
             schedule.hari == this.selectedRadioDay &&
             this.timeslot.find((ts) => ts.time == schedule.masa)
@@ -174,7 +170,7 @@ export class RoomAvailabilityComponent implements OnInit {
           this.availableRoomList.push(room);
         }
       }
-    });
+    }
     console.log(this.availableRoomList);
   }
 }

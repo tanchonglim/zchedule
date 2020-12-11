@@ -54,7 +54,6 @@ export class TimetableSubjectsComponent implements OnInit {
   ngOnInit() {
     this.generateTimetable();
     this.appendTimetableData();
-    console.log(this.timetableBody);
   }
 
   generateTimetable() {
@@ -97,7 +96,6 @@ export class TimetableSubjectsComponent implements OnInit {
       }
     });
     this.timetableBody.slots = reversedArr.reverse();
-    console.log(this.timetableBody);
   }
 
   async viewDetail(title, data) {

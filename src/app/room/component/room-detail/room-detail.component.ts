@@ -27,7 +27,7 @@ export class RoomDetailComponent implements OnInit {
     this.getRoomTimetable(this.room.kod_ruang);
   }
 
-  async getRoomTimetable(id: string) {
-    this.timetableData = await this.rs.getRoomTimetable(id);
+  async getRoomTimetable(roomCode: string) {
+    this.timetableData = await this.rs.getRoomTimetable(roomCode);
   }
 }

@@ -153,7 +153,7 @@ export class FsksmServiceService {
     return result;
   }
 
-  async fetchSubjectSections(sesi: string, semester: number) {
+  async fetchSubjectsSections(sesi: string, semester: number) {
     let params = new HttpParams()
       .set("entity", "subjek_seksyen")
       .set("sesi", sesi)

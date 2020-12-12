@@ -321,9 +321,9 @@ export class DataServiceService {
     }
   }
 
-  async getSubjectSections(): Promise<Array<SubjectSection>> {
+  async getSubjectsSections(): Promise<Array<SubjectSection>> {
     if (!this._subjectSections.length) {
-      this._subjectSections = await this.fsksmService.fetchSubjectSections(
+      this._subjectSections = await this.fsksmService.fetchSubjectsSections(
         this._currentSesiSem.sesi,
         this._currentSesiSem.semester
       );

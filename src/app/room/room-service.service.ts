@@ -23,12 +23,12 @@ export class RoomServiceService {
   //   return await this.ds.getRoomList();
   // }
 
-  async getRoomSchedule(kod_ruang: string): Promise<Array<ScheduleRoom>> {
-    return await this.ds.getRoomSchedules(kod_ruang);
+  async getRoomSchedule(roomCode: string): Promise<Array<ScheduleRoom>> {
+    return await this.ds.getRoomSchedules(roomCode);
   }
 
-  async getRoomTimetable(kod_ruang: string): Promise<TimetableData> {
-    let schedules = await this.ds.getRoomSchedules(kod_ruang);
+  async getRoomTimetable(roomCode: string): Promise<TimetableData> {
+    let schedules = await this.ds.getRoomSchedules(roomCode);
     schedules = orderBy(
       schedules,
       ["subjek.kod_subjek", "subjek.seksyen"],

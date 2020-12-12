@@ -50,7 +50,7 @@ export class SubjectListComponent implements OnInit {
     this.filteredSubjectList = this.subjectList;
   }
 
-  async viewSubjectDetail(subject: Subject) {
+  async viewSubjectInfo(subject: Subject) {
     const modal = await this.modalController.create({
       component: SubjectInfoComponent,
       componentProps: {

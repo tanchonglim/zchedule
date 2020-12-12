@@ -16,7 +16,7 @@ export class SubjectServiceService {
   }
 
   async getSubjectSections(subjectCode: string): Promise<SubjectSection> {
-    let subjectSections = await this.ds.getSubjectSections();
+    let subjectSections = await this.ds.getSubjectsSections();
     return subjectSections.filter(
       (section) => section.kod_subjek === subjectCode
     )[0];

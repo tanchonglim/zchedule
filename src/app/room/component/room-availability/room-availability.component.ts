@@ -46,7 +46,9 @@ export class RoomAvailabilityComponent implements OnInit {
   sdateRangeFrom: string; //s for selected
   sdateRangeTo: string; //s for selected
 
-  selectedRadioDay: number;
+  selectedRadioDay: any;
+  selectedDayString: string = "Select a day";
+
   collapse1: boolean = false;
   collapse2: boolean = false;
 
@@ -124,6 +126,33 @@ export class RoomAvailabilityComponent implements OnInit {
   radioGroupChangeDay(event) {
     console.log(event.detail);
     this.selectedRadioDay = event.detail.value;
+
+    switch (this.selectedRadioDay) {
+      case "1":
+        this.selectedDayString = "Sunday";
+        break;
+      case "2":
+        this.selectedDayString = "Monday";
+        break;
+      case "3":
+        this.selectedDayString = "Tuesday";
+        break;
+      case "4":
+        this.selectedDayString = "Wednesday";
+        break;
+      case "5":
+        this.selectedDayString = "Thursday";
+        break;
+      case "6":
+        this.selectedDayString = "Friday";
+        break;
+      case "7":
+        this.selectedDayString = "Saturday";
+        break;
+      default:
+        this.selectedDayString = "Select a day";
+        break;
+    }
   }
 
   expandCard(i) {

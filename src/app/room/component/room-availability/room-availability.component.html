@@ -1,29 +1,13 @@
-<div style="text-align: center">
-  <div
-    (click)="openCalendar()"
-    style="
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      width: 95%;
-      margin: auto;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      border-radius: 25px;
-      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-        0 1px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
-      padding-left: 15px;
-    "
-  >
+<div style="text-align: center" class="search-option-container">
+  <div (click)="openCalendar()" class="calendar-btn">
     <div style="display: flex; flex-direction: row; align-items: center">
       <div class="ion-activatable">
         <ion-icon name="calendar-outline"></ion-icon>
       </div>
       <ion-list-header>
-        <ion-label *ngIf="!dateRange">Select a date</ion-label>
-        <ion-label *ngIf="dateRange">
-          {{ dateRange.from.dateObj | date: "d MMMM yyyy" }} -
-          {{ dateRange.to.dateObj | date: "d MMMM yyyy" }}
+        <ion-label>
+          {{ sdateRangeFrom }} -
+          {{ sdateRangeTo }}
         </ion-label>
       </ion-list-header>
     </div>
@@ -33,24 +17,7 @@
     <div>
       <ion-list>
         <ion-radio-group value="day" (ionChange)="radioGroupChangeDay($event)">
-          <div
-            style="
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              justify-content: space-between;
-              padding-right: 15px;
-              width: 95%;
-              margin: auto;
-              border-radius: 25px;
-              box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-                0 1px 1px -1px rgba(0, 0, 0, 0.2),
-                0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
-              padding-left: 15px;
-              margin-bottom: 5px;
-            "
-            (click)="expandCard1()"
-          >
+          <div class="day-btn" (click)="expand(0)">
             <div
               style="display: flex; flex-direction: row; align-items: center"
             >
@@ -58,12 +25,14 @@
                 <ion-icon name="browsers-outline"></ion-icon>
               </div>
               <ion-list-header>
-                <ion-label>{{ selectedDayString }}</ion-label>
+                <ion-label>{{
+                  selectedDay ? selectedDay.val : "Select a day"
+                }}</ion-label>
               </ion-list-header>
             </div>
             <div>
               <ion-icon
-                [@rotatedState]="collapse1"
+                [@rotatedState]="collapse[0]"
                 name="chevron-forward-outline"
                 style="
                   display: flex;
@@ -73,36 +42,11 @@
               ></ion-icon>
             </div>
           </div>
-          <!-- <div>{{ selectedRadioDay }}</div> -->
 
-          <div [@collapse]="collapse1">
-            <ion-item>
-              <ion-label>Sunday</ion-label>
-              <ion-radio slot="start" value="1" checked></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label>Monday</ion-label>
-              <ion-radio slot="start" value="2"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label>Tuesday</ion-label>
-              <ion-radio slot="start" value="3"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label>Wednesday</ion-label>
-              <ion-radio slot="start" value="4"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label>Thursday</ion-label>
-              <ion-radio slot="start" value="5"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label>Friday</ion-label>
-              <ion-radio slot="start" value="6"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label>Saturday</ion-label>
-              <ion-radio slot="start" value="7"></ion-radio>
+          <div [@collapse]="collapse[0]">
+            <ion-item *ngFor="let day of days">
+              <ion-label>{{ day.val }}</ion-label>
+              <ion-radio slot="start" [value]="day"></ion-radio>
             </ion-item>
           </div>
         </ion-radio-group>
@@ -111,34 +55,18 @@
   </div>
   <div>
     <ion-list>
-      <div
-        style="
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-between;
-          padding-right: 15px;
-          width: 95%;
-          margin: auto;
-          border-radius: 25px;
-          box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-            0 1px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
-          padding-left: 15px;
-          margin-bottom: 5px;
-        "
-        (click)="expandCard2()"
-      >
+      <div class="timeslot-btn" (click)="expand(1)">
         <div style="display: flex; flex-direction: row; align-items: center">
           <div class="ion-activatable">
             <ion-icon name="time-outline"></ion-icon>
           </div>
           <ion-list-header>
-            <ion-label>Select timeslot(s)</ion-label>
+            <ion-label>{{ selectedSlots || "Select timeslot(s)" }}</ion-label>
           </ion-list-header>
         </div>
         <div>
           <ion-icon
-            [@rotatedState]="collapse2"
+            [@rotatedState]="collapse[1]"
             name="chevron-forward-outline"
             style="
               display: flex;
@@ -148,9 +76,8 @@
           ></ion-icon>
         </div>
       </div>
-      <!-- <div *ngFor="let t of tempTimeslot">{{ t.value }}</div> -->
 
-      <div [@collapse]="collapse2">
+      <div [@collapse]="collapse[1]">
         <ion-list>
           <ion-item *ngFor="let entry of timeslot">
             <ion-label>{{ entry.val }}</ion-label>
@@ -163,6 +90,7 @@
       </div>
     </ion-list>
   </div>
+
   <ion-button (click)="getAvailableRoom()"> Search </ion-button>
 </div>
 
@@ -203,4 +131,4 @@
   ></app-no-result>
 </div>
 
-<!-- <app-loading *ngIf="!availableRoomList"></app-loading> -->
+<app-loading *ngIf="isSearching"></app-loading>

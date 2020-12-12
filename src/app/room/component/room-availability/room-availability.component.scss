@@ -1,11 +1,49 @@
-.search-card {
-  width: 100%;
-  padding: 1rem 2rem;
+.search-option-container {
+  text-align: center;
+}
+
+.calendar-btn {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
+  width: 95%;
   margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 25px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+  padding-left: 15px;
+}
+
+.day-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 15px;
+  width: 95%;
+  margin: auto;
+  border-radius: 25px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+  padding-left: 15px;
+  margin-bottom: 5px;
+}
+
+.timeslot-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 15px;
+  width: 95%;
+  margin: auto;
+  border-radius: 25px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+  padding-left: 15px;
+  margin-bottom: 5px;
 }
 
 .search-result-container {

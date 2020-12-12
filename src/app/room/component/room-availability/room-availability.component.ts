@@ -16,7 +16,6 @@ import {
 } from "ion2-calendar";
 import { RoomServiceService } from "./../../room-service.service";
 import { Room } from "./../../../shared/models/Room";
-import { ScheduleRoom } from "./../../../shared/models/ScheduleRoom";
 import { RoomDetailComponent } from "./../room-detail/room-detail.component";
 
 @Component({
@@ -39,36 +38,28 @@ import { RoomDetailComponent } from "./../room-detail/room-detail.component";
   styleUrls: ["./room-availability.component.scss"],
 })
 export class RoomAvailabilityComponent implements OnInit {
-  dateRange: {
-    from: CalendarResult;
-    to: CalendarResult;
-  };
+  isSearching: boolean = false;
+
   sdateRangeFrom: string; //s for selected
   sdateRangeTo: string; //s for selected
 
-  selectedRadioDay: any;
-  selectedDayString: string = "Select a day";
-
-  collapse1: boolean = false;
-  collapse2: boolean = false;
+  selectedDay: {
+    val: string;
+    day: number;
+  };
 
   availableRoomList: Array<Room> = null;
-  collapse: Array<Boolean> = [];
-
-  // timeslot: Array<{
-  //   time: number;
-  //   value: string;
-  // }> = [];
+  collapse: Array<Boolean> = [false, false];
 
   public timeslot = [
-    { val: "07:00 AM - 07:50 AM", isChecked: true, slot: 1 },
-    { val: "08:00 AM - 08:50 AM", isChecked: true, slot: 2 },
-    { val: "09:00 AM - 09:50 AM", isChecked: true, slot: 3 },
-    { val: "10:00 AM - 10:50 AM", isChecked: true, slot: 4 },
-    { val: "11:00 AM - 11:50 AM", isChecked: true, slot: 5 },
-    { val: "12:00 PM - 12:50 PM", isChecked: true, slot: 6 },
-    { val: "01:00 PM - 01:50 PM", isChecked: true, slot: 7 },
-    { val: "02:00 PM - 02:50 PM", isChecked: true, slot: 8 },
+    { val: "07:00 AM - 07:50 AM", isChecked: false, slot: 1 },
+    { val: "08:00 AM - 08:50 AM", isChecked: false, slot: 2 },
+    { val: "09:00 AM - 09:50 AM", isChecked: false, slot: 3 },
+    { val: "10:00 AM - 10:50 AM", isChecked: false, slot: 4 },
+    { val: "11:00 AM - 11:50 AM", isChecked: false, slot: 5 },
+    { val: "12:00 PM - 12:50 PM", isChecked: false, slot: 6 },
+    { val: "01:00 PM - 01:50 PM", isChecked: false, slot: 7 },
+    { val: "02:00 PM - 02:50 PM", isChecked: false, slot: 8 },
     { val: "03:00 PM - 03:50 PM", isChecked: false, slot: 9 },
     { val: "04:00 PM - 04:50 PM", isChecked: false, slot: 10 },
     { val: "05:00 PM - 05:50 PM", isChecked: false, slot: 11 },
@@ -77,6 +68,16 @@ export class RoomAvailabilityComponent implements OnInit {
     { val: "08:00 PM - 08:50 PM", isChecked: false, slot: 14 },
     { val: "09:00 PM - 09:50 PM", isChecked: false, slot: 15 },
     { val: "10:00 PM - 10:50 PM", isChecked: false, slot: 16 },
+  ];
+
+  public days = [
+    { val: "Sunday", day: 1 },
+    { val: "Monday", day: 2 },
+    { val: "Tuesday", day: 3 },
+    { val: "Wednesday", day: 4 },
+    { val: "Thursday", day: 5 },
+    { val: "Friday", day: 6 },
+    { val: "Saturday", day: 7 },
   ];
 
   constructor(
@@ -102,78 +103,59 @@ export class RoomAvailabilityComponent implements OnInit {
       componentProps: { options },
     });
 
-    myCalendar.present();
+    await myCalendar.present();
 
     const event: any = await myCalendar.onDidDismiss();
     if (event.data) {
-      this.dateRange = event.data;
-      this.getDateRange();
+      let dateRange = event.data;
+      this.sdateRangeFrom = dateRange.from.string;
+      this.sdateRangeTo = dateRange.to.string;
     }
   }
 
-  expandCard1() {
-    let c = this.collapse1;
-    this.collapse2 = false;
-    this.collapse1 = !c;
-  }
-
-  expandCard2() {
-    let c = this.collapse2;
-    this.collapse1 = false;
-    this.collapse2 = !c;
-  }
-
-  radioGroupChangeDay(event) {
-    console.log(event.detail);
-    this.selectedRadioDay = event.detail.value;
-
-    switch (this.selectedRadioDay) {
-      case "1":
-        this.selectedDayString = "Sunday";
-        break;
-      case "2":
-        this.selectedDayString = "Monday";
-        break;
-      case "3":
-        this.selectedDayString = "Tuesday";
-        break;
-      case "4":
-        this.selectedDayString = "Wednesday";
-        break;
-      case "5":
-        this.selectedDayString = "Thursday";
-        break;
-      case "6":
-        this.selectedDayString = "Friday";
-        break;
-      case "7":
-        this.selectedDayString = "Saturday";
-        break;
-      default:
-        this.selectedDayString = "Select a day";
-        break;
-    }
-  }
-
-  expandCard(i) {
+  expand(i) {
     let c = this.collapse[i];
-    this.collapse = this.collapse.map((r) => false);
+    this.collapse.fill(false);
     this.collapse[i] = !c;
   }
 
-  async getDateRange() {
-    this.sdateRangeFrom = this.dateRange.from.string;
-    this.sdateRangeTo = this.dateRange.to.string;
+  radioGroupChangeDay(event) {
+    this.selectedDay = event.detail.value;
+  }
+
+  get selectedSlots() {
+    return this.timeslot
+      .filter((s) => s.isChecked)
+      .map((s) => s.slot)
+      .toString();
   }
 
   async getAvailableRoom() {
+    //validation
+    if (!this.sdateRangeFrom || !this.sdateRangeTo) {
+      alert("Please select a date range");
+      return;
+    }
+    if (!this.selectedDay) {
+      alert("Please select a day");
+      return;
+    }
+    if (!this.timeslot.find((s) => s.isChecked)) {
+      alert("Please select at least one timeslot");
+      return;
+    }
+
+    this.collapse.fill(false);
+    this.isSearching = true;
+    console.time("search");
     this.availableRoomList = await this.rs.getAvailableRoom(
       this.timeslot,
-      this.selectedRadioDay,
+      this.selectedDay.day,
       this.sdateRangeFrom,
       this.sdateRangeTo
     );
-    console.log(this.availableRoomList);
+    this.isSearching = false;
+    console.time("search");
   }
 
   async openRoomDetail(room) {

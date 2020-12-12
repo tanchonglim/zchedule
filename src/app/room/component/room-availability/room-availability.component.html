@@ -155,7 +155,7 @@
           <ion-item *ngFor="let entry of timeslot">
             <ion-label>{{ entry.val }}</ion-label>
             <ion-checkbox
-              slot="end"
+              slot="start"
               [(ngModel)]="entry.isChecked"
             ></ion-checkbox>
           </ion-item>

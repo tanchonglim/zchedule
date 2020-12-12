@@ -19,11 +19,11 @@ export class SubjectInfoComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.getSubjectSections();
+    this.getSubjectSections(this.subjectCode);
   }
 
-  async getSubjectSections() {
-    this.subjectSections = await this.ss.getSubjectSections(this.subjectCode);
+  async getSubjectSections(subjectCode: string) {
+    this.subjectSections = await this.ss.getSubjectSections(subjectCode);
   }
 
   async openSubjectDetail(sectionInfo) {

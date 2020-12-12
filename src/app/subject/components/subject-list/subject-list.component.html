@@ -12,7 +12,7 @@
     <ion-virtual-scroll [items]="filteredSubjectList" approxItemHeight="200px">
       <ion-item
         *virtualItem="let subject"
-        (click)="viewSubjectDetail(subject)"
+        (click)="viewSubjectInfo(subject)"
         class="search-result-item"
       >
         <ion-label>

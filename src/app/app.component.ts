@@ -66,10 +66,9 @@ export class AppComponent implements OnInit {
     this.ge.scrollEvent.subscribe((e) => {
       this.showFooter = e;
     });
-
     //auto login feature
     //if success login before, then every 10 minutes, get new session
-    let credential = this.ds.currentUserCredential;
+    let credential = await this.ds.getCurrentUserCredential();
     if (credential) {
       //TODO: if redirect, jump to login page
       await this.as.login(credential.login, credential.password);

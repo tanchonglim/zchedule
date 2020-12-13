@@ -125,7 +125,10 @@ export class DataServiceService {
     this._scheduleSubjects = [];
   }
 
-  get currentUserCredential(): { login: string; password: string } {
+  async getCurrentUserCredential(): Promise<{
+    login: string;
+    password: string;
+  }> {
     //check in local storage
     //temp
     this._currentUserCredential = {

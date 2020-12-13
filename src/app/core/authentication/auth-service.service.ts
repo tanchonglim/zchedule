@@ -13,6 +13,7 @@ export class AuthServiceService {
 
   async login(login: string, password: string): Promise<Boolean> {
     let user = await this.gmmService.authentication(login, password);
+    console.log("after get user ");
     //if is valid user
     if (user.session_id && user.admin_session_id) {
       this.dataService.setCurrentUser(login, password, user);

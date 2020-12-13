@@ -32,6 +32,7 @@ export class HomePagePage implements OnInit {
   ngOnInit() {}
 
   async ionViewDidEnter() {
+    console.log("enter home");
     this.user = await this.hs.getCurrentuser();
     this.getTimetableData();
     this.getSubjectData();

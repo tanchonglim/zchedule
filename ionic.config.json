@@ -1,5 +1,7 @@
 {
   "name": "zchedule",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

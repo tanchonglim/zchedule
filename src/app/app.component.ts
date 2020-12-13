@@ -12,6 +12,9 @@ import {
   animate,
   trigger,
 } from "@angular/animations";
+import { DataServiceService } from "./core/service/data-service.service";
+import { AuthServiceService } from "./core/authentication/auth-service.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-root",
@@ -44,7 +47,10 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private ge: GlobalEventService
+    private router: Router,
+    private ge: GlobalEventService,
+    private ds: DataServiceService,
+    private as: AuthServiceService
   ) {
     this.initializeApp();
   }
@@ -56,9 +62,25 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.ge.scrollEvent.subscribe((e) => {
       this.showFooter = e;
     });
+
+    //auto login feature
+    //if success login before, then every 10 minutes, get new session
+    let credential = this.ds.currentUserCredential;
+    if (credential) {
+      //TODO: if redirect, jump to login page
+      await this.as.login(credential.login, credential.password);
+      setInterval(() => {
+        //TODO: if redirect, jump to login page
+        this.as.login(credential.login, credential.password);
+      }, 10 * 60 * 1000);
+    }
+  }
+
+  get showFooterMenu() {
+    return !this.router.url.includes("login");
   }
 }

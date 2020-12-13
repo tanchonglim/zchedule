@@ -15,13 +15,18 @@ import { Room } from "./../../shared/models/Room";
 
 import { isEqual } from "lodash";
 import { ScheduleRoom } from "./../../shared/models/ScheduleRoom";
+import { User } from "./../../shared/models/User";
+import { GMMStudentService } from "./gmmstudent.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class DataServiceService {
   //current logged in users data, need to store in localstorage
-  private _id: string = "A18CS0255";
+
+  private _currentUserCredential: { login: string; password: string };
+  private _currentUser: User;
+
   private _currentSesiSem: SesiSemester = {
     tarikh_tamat: "2021-01-30",
     sesi: "2020/2021",
@@ -29,7 +34,6 @@ export class DataServiceService {
     tarikh_mula: "2020-10-18",
     semester: 1,
   };
-  private _adminSessionID: number;
 
   private _currentStudentSubjects: {
     param: {
@@ -114,7 +118,6 @@ export class DataServiceService {
    * when logout
    */
   clearData() {
-    this._id = null;
     // this._studentSubjects = null;
     // this._lecturerSubjects = null;
     this._currentStudentSubjects = null;
@@ -122,26 +125,31 @@ export class DataServiceService {
     this._scheduleSubjects = [];
   }
 
-  setID(id: string) {
-    this._id = id;
+  get currentUserCredential(): { login: string; password: string } {
+    //check in local storage
+    //temp
+    this._currentUserCredential = {
+      login: "A18CS0255",
+      password: "980915086217",
+    };
+    return this._currentUserCredential;
+  }
+  //if login success, set this
+  setCurrentUser(login: string, password: string, user: User) {
+    this._currentUserCredential = {
+      login,
+      password,
+    };
+    this._currentUser = user;
   }
 
-  getID(): string {
-    return this._id;
+  getUser(): User {
+    return this._currentUser;
   }
 
   async getCurrentSesiSem(): Promise<SesiSemester> {
     this._currentSesiSem = (await this.getSesiSemester())[0];
     return this._currentSesiSem;
-  }
-
-  async getAdminSessionID() {
-    if (!this._adminSessionID) {
-      this._adminSessionID = await this.fsksmService.getAdminSessionID();
-      return this._adminSessionID;
-    } else {
-      return this._adminSessionID;
-    }
   }
 
   async getSesiSemester(): Promise<Array<SesiSemester>> {
@@ -163,7 +171,7 @@ export class DataServiceService {
   ): Promise<Array<StudentSubject>> {
     let subjects: Array<StudentSubject>;
     //if is current user
-    if (id === this._id) {
+    if (id === this._currentUser.login_name) {
       if (!this._currentStudentSubjects) {
         this._currentStudentSubjects = {
           param: {
@@ -266,7 +274,6 @@ export class DataServiceService {
     limit: number,
     offset: number
   ): Promise<Array<Student>> {
-    await this.getAdminSessionID(); //temporary
     let params = {
       kod_kursus: kod_kursus,
       limit: limit,
@@ -282,7 +289,7 @@ export class DataServiceService {
       let length = this._students.push({
         params: params,
         students: await this.fsksmService.fetchStudents(
-          this._adminSessionID,
+          this._currentUser.admin_session_id,
           this._currentSesiSem.sesi,
           this._currentSesiSem.semester,
           kod_kursus,
@@ -296,10 +303,9 @@ export class DataServiceService {
   }
 
   async getLecturerList(): Promise<Array<Lecturer>> {
-    await this.getAdminSessionID(); //temporary
     if (!this._lecturers.length) {
       this._lecturers = await this.fsksmService.fetchLecturers(
-        this._adminSessionID,
+        this._currentUser.admin_session_id,
         this._currentSesiSem.sesi,
         this._currentSesiSem.semester
       );
@@ -362,7 +368,6 @@ export class DataServiceService {
     kod_subjek: string,
     seksyen: number
   ): Promise<Array<SubjectStudent>> {
-    await this.getAdminSessionID();
     let params = {
       kod_subjek: kod_subjek,
       seksyen: seksyen,
@@ -378,7 +383,7 @@ export class DataServiceService {
       let length = this._subjectstudent.push({
         params: params,
         students: await this.fsksmService.fetchSubjectStudent(
-          this._adminSessionID,
+          this._currentUser.admin_session_id,
           kod_subjek,
           seksyen,
           this._currentSesiSem.sesi,

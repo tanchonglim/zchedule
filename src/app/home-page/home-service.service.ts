@@ -8,17 +8,12 @@ import { TimetableData } from "../shared/components/timetable-subjects/timetable
 export class HomeServiceService {
   constructor(private ds: DataServiceService) {}
 
-  async initiate() {
-    this.ds.getCurrentSesiSem();
-    this.ds.getAdminSessionID();
+  async getCurrentuser() {
+    return this.ds.getUser();
   }
 
   async getCurrentSesiSem() {
     return this.ds.getCurrentSesiSem();
-  }
-
-  getID() {
-    return this.ds.getID();
   }
 
   async getTimetable(id: string): Promise<TimetableData> {
@@ -65,7 +60,7 @@ export class HomeServiceService {
 
   async getStudentSubjects(id: string) {
     let studentSubjects = await this.ds.getStudentSubjects(id);
-   return studentSubjects.map((subject) => {
+    return studentSubjects.map((subject) => {
       return {
         nama_subjek: subject.nama_subjek,
         kod_subjek: subject.kod_subjek,

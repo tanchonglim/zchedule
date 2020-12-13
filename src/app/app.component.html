@@ -3,6 +3,7 @@
     <ion-router-outlet animated="false" id="main-content"> </ion-router-outlet>
   </ion-split-pane>
   <app-footer
+    *ngIf="showFooterMenu"
     [@openClose]="showFooter ? 'open' : 'closed'"
     id="footer"
   ></app-footer>

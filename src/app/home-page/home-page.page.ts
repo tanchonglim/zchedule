@@ -3,6 +3,7 @@ import { TimetableData } from "../shared/components/timetable-subjects/timetable
 import { HomeServiceService } from "./home-service.service";
 import { GlobalEventService } from "../core/service/global-event.service";
 import { RegisteredSubjectListData } from "../shared/components/list-subject/list-subject.component";
+import { User } from "src/app/shared/models/User";
 
 @Component({
   selector: "app-home-page",
@@ -10,6 +11,10 @@ import { RegisteredSubjectListData } from "../shared/components/list-subject/lis
   styleUrls: ["./home-page.page.scss"],
 })
 export class HomePagePage implements OnInit {
+  user: User;
+  timetableData: TimetableData;
+  registeredSubjectListData: Array<RegisteredSubjectListData> = [];
+
   tabs = [
     {
       label: "Timetable",
@@ -21,26 +26,25 @@ export class HomePagePage implements OnInit {
     },
   ];
   selectedTab: number = 0;
-  id: string;
-  timetableData: TimetableData;
-  registeredSubjectListData: Array<RegisteredSubjectListData> = [];
 
   constructor(private hs: HomeServiceService, private ge: GlobalEventService) {}
 
   ngOnInit() {}
 
   async ionViewDidEnter() {
-    this.id = this.hs.getID();
+    this.user = await this.hs.getCurrentuser();
     this.getTimetableData();
     this.getSubjectData();
   }
 
   async getTimetableData() {
-    this.timetableData = await this.hs.getTimetable(this.id);
+    this.timetableData = await this.hs.getTimetable(this.user.login_name);
   }
 
   async getSubjectData() {
-    this.registeredSubjectListData = await this.hs.getStudentSubjects(this.id);
+    this.registeredSubjectListData = await this.hs.getStudentSubjects(
+      this.user.login_name
+    );
   }
 
   scroll(event: CustomEvent) {

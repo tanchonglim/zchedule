@@ -70,9 +70,6 @@ export class StudentServiceService {
   }
 
   async getStudentList(kod_kursus: string) {
-    await this.ds.getCurrentSesiSem(); //temp
-    await this.ds.getAdminSessionID(); //temp
-
     //fliter logic
     let offset = 0;
     let studentList: Array<any> = [];

@@ -39,20 +39,19 @@ export class SubjectDetailComponent implements OnInit {
     };
 
     this.getTimetableData(this.subjectCode, this.sectionInfo.seksyen);
-    this.getSubjectStudents();
+    this.getSubjectStudents(this.subjectCode, this.sectionInfo.seksyen);
   }
 
   async getTimetableData(subjectCode, section) {
     this.timetableData = await this.ss.getTimetabledata(subjectCode, section);
   }
 
-  async getSubjectStudents() {
+  async getSubjectStudents(subjectCode, section) {
     this.subjectStudents = await this.ss.getSubjectStudents(
-      this.subjectCode,
-      this.sectionInfo.seksyen
+      subjectCode,
+      section
     );
     this.filteredsubjectStudents = this.subjectStudents;
-    console.log(this.subjectStudents);
   }
 
   onsearch(event) {

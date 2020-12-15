@@ -3,6 +3,7 @@ SCSJ3104 APPLICATION DEVELOPMENT PROJECT
 
 ZCHEDULE is a hybrid mobile application extended from existing [FSKSM E-Learning] website.
 
+Demo: [Demo]
 ## Tools used 
 - [Ionic 5]
 - [Google Chart API]
@@ -19,19 +20,24 @@ ZCHEDULE is a hybrid mobile application extended from existing [FSKSM E-Learning
  ### Installation
  For installation, you need to have nodejs (with npm) and ionic cli installed
  
- After installing, remember to install node_packages. 
+ After installing, remember to install node_packages
+ 
  `$ npm i`
  
  For serving locally
+ 
  `$ ionic serve`
  
  For building SPA
+ 
  `$ ionic build --prod`
  
  For compiling to APK
+ 
  `$ ionic cordova build android --prod`
   
   [FSKSM E-Learning]: <http://web1.fsksm.utm.my/~webapps/cgi-bin/webman/applications/fsksmELearning/index.cgi>
   [Ionic 5]: <https://ionicframework.com/docs>
   [Google Chart API]: <https://developers.google.com/chart>
   [Google Translation API]: <https://cloud.google.com/translate/docs>
+  [Demo]: <https://zchedule.herokuapp.com/>

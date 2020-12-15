@@ -19,7 +19,7 @@ ZCHEDULE is a hybrid mobile application extended from existing [FSKSM E-Learning
  ### Installation
  For installation, you need to have nodejs (with npm) and ionic cli installed
  
- After installing, remember to install node_packages
+ After installing, remember to install node_packages. 
  `$ npm i`
  
  For serving locally

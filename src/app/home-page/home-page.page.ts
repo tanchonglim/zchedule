@@ -3,7 +3,7 @@ import { TimetableData } from "../shared/components/timetable-subjects/timetable
 import { HomeServiceService } from "./home-service.service";
 import { GlobalEventService } from "../core/service/global-event.service";
 import { RegisteredSubjectListData } from "../shared/components/list-subject/list-subject.component";
-import { User } from "src/app/shared/models/User";
+import { Auth } from "src/app/shared/models/Auth";
 
 @Component({
   selector: "app-home-page",
@@ -11,7 +11,7 @@ import { User } from "src/app/shared/models/User";
   styleUrls: ["./home-page.page.scss"],
 })
 export class HomePagePage implements OnInit {
-  user: User;
+  authUser: Auth;
   timetableData: TimetableData;
   registeredSubjectListData: Array<RegisteredSubjectListData> = [];
 
@@ -33,18 +33,18 @@ export class HomePagePage implements OnInit {
 
   async ionViewDidEnter() {
     console.log("enter home");
-    this.user = await this.hs.getCurrentuser();
+    this.authUser = await this.hs.getCurrentuser();
     this.getTimetableData();
     this.getSubjectData();
   }
 
   async getTimetableData() {
-    this.timetableData = await this.hs.getTimetable(this.user.login_name);
+    this.timetableData = await this.hs.getTimetable(this.authUser.login_name);
   }
 
   async getSubjectData() {
     this.registeredSubjectListData = await this.hs.getStudentSubjects(
-      this.user.login_name
+      this.authUser.login_name
     );
   }
 

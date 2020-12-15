@@ -155,7 +155,6 @@ export class RoomAvailabilityComponent implements OnInit {
       this.sdateRangeTo
     );
     this.isSearching = false;
-    console.time("search");
   }
 
   async openRoomDetail(room) {

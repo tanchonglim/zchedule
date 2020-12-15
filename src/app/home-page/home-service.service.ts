@@ -9,7 +9,7 @@ export class HomeServiceService {
   constructor(private ds: DataServiceService) {}
 
   async getCurrentuser() {
-    return this.ds.getUser();
+    return this.ds.getAuthUser();
   }
 
   async getCurrentSesiSem() {

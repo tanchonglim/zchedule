@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { DataServiceService } from "../core/service/data-service.service";
 import { TimetableData } from "../shared/components/timetable-subjects/timetable-subjects.component";
 import { Lecturer } from "./../shared/models/Lecturer";
+import { RegisteredSubjectListData } from "./../shared/components/list-subject/list-subject.component";
 
 @Injectable({
   providedIn: "root",
@@ -52,7 +53,9 @@ export class LecturerServiceService {
     return timetableData;
   }
 
-  async getLecturerSubjectData(id: string) {
+  async getLecturerSubjectData(
+    id: string
+  ): Promise<Array<RegisteredSubjectListData>> {
     let lecturerSubject = await this.ds.getLecturerSubjects(id);
     return lecturerSubject.map((subject) => {
       return {

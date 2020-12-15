@@ -29,18 +29,6 @@ export class LecturerListComponent implements OnInit {
     this.filteredLecturerList = this.lecturerList;
   }
 
-  async openLecturerDetail(lecturer) {
-    event.stopPropagation();
-    const modal = await this.modal.create({
-      component: LecturerDetailComponent,
-      componentProps: {
-        lecturer: lecturer,
-      },
-    });
-    await modal.present();
-    await modal.onWillDismiss();
-  }
-
   onsearch(event) {
     let searchString = event.target.value;
     this.filteredLecturerList = this.lecturerList.filter((lecturer) => {
@@ -61,5 +49,17 @@ export class LecturerListComponent implements OnInit {
 
   clearsearch() {
     this.filteredLecturerList = this.lecturerList;
+  }
+
+  async openLecturerDetail(lecturer) {
+    event.stopPropagation();
+    const modal = await this.modal.create({
+      component: LecturerDetailComponent,
+      componentProps: {
+        lecturer: lecturer,
+      },
+    });
+    await modal.present();
+    await modal.onWillDismiss();
   }
 }

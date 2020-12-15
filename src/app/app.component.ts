@@ -13,7 +13,6 @@ import {
   trigger,
 } from "@angular/animations";
 import { DataServiceService } from "./core/service/data-service.service";
-import { AuthServiceService } from "./core/authentication/auth-service.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -49,8 +48,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private router: Router,
     private ge: GlobalEventService,
-    private ds: DataServiceService,
-    private as: AuthServiceService
+    private ds: DataServiceService
   ) {
     this.initializeApp();
   }
@@ -70,11 +68,9 @@ export class AppComponent implements OnInit {
     //if success login before, then every 10 minutes, get new session
     let credential = await this.ds.getCurrentUserCredential();
     if (credential) {
-      //TODO: if redirect, jump to login page
-      await this.as.login(credential.login, credential.password);
       setInterval(() => {
-        //TODO: if redirect, jump to login page
-        this.as.login(credential.login, credential.password);
+        //if wrong, jump to login page
+        this.ds.login(credential.login, credential.password);
       }, 10 * 60 * 1000);
     }
   }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthServiceService } from "src/app/core/authentication/auth-service.service";
 
 @Component({
   selector: "app-login-page",
@@ -9,17 +8,14 @@ import { AuthServiceService } from "src/app/core/authentication/auth-service.ser
 export class LoginPagePage implements OnInit {
   login: string;
   password: string;
-  constructor(private as: AuthServiceService) {}
+  constructor() {}
 
   ngOnInit() {}
 
   async signin() {
     //validation
-
-    let isLoggedIn = this.as.login(this.login, this.password);
-
+    //try login
     //if false, display mesessage
-
     //if currect, redirect to home
   }
 }

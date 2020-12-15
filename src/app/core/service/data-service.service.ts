@@ -15,7 +15,7 @@ import { Room } from "./../../shared/models/Room";
 
 import { isEqual } from "lodash";
 import { ScheduleRoom } from "./../../shared/models/ScheduleRoom";
-import { User } from "./../../shared/models/User";
+import { Auth } from "../../shared/models/Auth";
 import { GMMStudentService } from "./gmmstudent.service";
 
 @Injectable({
@@ -25,7 +25,7 @@ export class DataServiceService {
   //current logged in users data, need to store in localstorage
 
   private _currentUserCredential: { login: string; password: string };
-  private _currentUser: User;
+  private _currentUser: Auth;
 
   private _currentSesiSem: SesiSemester = {
     tarikh_tamat: "2021-01-30",
@@ -112,7 +112,10 @@ export class DataServiceService {
   //need clear when change sesi semester
   private _lecturers: Array<Lecturer> = [];
 
-  constructor(private fsksmService: FsksmServiceService) {}
+  constructor(
+    private fsksmService: FsksmServiceService,
+    private gmmService: GMMStudentService
+  ) {}
 
   /**
    * when logout
@@ -123,6 +126,16 @@ export class DataServiceService {
     this._currentStudentSubjects = null;
     this._sesiSemester = null;
     this._scheduleSubjects = [];
+  }
+
+  async login(login: string, password: string): Promise<Auth> {
+    let user = await this.gmmService.authentication(login, password);
+    if (user.session_id && user.admin_session_id) {
+      this._currentUser = user;
+      return this._currentUser;
+    } else {
+      return null;
+    }
   }
 
   async getCurrentUserCredential(): Promise<{
@@ -137,16 +150,8 @@ export class DataServiceService {
     };
     return this._currentUserCredential;
   }
-  //if login success, set this
-  setCurrentUser(login: string, password: string, user: User) {
-    this._currentUserCredential = {
-      login,
-      password,
-    };
-    this._currentUser = user;
-  }
 
-  getUser(): User {
+  getAuthUser(): Auth {
     return this._currentUser;
   }
 

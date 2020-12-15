@@ -11,7 +11,7 @@ import { Subject } from "./../shared/models/Subject";
 export class SubjectServiceService {
   constructor(private ds: DataServiceService) {}
 
-  async getSubjects() {
+  async getSubjects(): Promise<Array<Subject>> {
     return this.ds.getSubjectList();
   }
 

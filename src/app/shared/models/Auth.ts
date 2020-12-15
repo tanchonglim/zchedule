@@ -1,4 +1,4 @@
-export interface User {
+export interface Auth {
   full_name: string;
   login_name: string;
   session_id: number;

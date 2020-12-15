@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
 
@@ -12,6 +12,13 @@ import { CoreModule } from "./core/core.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SharedModule } from "./shared/shared.module";
 import { CalendarModule } from "ion2-calendar";
+import { AppInitService } from "./core/service/app-init.service";
+
+export function initializeApp(appInitService: AppInitService) {
+  return (): Promise<any> => {
+    return appInitService.init();
+  };
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +36,13 @@ import { CalendarModule } from "ion2-calendar";
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AppInitService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AppInitService],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

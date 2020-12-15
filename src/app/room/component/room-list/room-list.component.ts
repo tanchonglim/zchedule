@@ -51,7 +51,7 @@ export class RoomListComponent implements OnInit {
     this.filteredRoomList = this.roomList;
   }
 
-  async openRoomDetail(room) {
+  async openRoomDetail(room: Room) {
     const modal = await this.modalController.create({
       component: RoomDetailComponent,
       componentProps: {

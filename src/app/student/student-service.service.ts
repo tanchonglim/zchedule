@@ -3,6 +3,9 @@ import { DataServiceService } from "../core/service/data-service.service";
 import { TimetableData } from "../shared/components/timetable-subjects/timetable-subjects.component";
 import { Student } from "../shared/models/Student";
 import { flatMap } from "lodash";
+import { SesiSemester } from "src/app/shared/models/SesiSemester";
+import { SubjectStudent } from "../shared/models/SubjectStudent";
+import { RegisteredSubjectListData } from "./../shared/components/list-subject/list-subject.component";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +13,7 @@ import { flatMap } from "lodash";
 export class StudentServiceService {
   constructor(private ds: DataServiceService) {}
 
-  async getCurrentSesiSem() {
+  async getCurrentSesiSem(): Promise<SesiSemester> {
     return this.ds.getCurrentSesiSem();
   }
 
@@ -55,7 +58,9 @@ export class StudentServiceService {
     return timetableData;
   }
 
-  async getStudentSubjects(id: string) {
+  async getStudentSubjects(
+    id: string
+  ): Promise<Array<RegisteredSubjectListData>> {
     let studentSubjects = await this.ds.getStudentSubjects(id);
 
     return studentSubjects.map((subject) => {
@@ -69,7 +74,7 @@ export class StudentServiceService {
     });
   }
 
-  async getStudentList(kod_kursus: string) {
+  async getStudentList(kod_kursus: string): Promise<Array<Student>> {
     //fliter logic
     let offset = 0;
     let studentList: Array<any> = [];

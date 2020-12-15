@@ -88,16 +88,6 @@ export class StudentListComponent implements OnInit {
     this.filteredStudentList = this.studentList;
   }
 
-  async openStudentDetail(student) {
-    event.stopPropagation();
-    const modal = await this.modal.create({
-      component: StudentDetailComponent,
-      componentProps: { student: student },
-    });
-    await modal.present();
-    await modal.onWillDismiss();
-  }
-
   async changeCourse(event) {
     this.searchString = null;
     this.studentList = null;
@@ -126,5 +116,15 @@ export class StudentListComponent implements OnInit {
 
   clearsearch() {
     this.filteredStudentList = this.studentList;
+  }
+
+  async openStudentDetail(student) {
+    event.stopPropagation();
+    const modal = await this.modal.create({
+      component: StudentDetailComponent,
+      componentProps: { student: student },
+    });
+    await modal.present();
+    await modal.onWillDismiss();
   }
 }

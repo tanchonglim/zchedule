@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { User } from "src/app/shared/models/User";
+import { Auth } from "src/app/shared/models/Auth";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +10,7 @@ export class GMMStudentService {
 
   constructor(private http: HttpClient) {}
 
-  async authentication(login: string, password: string): Promise<User> {
+  async authentication(login: string, password: string): Promise<Auth> {
     let params = new HttpParams()
       .set("entity", "authentication")
       .set("login", login)

@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Student } from "src/app/shared/models/Student";
 import { Lecturer } from "src/app/shared/models/Lecturer";
+import { SesiSemester } from "./../../shared/models/SesiSemester";
 
 @Injectable({
   providedIn: "root",
@@ -12,7 +13,7 @@ export class FsksmServiceService {
 
   constructor(private http: HttpClient) {}
 
-  async fetchSesiSemester(): Promise<any> {
+  async fetchSesiSemester(): Promise<Array<SesiSemester>> {
     let params: HttpParams = new HttpParams().set("entity", "sesisemester");
 
     let result = await this.http

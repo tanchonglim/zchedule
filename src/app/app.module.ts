@@ -14,6 +14,9 @@ import { SharedModule } from "./shared/shared.module";
 import { CalendarModule } from "ion2-calendar";
 import { AppInitService } from "./core/service/app-init.service";
 
+import { IonicAngularThemeSwitchService } from "ionic-angular-theme-switch";
+import { IonicStorageModule } from "@ionic/storage";
+
 export function initializeApp(appInitService: AppInitService) {
   return (): Promise<any> => {
     return appInitService.init();
@@ -31,6 +34,7 @@ export function initializeApp(appInitService: AppInitService) {
     CoreModule,
     SharedModule,
     CalendarModule,
+    IonicStorageModule.forRoot(),
   ],
   providers: [
     StatusBar,
@@ -43,6 +47,7 @@ export function initializeApp(appInitService: AppInitService) {
       deps: [AppInitService],
       multi: true,
     },
+    IonicAngularThemeSwitchService,
   ],
   bootstrap: [AppComponent],
 })

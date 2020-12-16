@@ -15,6 +15,8 @@ import {
 import { DataServiceService } from "./core/service/data-service.service";
 import { Router } from "@angular/router";
 
+import { IonicAngularThemeSwitchService } from "ionic-angular-theme-switch";
+
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
@@ -48,7 +50,8 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private router: Router,
     private ge: GlobalEventService,
-    private ds: DataServiceService
+    private ds: DataServiceService,
+    private themeSwitchService: IonicAngularThemeSwitchService
   ) {
     this.initializeApp();
   }
@@ -73,6 +76,26 @@ export class AppComponent implements OnInit {
         this.ds.login(credential.login, credential.password);
       }, 10 * 60 * 1000);
     }
+
+    this.themeSwitchService.setTheme(
+      {
+        primary: "black",
+        secondary: "#5fb3b3",
+        tertiary: "#fac863",
+        success: "#90d089",
+        warning: "#f99157",
+        danger: "#ec5f67",
+        light: "#d8dee9",
+        medium: "#65737e",
+        dark: "#1b2b34",
+
+        "ion-background-color": "#1b2b34",
+        "ion-text-color": "#fff",
+      },
+      "dark"
+    );
+
+    this.themeSwitchService.setTheme();
   }
 
   get showFooterMenu() {

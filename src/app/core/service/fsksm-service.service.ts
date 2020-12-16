@@ -13,7 +13,7 @@ export class FsksmServiceService {
 
   constructor(private http: HttpClient) {}
 
-  async fetchSesiSemester(): Promise<Array<SesiSemester>> {
+  async fetchSesiSemester(): Promise<any> {
     let params: HttpParams = new HttpParams().set("entity", "sesisemester");
 
     let result = await this.http

@@ -13,14 +13,15 @@ export class ProfilePage implements OnInit {
     tabs: [],
   };
 
+  themes: Array<any>;
+
+  currentThemeIndex: number;
+
   constructor(private themeSwitchService: IonicAngularThemeSwitchService) {}
 
-  ngOnInit() {}
-
-  setTheme(event) {
-    let i = event.detail.checked;
-    if (i) {
-      this.themeSwitchService.setTheme({
+  ngOnInit() {
+    this.themes = [
+      {
         primary: "blue",
         secondary: "#5fb3b3",
         tertiary: "#fac863",
@@ -30,9 +31,8 @@ export class ProfilePage implements OnInit {
         light: "#d8dee9",
         medium: "#65737e",
         dark: "#1b2b34",
-      });
-    } else {
-      this.themeSwitchService.setTheme({
+      },
+      {
         primary: "purple",
         secondary: "#5fb3b3",
         tertiary: "#fac863",
@@ -42,7 +42,13 @@ export class ProfilePage implements OnInit {
         light: "#d8dee9",
         medium: "#65737e",
         dark: "#1b2b34",
-      });
-    }
+      },
+    ];
+    this.currentThemeIndex = 0;
+  }
+
+  setTheme(theme) {
+    this.themeSwitchService.setTheme(theme);
+    this.currentThemeIndex = this.themes.indexOf(theme);
   }
 }

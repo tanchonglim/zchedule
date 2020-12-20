@@ -34,7 +34,7 @@ export class ProfilePage implements OnInit {
       },
       {
         primary: "purple",
-        secondary: "#5fb3b3",
+        secondary: "purple",
         tertiary: "#fac863",
         success: "#90d089",
         warning: "#f99157",

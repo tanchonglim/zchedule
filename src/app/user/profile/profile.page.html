@@ -3,37 +3,37 @@
     <div class="section top-section">
       <ion-icon name="person-circle-outline"></ion-icon>
       <div>
-        <span class="title">Name</span> <br />
-        <span class="subtitle">A12CS123</span>
+        <span class="name">Name Here</span> <br />
+        <span class="id">A12CS123</span>
       </div>
     </div>
+
     <div class="section info-section">
       <div class="title">Information</div>
       <div>
-        <p>some info here</p>
-        <div class="hr"></div>
-        <p>iext info</p>
-        <div class="hr"></div>
+        <div class="item">some info here</div>
+        <div class="item">iext info</div>
       </div>
     </div>
+
     <div class="section setting-section">
       <div class="title">Settings</div>
       <div>
-        <div>setting 1</div>
-        <div class="hr"></div>
-        <div>
+        <div class="item">
           Themes <br />
+          <br />
           <div class="theme-picker-box">
-            <div
-              *ngFor="let theme of themes; index as i"
-              (click)="setTheme(theme)"
-              class="round"
-              [class.round-border]="currentThemeIndex == i"
-              [style.background-color]="theme.primary"
-            ></div>
+            <div class="circle-box" *ngFor="let theme of themes; index as i">
+              <div [class.circle-radius]="currentThemeIndex == i">
+                <div
+                  (click)="setTheme(theme)"
+                  class="circle"
+                  [style.background-color]="theme.primary"
+                ></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="hr"></div>
       </div>
     </div>
   </div>

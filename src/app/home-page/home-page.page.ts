@@ -5,6 +5,9 @@ import { GlobalEventService } from "../core/service/global-event.service";
 import { RegisteredSubjectListData } from "../shared/components/list-subject/list-subject.component";
 import { Auth } from "src/app/shared/models/Auth";
 
+import { GoogleChartInterface } from "ng2-google-charts";
+declare var google;
+
 @Component({
   selector: "app-home-page",
   templateUrl: "./home-page.page.html",
@@ -58,5 +61,31 @@ export class HomePagePage implements OnInit {
 
   selectTab(i) {
     this.selectedTab = i;
+  }
+
+  show() {
+    var data = new google.visualization.DataTable();
+    data.addColumn("string", "Topping");
+    data.addColumn("number", "Slices");
+    data.addRows([
+      ["Mushrooms", 3],
+      ["Onions", 1],
+      ["Olives", 1],
+      ["Zucchini", 1],
+      ["Pepperoni", 2],
+    ]);
+
+    // Set chart options
+    var options = {
+      title: "How Much Pizza I Ate Last Night",
+      width: 500,
+      height: 300,
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.BarChart(
+      document.getElementById("chart")
+    );
+    chart.draw(data, options);
   }
 }

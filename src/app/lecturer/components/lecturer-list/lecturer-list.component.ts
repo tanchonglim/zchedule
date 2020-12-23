@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Lecturer } from "src/app/shared/models/Lecturer";
 import { LecturerServiceService } from "../../lecturer-service.service";

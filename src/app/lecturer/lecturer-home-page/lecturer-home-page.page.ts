@@ -8,7 +8,7 @@ import { PageHeaderProps } from "src/app/shared/components/page-header/page-head
 
   styleUrls: ["./lecturer-home-page.page.scss"],
 })
-export class LecturerHomePagePage implements OnInit {
+export class LecturerHomePagePage implements OnInit {  
   pageHeaderProps: PageHeaderProps = {
     title: "Lecturer",
     tabs: ["List", "Analysis"],

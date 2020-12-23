@@ -12,6 +12,7 @@ import { NoResultComponent } from "./components/no-result/no-result.component";
 import { PageHeaderComponent } from "./components/page-header/page-header.component";
 import { ListSubjectComponent } from "./components/list-subject/list-subject.component";
 import { LoadingComponent } from "./components/loading/loading.component";
+// import { GoogleChartInterface } from "ng2-google-charts";
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { LoadingComponent } from "./components/loading/loading.component";
     IonicModule,
     ReactiveFormsModule,
     RouterModule,
+    // GoogleChartInterface,
   ],
   declarations: [
     TimetableSubjectsComponent,

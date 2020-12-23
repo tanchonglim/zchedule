@@ -17,7 +17,10 @@ import { AppInitService } from "./core/service/app-init.service";
 import { IonicAngularThemeSwitchService } from "ionic-angular-theme-switch";
 import { IonicStorageModule } from "@ionic/storage";
 
-import { Ng2GoogleChartsModule, GoogleChartsSettings } from 'ng2-google-charts';
+// import { Ng2GoogleChartsModule, GoogleChartsSettings } from 'ng2-google-charts';
+// import { ChartsModule } from "ng2-charts";
+
+// import { Ng2GoogleChartsModule } from "ng2-google-charts";
 
 export function initializeApp(appInitService: AppInitService) {
   return (): Promise<any> => {
@@ -37,7 +40,8 @@ export function initializeApp(appInitService: AppInitService) {
     SharedModule,
     CalendarModule,
     IonicStorageModule.forRoot(),
-    Ng2GoogleChartsModule,
+    // Ng2GoogleChartsModule,
+    // ChartsModule,
   ],
   providers: [
     StatusBar,

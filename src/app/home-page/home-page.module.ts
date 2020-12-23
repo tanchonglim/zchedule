@@ -8,6 +8,7 @@ import { HomePagePageRoutingModule } from "./home-page-routing.module";
 
 import { HomePagePage } from "./home-page.page";
 import { SharedModule } from "../shared/shared.module";
+import { Ng2GoogleChartsModule } from "ng2-google-charts";
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { SharedModule } from "../shared/shared.module";
     IonicModule,
     HomePagePageRoutingModule,
     SharedModule,
+    Ng2GoogleChartsModule,
   ],
   declarations: [HomePagePage],
 })

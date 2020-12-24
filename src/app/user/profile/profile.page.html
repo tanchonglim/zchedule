@@ -1,24 +1,41 @@
 <ion-content>
-  <div class="content">
+  <div class="content" *ngIf="isDataLoaded">
     <div class="section top-section">
       <ion-icon name="person-circle-outline"></ion-icon>
       <div>
-        <span class="name">Name Here</span> <br />
-        <span class="id">A12CS123</span>
+        <span class="name"> {{currentUser.full_name}} </span> <br />
+        <span class="id"> {{currentUser.login_name}} </span>
       </div>
     </div>
 
-    <div class="section info-section">
+    <!-- <div class="section info-section">
       <div class="title">Information</div>
       <div>
         <div class="item">some info here</div>
         <div class="item">iext info</div>
       </div>
-    </div>
+    </div> -->
 
     <div class="section setting-section">
       <div class="title">Settings</div>
       <div>
+        <div class="item">
+          Session Semester <br />
+          <div>
+            <ion-select
+              placeholder="Session / Semester"
+              [(ngModel)]="currentSesiSem.sesi_semester_id"
+              (ionChange)="setCurrentSesiSem($event)"
+            >
+              <ion-select-option
+                *ngFor="let sesiSem of sesiSemesters"
+                [value]="sesiSem.sesi_semester_id"
+              >
+                {{sesiSem.sesi}} / {{sesiSem.semester}}
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </div>
         <div class="item">
           Themes <br />
           <br />

@@ -1,1 +1,3 @@
-<google-chart [data]="pieChartData"></google-chart>
+<div *ngIf="pieChartData">
+  <google-chart [data]="pieChartData"></google-chart>
+</div>

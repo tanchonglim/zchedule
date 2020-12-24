@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { IonicAngularThemeSwitchService } from "ionic-angular-theme-switch";
 import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
+import { SesiSemester } from "src/app/shared/models/SesiSemester";
+import { UserServiceService } from "../user-service.service";
+import { Auth } from "./../../shared/models/Auth";
 
 @Component({
   selector: "app-profile",
@@ -8,6 +11,10 @@ import { PageHeaderProps } from "src/app/shared/components/page-header/page-head
   styleUrls: ["./profile.page.scss"],
 })
 export class ProfilePage implements OnInit {
+  currentUser: Auth;
+  sesiSemesters: Array<SesiSemester>;
+  currentSesiSem: SesiSemester;
+
   pageHeaderProps: PageHeaderProps = {
     title: "Profile",
     tabs: [],
@@ -17,7 +24,10 @@ export class ProfilePage implements OnInit {
 
   currentThemeIndex: number;
 
-  constructor(private themeSwitchService: IonicAngularThemeSwitchService) {}
+  constructor(
+    private themeSwitchService: IonicAngularThemeSwitchService,
+    private us: UserServiceService
+  ) {}
 
   ngOnInit() {
     this.themes = [
@@ -45,10 +55,40 @@ export class ProfilePage implements OnInit {
       },
     ];
     this.currentThemeIndex = 0;
+    this.getCurrentUser();
+    this.getCurrentSesiSem();
+    this.getSesiSemList();
   }
 
   setTheme(theme) {
     this.themeSwitchService.setTheme(theme);
     this.currentThemeIndex = this.themes.indexOf(theme);
+  }
+
+  async getCurrentUser() {
+    this.currentUser = await this.us.getCurrentuser();
+    console.log(this.currentUser);
+  }
+
+  async getCurrentSesiSem() {
+    this.currentSesiSem = await this.us.getCurrentSesiSem();
+    console.log(this.currentSesiSem);
+  }
+
+  async getSesiSemList() {
+    this.sesiSemesters = await this.us.getSesiSemList();
+    console.log(this.sesiSemesters);
+  }
+
+  setCurrentSesiSem(event) {
+    let currentSesiSemID = event.detail.value;
+    let currentSesiSem = this.sesiSemesters.find(
+      (ss) => ss.sesi_semester_id == currentSesiSemID
+    );
+    this.us.setCurrentSesiSem(currentSesiSem);
+  }
+
+  get isDataLoaded() {
+    return this.currentUser && this.currentSesiSem && this.sesiSemesters;
   }
 }

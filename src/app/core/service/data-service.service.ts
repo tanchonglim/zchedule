@@ -118,15 +118,17 @@ export class DataServiceService {
   ) {}
 
   /**
-   * when logout
+   * when change sesi sem
    */
   clearData() {
     // this._studentSubjects = null;
     // this._lecturerSubjects = null;
     this._currentStudentSubjects = null;
-    this._sesiSemester = null;
+    this._studentSubjects = [];
     this._scheduleSubjects = [];
   }
+
+  clearAllData() {}
 
   async login(login: string, password: string): Promise<Auth> {
     let user = await this.gmmService.authentication(login, password);
@@ -156,8 +158,15 @@ export class DataServiceService {
   }
 
   async getCurrentSesiSem(): Promise<SesiSemester> {
-    this._currentSesiSem = (await this.getSesiSemester())[0];
+    if (!this._currentSesiSem) {
+      this._currentSesiSem = (await this.getSesiSemester())[0];
+    }
     return this._currentSesiSem;
+  }
+
+  setCurrentSesiSem(sesiSem: SesiSemester) {
+    this.clearData();
+    this._currentSesiSem = sesiSem;
   }
 
   async getSesiSemester(): Promise<Array<SesiSemester>> {
@@ -166,10 +175,9 @@ export class DataServiceService {
       this._sesiSemester = this._sesiSemester.sort((a, b) => {
         return +b.sesi_semester_id - +a.sesi_semester_id;
       });
-      return this._sesiSemester;
-    } else {
-      return this._sesiSemester;
     }
+
+    return this._sesiSemester;
   }
 
   async getStudentSubjects(

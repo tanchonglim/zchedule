@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Lecturer } from "./../../../shared/models/Lecturer";
 import { LecturerServiceService } from "./../../lecturer-service.service";
 
@@ -16,17 +16,14 @@ export class LecturerChartComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(async () => {
-      this.getLecturerList();
+      await this.getLecturerList();
       this.drawChart();
     }, 120);
   }
 
   async getLecturerList() {
     this.lecturerList = await this.ls.getLecturerList();
-    this.lecturerList.forEach((l) => console.log(l.nama));
-    console.log(this.lecturerList.length);
     this.bar_num = Math.ceil(this.lecturerList.length / 10);
-    console.log(this.bar_num);
   }
 
   drawChart() {
@@ -43,7 +40,8 @@ export class LecturerChartComponent implements OnInit {
       },
     };
     // let data = ["a", 10];
-    for (let i = 0; i < this.bar_num; i++)
+    for (let i = 0; i < this.bar_num; i++) {
       this.pieChartData.dataTable.push(["a", 10]);
+    }
   }
 }

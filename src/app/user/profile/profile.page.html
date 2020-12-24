@@ -24,12 +24,13 @@
           <div>
             <ion-select
               placeholder="Session / Semester"
-              [(ngModel)]="currentSesiSem.sesi_semester_id"
+              [compareWith]="compareWith"
+              [(ngModel)]="currentSesiSem"
               (ionChange)="setCurrentSesiSem($event)"
             >
               <ion-select-option
                 *ngFor="let sesiSem of sesiSemesters"
-                [value]="sesiSem.sesi_semester_id"
+                [value]="sesiSem"
               >
                 {{sesiSem.sesi}} / {{sesiSem.semester}}
               </ion-select-option>

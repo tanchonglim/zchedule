@@ -11,6 +11,7 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { SubjectDetailComponent } from "../components/subject-detail/subject-detail.component";
 import { SubjectInfoComponent } from "../components/subject-info/subject-info.component";
 import { SubjectListComponent } from "../components/subject-list/subject-list.component";
+import { SubjectStudentFreeTimeComponent } from "../components/subject-student-free-time/subject-student-free-time.component";
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { SubjectListComponent } from "../components/subject-list/subject-list.co
     SubjectDetailComponent,
     SubjectInfoComponent,
     SubjectListComponent,
+    SubjectStudentFreeTimeComponent,
   ],
 })
 export class SubjectHomePageModule {}

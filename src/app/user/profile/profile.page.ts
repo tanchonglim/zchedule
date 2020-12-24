@@ -65,26 +65,29 @@ export class ProfilePage implements OnInit {
     this.currentThemeIndex = this.themes.indexOf(theme);
   }
 
+  compareWith(o1: SesiSemester, o2: SesiSemester) {
+    return o1 && o2 ? o1.sesi_semester_id === o2.sesi_semester_id : o1 === o2;
+  }
+
   async getCurrentUser() {
     this.currentUser = await this.us.getCurrentuser();
-    console.log(this.currentUser);
   }
 
   async getCurrentSesiSem() {
     this.currentSesiSem = await this.us.getCurrentSesiSem();
-    console.log(this.currentSesiSem);
   }
 
   async getSesiSemList() {
     this.sesiSemesters = await this.us.getSesiSemList();
-    console.log(this.sesiSemesters);
   }
 
   setCurrentSesiSem(event) {
-    let currentSesiSemID = event.detail.value;
-    let currentSesiSem = this.sesiSemesters.find(
-      (ss) => ss.sesi_semester_id == currentSesiSemID
+    let currentSesiSem = event.detail.value;
+    currentSesiSem = this.sesiSemesters.find(
+      (ss) => ss.sesi_semester_id === currentSesiSem.sesi_semester_id
     );
+
+    this.currentSesiSem = currentSesiSem;
     this.us.setCurrentSesiSem(currentSesiSem);
   }
 

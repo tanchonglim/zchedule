@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { ModalController } from "@ionic/angular";
+import { ChartSelectEvent } from "ng2-google-charts";
+import { LecturerChartBarDetailComponent } from "../lecturer-chart-bar-detail/lecturer-chart-bar-detail.component";
 import { Lecturer } from "./../../../shared/models/Lecturer";
 import { LecturerServiceService } from "./../../lecturer-service.service";
 
@@ -15,11 +18,13 @@ export class LecturerChartComponent implements OnInit {
     start: number;
     end: number;
     lect_num: number;
+    lecturers: Array<Lecturer>;
   }> = [];
 
-  isDrawn: boolean;
-
-  constructor(private ls: LecturerServiceService) {}
+  constructor(
+    private ls: LecturerServiceService,
+    public modalCtrl: ModalController
+  ) {}
 
   ngOnInit() {
     setTimeout(async () => {
@@ -27,7 +32,6 @@ export class LecturerChartComponent implements OnInit {
       this.getBarNum();
       this.insertBarData();
       this.drawChart();
-      this.isDrawn = true;
     }, 120);
   }
 
@@ -41,7 +45,6 @@ export class LecturerChartComponent implements OnInit {
     this.lecturerList.forEach((lect) => {
       if (lect.bil_pelajar > max_stud) max_stud = lect.bil_pelajar;
     });
-    console.log(max_stud);
     max_stud = Math.round(max_stud / 10) * 10;
     this.bar_num = max_stud / 10;
   }
@@ -52,14 +55,15 @@ export class LecturerChartComponent implements OnInit {
         start: i * this.bar_num,
         end: (i + 1) * this.bar_num - 1,
         lect_num: 0,
+        lecturers: [],
       });
     }
 
-    console.log(this.bar);
     this.lecturerList.forEach((lect) => {
       this.bar.forEach((b) => {
         if (lect.bil_pelajar >= b.start && lect.bil_pelajar <= b.end) {
           b.lect_num += 1;
+          b.lecturers.push(lect);
         }
       });
     });
@@ -67,20 +71,35 @@ export class LecturerChartComponent implements OnInit {
 
   drawChart() {
     this.barChartData = {
-      chartType: "B",
-      dataTable: [["Students", "Number"]],
+      chartType: "BarChart",
+      dataTable: [["Students", "#"]],
       options: {
-        title: "Number of lecturers against Number of students",
+        title: "Number of students against Number of lecturer",
         width: 400,
-        height: 1000,
+        height: 500,
       },
     };
 
-    // this.bar.forEach((b) => {
-    //   this.barChartData.dataTable.push(b.start + "-" + b.end, b.lect_num);
-    // });
     this.bar.forEach((b) => {
-      this.barChartData.dataTable.push(34, "434");
+      this.barChartData.dataTable.push([b.start + "-" + b.end, b.lect_num]);
     });
+  }
+
+  async select(event: ChartSelectEvent) {
+    if (event.row == null) return;
+    let index = event.row;
+    console.log(event);
+
+    let lecturers = this.bar[index].lecturers;
+
+    const modal = await this.modalCtrl.create({
+      component: LecturerChartBarDetailComponent,
+      componentProps: {
+        lecturers: lecturers,
+        range: event.selectedRowFormattedValues[0],
+      },
+      cssClass: "modal-float-bottom",
+    });
+    await modal.present();
   }
 }

@@ -13,6 +13,7 @@ import { LecturerListComponent } from "../components/lecturer-list/lecturer-list
 
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
 import { LecturerChartComponent } from "./../components/lecturer-chart/lecturer-chart.component";
+import { LecturerChartBarDetailComponent } from "../components/lecturer-chart-bar-detail/lecturer-chart-bar-detail.component";
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { LecturerChartComponent } from "./../components/lecturer-chart/lecturer-
     LecturerDetailComponent,
     LecturerListComponent,
     LecturerChartComponent,
+    LecturerChartBarDetailComponent,
   ],
 })
 export class LecturerHomePagePageModule {}

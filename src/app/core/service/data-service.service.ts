@@ -17,11 +17,18 @@ import { isEqual } from "lodash";
 import { ScheduleRoom } from "./../../shared/models/ScheduleRoom";
 import { Auth } from "../../shared/models/Auth";
 import { GMMStudentService } from "./gmmstudent.service";
+import { Storage } from "@ionic/storage";
+import {
+  IonicAngularThemeSwitchService,
+  IonicColors,
+} from "ionic-angular-theme-switch";
+import { themes } from "src/app/user/Theme";
 
 @Injectable({
   providedIn: "root",
 })
 export class DataServiceService {
+  private _currentTheme: IonicColors;
   private _currentUserCredential: { login: string; password: string };
   private _currentUser: Auth;
 
@@ -97,27 +104,137 @@ export class DataServiceService {
 
   private _lecturers: Array<Lecturer> = [];
 
+  private isOfflineMode: Boolean;
+
   constructor(
     private fsksmService: FsksmServiceService,
-    private gmmService: GMMStudentService
+    private gmmService: GMMStudentService,
+    private storage: Storage,
+    private themeSwitchService: IonicAngularThemeSwitchService
   ) {}
 
   async init() {
+    this._currentUserCredential = await this.storage.get(
+      "_currentUserCredential"
+    );
+
+    this.isOfflineMode = (await this.storage.get("offlineMode")) || false;
+
+    this._currentTheme = await this.storage.get("_currentTheme");
+
+    if (this._currentTheme) {
+      this.setCurrentTheme(this._currentTheme);
+    } else {
+      this.setCurrentTheme();
+    }
+
+    //if is offlinemode, try to get all cached data
+    if (this.isOfflineMode) {
+      await this.fetchOfflineData();
+    }
+
+    //if not offline mode,
+    if (!this.isOfflineMode) {
+      //if already logged in before,
+      if (this._currentUserCredential) {
+        //try to login
+        this._currentUser = await this.login(
+          this._currentUserCredential.login,
+          this._currentUserCredential.password
+        );
+      }
+    }
+
     this._sesiSemester = await this.getSesiSemester();
     this._currentSesiSem = this._sesiSemester[0];
+  }
 
-    //get data from local storage
+  async getCurrentTheme() {
+    return this._currentTheme;
+  }
+
+  async setCurrentTheme(theme?: IonicColors) {
+    if (theme) {
+      await this.storage.set("_currentTheme", theme);
+      this._currentTheme = theme;
+      this.themeSwitchService.setTheme(theme);
+    } else {
+      await this.storage.set("_currentTheme", themes[0]);
+      this._currentTheme = themes[0];
+      this.themeSwitchService.setTheme(themes[0]);
+    }
+  }
+
+  getOfflineMode() {
+    return this.isOfflineMode;
+  }
+
+  async setOfflineMode(status) {
+    //if set to true, store possible data in localstorage
+    if (status) await this.setOfflineData();
+
+    //set the mode
+    await this.storage.set("offlineMode", status);
+    this.isOfflineMode = status;
+  }
+
+  /**
+   * login again with current login and password, then fetch all the offline data (each functions will store the data in local storage)
+   */
+  async setOfflineData() {
+    if (!this.isOfflineMode) {
+      //get current user from local storage
+      let currentUserCredential = await this.storage.get(
+        "_currentUserCredential"
+      );
+      let currentUser: Auth = await this.login(
+        currentUserCredential.login,
+        currentUserCredential.password
+      );
+
+      let currentSesiSemester = (await this.getSesiSemester())[0];
+      let currentStudentSubjects = {
+        params: { id: currentUser.login_name },
+        subjects: await this.getStudentSubjects(
+          currentUser.login_name,
+          currentSesiSemester.sesi,
+          currentSesiSemester.semester
+        ),
+      };
+
+      for (let subject of currentStudentSubjects.subjects) {
+        this.getScheduleSubject(subject.kod_subjek, subject.seksyen);
+        this.getSubjectLecturer(subject.kod_subjek);
+      }
+    }
+  }
+
+  /**
+   * call this when is offline mode
+   */
+  async fetchOfflineData() {
+    this._currentUser = await this.storage.get("_currentUser");
+    this._currentSesiSem = await this.storage.get("_currentSesiSem");
+    this._sesiSemester = await this.storage.get("_sesiSemester");
+    this._currentStudentSubjects = await this.storage.get(
+      "_currentStudentSubjects"
+    );
+    this._scheduleSubjects = await this.storage.get("_scheduleSubjects");
+    this._subjectLecturer = await this.storage.get("_subjectLecturer");
   }
 
   //use when change sesi semester
   clearData() {
     this._currentStudentSubjects = null;
     this._scheduleSubjects = [];
+    this.storage.clear();
   }
 
   //use when logged out
   clearAllData() {
+    console.log("clear all data");
     this.clearData();
+    this.isOfflineMode = false;
     this._currentUser = null;
     this._currentUserCredential = null;
     this._currentSesiSem = null;
@@ -137,24 +254,39 @@ export class DataServiceService {
 
   async login(login: string, password: string): Promise<Auth> {
     let user = await this.gmmService.authentication(login, password);
-    if (user.session_id && user.admin_session_id) {
-      this._currentUser = user;
+    if (user && user.session_id && user.admin_session_id) {
+      this.setCurrentUser(user);
+      this.setCurrentUserCredential(login, password);
       return this._currentUser;
     } else {
       return null;
     }
   }
 
+  isLoggedIn() {
+    return this._currentUser;
+  }
+
+  setCurrentUserCredential(login: string, password: string) {
+    this._currentUserCredential = {
+      login: login,
+      password: password,
+    };
+    this.storage.set("_currentUserCredential", this._currentUserCredential);
+  }
+
+  setCurrentUser(auth: Auth) {
+    this._currentUser = auth;
+    this.storage.set("_currentUser", auth);
+  }
+
   async getCurrentUserCredential(): Promise<{
     login: string;
     password: string;
   }> {
-    //check in local storage
-    //temp
-    this._currentUserCredential = {
-      login: "A18CS0255",
-      password: "980915086217",
-    };
+    this._currentUserCredential = await this.storage.get(
+      "_currentUserCredential"
+    );
     return this._currentUserCredential;
   }
 
@@ -166,12 +298,14 @@ export class DataServiceService {
     if (!this._currentSesiSem) {
       this._currentSesiSem = (await this.getSesiSemester())[0];
     }
+    this.storage.set("_currentSesiSem", this._currentSesiSem);
     return this._currentSesiSem;
   }
 
   setCurrentSesiSem(sesiSem: SesiSemester) {
     this.clearData();
     this._currentSesiSem = sesiSem;
+    this.storage.set("_currentSesiSem", this._currentSesiSem);
   }
 
   async getSesiSemester(): Promise<Array<SesiSemester>> {
@@ -181,7 +315,7 @@ export class DataServiceService {
         return +b.sesi_semester_id - +a.sesi_semester_id;
       });
     }
-
+    this.storage.set("_sesiSemester", this._sesiSemester);
     return this._sesiSemester;
   }
 
@@ -223,6 +357,8 @@ export class DataServiceService {
         subjects = this._studentSubjects[length - 1].subjects;
       }
     }
+
+    this.storage.set("_currentStudentSubjects", this._currentStudentSubjects);
 
     if (!sesi || !semester) return subjects;
 
@@ -273,8 +409,6 @@ export class DataServiceService {
     );
     //if data in memory
     if (index !== -1) {
-      return this._scheduleSubjects[index].schedules;
-
       //if data not in memory
     } else {
       let length = this._scheduleSubjects.push({
@@ -286,8 +420,11 @@ export class DataServiceService {
           seksyen
         ),
       });
-      return this._scheduleSubjects[length - 1].schedules;
+      index = length - 1;
     }
+
+    this.storage.set("_scheduleSubjects", this._scheduleSubjects);
+    return this._scheduleSubjects[index].schedules;
   }
 
   async getStudentList(
@@ -371,7 +508,6 @@ export class DataServiceService {
 
     //if found
     if (index !== -1) {
-      return this._subjectLecturer[index].lecturers;
     } else {
       let length = this._subjectLecturer.push({
         params: params,
@@ -381,8 +517,10 @@ export class DataServiceService {
           this._currentSesiSem.semester
         ),
       });
-      return this._subjectLecturer[length - 1].lecturers;
+      index = length - 1;
     }
+    this.storage.set("_subjectLecturer", this._subjectLecturer);
+    return this._subjectLecturer[index].lecturers;
   }
 
   async getSubjectStudent(

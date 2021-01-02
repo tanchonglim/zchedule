@@ -1,16 +1,12 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "./core/service/auth/auth.guard";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "home",
+    redirectTo: "login",
     pathMatch: "full",
-  },
-  {
-    path: "home",
-    loadChildren: () =>
-      import("./home-page/home-page.module").then((m) => m.HomePagePageModule),
   },
   {
     path: "login",
@@ -20,11 +16,19 @@ const routes: Routes = [
       ),
   },
   {
+    path: "home",
+    loadChildren: () =>
+      import("./home-page/home-page.module").then((m) => m.HomePagePageModule),
+    canActivate: [AuthGuard],
+  },
+
+  {
     path: "lecturer",
     loadChildren: () =>
       import("./lecturer/lecturer-home-page/lecturer-home-page.module").then(
         (m) => m.LecturerHomePagePageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: "student",
@@ -32,6 +36,7 @@ const routes: Routes = [
       import("./student/student-home-page/student-home-page.module").then(
         (m) => m.StudentHomePagePageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: "subject",
@@ -39,6 +44,7 @@ const routes: Routes = [
       import("./subject/subject-home/subject-home.module").then(
         (m) => m.SubjectHomePageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: "room",
@@ -46,11 +52,13 @@ const routes: Routes = [
       import("./room/room-home/room-home.module").then(
         (m) => m.RoomHomePageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: "profile",
     loadChildren: () =>
       import("./user/profile/profile.module").then((m) => m.ProfilePageModule),
+    canActivate: [AuthGuard],
   },
 ];
 

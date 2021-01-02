@@ -3,7 +3,12 @@
     <ion-menu-button></ion-menu-button>
   </div>
   <div class="container">
-    <div *ngFor="let page of pages">
+    <div
+      *ngFor="let page of pages"
+      [ngStyle]="{
+        opacity: !page.supportOffline && ds.getOfflineMode() ? 0.5 : 1
+      }"
+    >
       <div (click)="select(page)">
         <ion-icon
           [name]="

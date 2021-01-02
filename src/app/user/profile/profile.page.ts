@@ -1,9 +1,15 @@
 import { Component, OnInit } from "@angular/core";
-import { IonicAngularThemeSwitchService } from "ionic-angular-theme-switch";
+import {
+  IonicAngularThemeSwitchService,
+  IonicColors,
+} from "ionic-angular-theme-switch";
 import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
 import { SesiSemester } from "src/app/shared/models/SesiSemester";
 import { UserServiceService } from "../user-service.service";
 import { Auth } from "./../../shared/models/Auth";
+import { Router } from "@angular/router";
+import { AlertController, LoadingController } from "@ionic/angular";
+import { themes } from "./../Theme";
 
 @Component({
   selector: "app-profile",
@@ -20,49 +26,35 @@ export class ProfilePage implements OnInit {
     tabs: [],
   };
 
-  themes: Array<any>;
+  themes: Array<IonicColors>;
 
   currentThemeIndex: number;
 
+  offlineMode: Boolean;
+
   constructor(
-    private themeSwitchService: IonicAngularThemeSwitchService,
-    private us: UserServiceService
+    private us: UserServiceService,
+    private route: Router,
+    public alertController: AlertController,
+    public loadingController: LoadingController
   ) {}
 
-  ngOnInit() {
-    this.themes = [
-      {
-        primary: "blue",
-        secondary: "#5fb3b3",
-        tertiary: "#fac863",
-        success: "#90d089",
-        warning: "#f99157",
-        danger: "#ec5f67",
-        light: "#d8dee9",
-        medium: "#65737e",
-        dark: "#1b2b34",
-      },
-      {
-        primary: "purple",
-        secondary: "purple",
-        tertiary: "#fac863",
-        success: "#90d089",
-        warning: "#f99157",
-        danger: "#ec5f67",
-        light: "#d8dee9",
-        medium: "#65737e",
-        dark: "#1b2b34",
-      },
-    ];
-    this.currentThemeIndex = 0;
+  async ngOnInit() {
+    this.themes = themes;
+    let currentTheme = await this.us.getCurrentTheme();
+
+    if (currentTheme) {
+      this.currentThemeIndex = this.themes.findIndex(
+        (theme) => theme.primary === currentTheme.primary
+      );
+    } else {
+      this.currentThemeIndex = 0;
+    }
+
     this.getCurrentUser();
     this.getCurrentSesiSem();
     this.getSesiSemList();
-  }
-
-  setTheme(theme) {
-    this.themeSwitchService.setTheme(theme);
-    this.currentThemeIndex = this.themes.indexOf(theme);
+    this.offlineMode = await this.us.getOfflineMode();
   }
 
   compareWith(o1: SesiSemester, o2: SesiSemester) {
@@ -81,6 +73,11 @@ export class ProfilePage implements OnInit {
     this.sesiSemesters = await this.us.getSesiSemList();
   }
 
+  setTheme(theme) {
+    this.us.setCurrentTheme(theme);
+    this.currentThemeIndex = this.themes.indexOf(theme);
+  }
+
   setCurrentSesiSem(event) {
     let currentSesiSem = event.detail.value;
     currentSesiSem = this.sesiSemesters.find(
@@ -93,5 +90,39 @@ export class ProfilePage implements OnInit {
 
   get isDataLoaded() {
     return this.currentUser && this.currentSesiSem && this.sesiSemesters;
+  }
+
+  async setOfflineMode(event) {
+    const loading = await this.loadingController.create({
+      spinner: "lines",
+      message: null,
+    });
+    await loading.present();
+    await this.us.setOfflineMode(event.detail.checked);
+    loading.dismiss();
+  }
+
+  async signout() {
+    const alert = await this.alertController.create({
+      cssClass: "my-custom-class",
+      message: "Are you sure to log out? ",
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {},
+        },
+        {
+          text: "Log Out",
+          handler: () => {
+            this.us.logout();
+            this.route.navigate(["home"]);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
   }
 }

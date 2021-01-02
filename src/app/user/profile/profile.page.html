@@ -20,9 +20,20 @@
       <div class="title">Settings</div>
       <div>
         <div class="item">
-          Session Semester <br />
+          <span> Offline Mode </span>
           <div>
+            <ion-toggle
+              [(ngModel)]="offlineMode"
+              (ionChange)="setOfflineMode($event)"
+            >
+            </ion-toggle>
+          </div>
+        </div>
+        <div class="item">
+          <span> Session Semester </span>
+          <div style="width: 10rem">
             <ion-select
+              [disabled]="offlineMode"
               placeholder="Session / Semester"
               [compareWith]="compareWith"
               [(ngModel)]="currentSesiSem"
@@ -38,8 +49,7 @@
           </div>
         </div>
         <div class="item">
-          Themes <br />
-          <br />
+          <span>Themes</span>
           <div class="theme-picker-box">
             <div class="circle-box" *ngFor="let theme of themes; index as i">
               <div [class.circle-radius]="currentThemeIndex == i">
@@ -53,6 +63,12 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="section logout-section">
+      <ion-button class="logout-btn" fill="outline" (click)="signout()">
+        <ion-icon name="log-out-outline"></ion-icon> &nbsp; Log Out
+      </ion-button>
     </div>
   </div>
 </ion-content>

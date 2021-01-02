@@ -1,3 +1,6 @@
 <div *ngIf="barChartData">
-  <google-chart [data]="barChartData"></google-chart>
+  <google-chart
+    [data]="barChartData"
+    (chartSelect)="select($event)"
+  ></google-chart>
 </div>

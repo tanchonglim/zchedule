@@ -1,0 +1,36 @@
+<div
+  style="
+    margin: 0.5rem;
+    padding: 0.5rem;
+    padding-bottom: 1rem;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+  "
+>
+  <span
+    style="
+      align-self: flex-end;
+      color: var(--ion-color-danger);
+      border: none;
+      overflow: hidden;
+      position: relative;
+      padding: 0.5rem 0.5rem;
+      border-radius: 10px;
+    "
+    class="ion-activatable ripple-parent"
+    (click)="dismiss()"
+  >
+    close <ion-ripple-effect></ion-ripple-effect>
+  </span>
+  <span style="font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem">{{
+    range + "students"
+  }}</span>
+  <span>
+    <ion-list *ngFor="let sub of subjects">
+      <span>{{ sub.nama_subjek }}</span> <br />
+      <sub> Number of students: {{ sub.bil_pelajar }}</sub>
+      <div class="line"></div>
+    </ion-list>
+  </span>
+</div>

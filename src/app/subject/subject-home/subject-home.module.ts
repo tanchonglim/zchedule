@@ -13,6 +13,10 @@ import { SubjectInfoComponent } from "../components/subject-info/subject-info.co
 import { SubjectListComponent } from "../components/subject-list/subject-list.component";
 import { SubjectStudentFreeTimeComponent } from "../components/subject-student-free-time/subject-student-free-time.component";
 
+import { Ng2GoogleChartsModule } from "ng2-google-charts";
+import { SubjectChartComponent } from "./../components/subject-chart/subject-chart.component";
+import { SubjectChartBarDetailComponent } from "../components/subject-chart-bar-detail/subject-chart-bar-detail.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +24,7 @@ import { SubjectStudentFreeTimeComponent } from "../components/subject-student-f
     IonicModule,
     SubjectHomePageRoutingModule,
     SharedModule,
+    Ng2GoogleChartsModule,
   ],
   declarations: [
     SubjectHomePage,
@@ -27,6 +32,8 @@ import { SubjectStudentFreeTimeComponent } from "../components/subject-student-f
     SubjectInfoComponent,
     SubjectListComponent,
     SubjectStudentFreeTimeComponent,
+    SubjectChartComponent,
+    SubjectChartBarDetailComponent,
   ],
 })
 export class SubjectHomePageModule {}

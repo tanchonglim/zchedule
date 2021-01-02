@@ -9,6 +9,8 @@ export class AppInitService {
 
   //this function run as the application startup
   async init() {
+    this.ds.init();
+
     console.log("checking for saved credential");
     let credential = await this.ds.getCurrentUserCredential();
     if (credential) {

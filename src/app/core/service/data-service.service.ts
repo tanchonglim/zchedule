@@ -22,18 +22,10 @@ import { GMMStudentService } from "./gmmstudent.service";
   providedIn: "root",
 })
 export class DataServiceService {
-  //current logged in users data, need to store in localstorage
-
   private _currentUserCredential: { login: string; password: string };
   private _currentUser: Auth;
 
-  private _currentSesiSem: SesiSemester = {
-    tarikh_tamat: "2021-01-30",
-    sesi: "2020/2021",
-    sesi_semester_id: "202020211",
-    tarikh_mula: "2020-10-18",
-    semester: 1,
-  };
+  private _currentSesiSem: SesiSemester;
 
   private _currentStudentSubjects: {
     param: {
@@ -41,15 +33,16 @@ export class DataServiceService {
     };
     subjects: Array<StudentSubject>;
   };
+
   private _sesiSemester: Array<SesiSemester> = [];
 
-  //other data, need to store in localstorage??
   private _studentSubjects: Array<{
     param: {
       id: string;
     };
     subjects: Array<StudentSubject>;
   }> = [];
+
   private _lecturerSubjects: Array<{
     param: {
       id: string;
@@ -63,9 +56,8 @@ export class DataServiceService {
       seksyen: number;
     };
     schedules: Array<ScheduleSubject>;
-  }> = []; //
+  }> = [];
 
-  //need clear when change sesi semester
   private _students: Array<{
     params: {
       kod_kursus: string;
@@ -75,13 +67,10 @@ export class DataServiceService {
     students: Array<Student>;
   }> = [];
 
-  //need clear when change sesi semester
   private _subjects: Array<Subject> = [];
 
-  //need clear when change sesi semester
   private _rooms: Array<Room> = [];
 
-  //need clear when change sesi semester
   private _roomSchedule: Array<{
     params: {
       kod_ruang: string;
@@ -89,10 +78,8 @@ export class DataServiceService {
     schedule: Array<ScheduleRoom>;
   }> = [];
 
-  //need clear when change sesi semester
   private _subjectSections: Array<SubjectSection> = [];
 
-  //need clear when change sesi semester
   private _subjectLecturer: Array<{
     params: {
       kod_subjek: string;
@@ -100,7 +87,6 @@ export class DataServiceService {
     lecturers: Array<SubjectLecturer>;
   }> = [];
 
-  //need clear when change sesi semester
   private _subjectstudent: Array<{
     params: {
       kod_subjek: string;
@@ -109,7 +95,6 @@ export class DataServiceService {
     students: Array<SubjectStudent>;
   }> = [];
 
-  //need clear when change sesi semester
   private _lecturers: Array<Lecturer> = [];
 
   constructor(
@@ -117,18 +102,38 @@ export class DataServiceService {
     private gmmService: GMMStudentService
   ) {}
 
-  /**
-   * when change sesi sem
-   */
+  async init() {
+    this._sesiSemester = await this.getSesiSemester();
+    this._currentSesiSem = this._sesiSemester[0];
+
+    //get data from local storage
+  }
+
+  //use when change sesi semester
   clearData() {
-    // this._studentSubjects = null;
-    // this._lecturerSubjects = null;
     this._currentStudentSubjects = null;
-    this._studentSubjects = [];
     this._scheduleSubjects = [];
   }
 
-  clearAllData() {}
+  //use when logged out
+  clearAllData() {
+    this.clearData();
+    this._currentUser = null;
+    this._currentUserCredential = null;
+    this._currentSesiSem = null;
+    this._sesiSemester = [];
+    this._studentSubjects = [];
+    this._lecturerSubjects = [];
+    this._scheduleSubjects = [];
+    this._students = [];
+    this._subjects = [];
+    this._rooms = [];
+    this._roomSchedule = [];
+    this._subjectSections = [];
+    this._subjectLecturer = [];
+    this._subjectstudent = [];
+    this._lecturers = [];
+  }
 
   async login(login: string, password: string): Promise<Auth> {
     let user = await this.gmmService.authentication(login, password);

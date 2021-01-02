@@ -10,8 +10,9 @@
         *ngIf="timetableData"
         [timetableData]="timetableData"
       ></app-timetable-subjects>
+      <app-loading *ngIf="!timetableData"></app-loading>
     </div>
-    <app-loading *ngIf="!timetableData"></app-loading>
+
     <div *ngIf="selectedTab == 1" class="content">
       <div *ngIf="filteredsubjectStudents">
         <div style="padding: 0.4rem; align-self: center; margin-bottom: 0.5rem">
@@ -43,6 +44,12 @@
         </div>
       </div>
       <app-loading *ngIf="!filteredsubjectStudents"></app-loading>
+    </div>
+
+    <div *ngIf="selectedTab == 2" class="content">
+      <app-subject-student-free-time [subjectStudents]="subjectStudents">
+      </app-subject-student-free-time>
+      <app-loading *ngIf="!subjectStudents"></app-loading>
     </div>
   </ion-content>
 </div>

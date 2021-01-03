@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Student } from "src/app/shared/models/Student";
 import { Lecturer } from "src/app/shared/models/Lecturer";
-import { SesiSemester } from "./../../shared/models/SesiSemester";
 
 @Injectable({
   providedIn: "root",

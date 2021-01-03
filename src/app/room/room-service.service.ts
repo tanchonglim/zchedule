@@ -85,16 +85,21 @@ export class RoomServiceService {
     to: string
   ): Promise<Array<Room>> {
     let availableRoomList = [];
-    if (selectedDay == null) {
-      alert("Please select a day!");
-      return;
-    }
 
     let roomList = await this.getRoomList();
+
+    let promises = [];
     for (let room of roomList) {
-      let schedules: Array<ScheduleRoom> = await this.getRoomSchedule(
-        room.kod_ruang
-      );
+      promises.push(this.getRoomSchedule(room.kod_ruang));
+    }
+
+    let allRoomSchedules = await Promise.all(promises);
+
+    for (let room of roomList) {
+      // let schedules: Array<ScheduleRoom> = await this.getRoomSchedule(
+      //   room.kod_ruang
+      // );
+      let schedules = allRoomSchedules[roomList.indexOf(room)];
       if (!schedules.length) {
         availableRoomList.push(room);
       } else {

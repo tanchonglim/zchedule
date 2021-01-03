@@ -147,7 +147,6 @@ export class RoomAvailabilityComponent implements OnInit {
 
     this.collapse.fill(false);
     this.isSearching = true;
-    console.time("search");
     this.availableRoomList = await this.rs.getAvailableRoom(
       this.timeslot,
       this.selectedDay.day,

@@ -8,7 +8,7 @@ import {
 import { Injectable } from "@angular/core";
 import { LoadingController, ToastController } from "@ionic/angular";
 import { from, Observable } from "rxjs";
-import { catchError, finalize } from "rxjs/operators";
+import { catchError, finalize, retry, timeout } from "rxjs/operators";
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -35,6 +35,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
     return next
       .handle(request)
+      .pipe(timeout(4000))
+      .pipe(retry(2))
       .pipe(
         catchError(async (error: HttpErrorResponse) => {
           const toast = await this.toastController.create({

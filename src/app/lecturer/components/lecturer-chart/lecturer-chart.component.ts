@@ -88,7 +88,6 @@ export class LecturerChartComponent implements OnInit {
   async select(event: ChartSelectEvent) {
     if (event.row == null) return;
     let index = event.row;
-    console.log(event);
 
     let lecturers = this.bar[index].lecturers;
 

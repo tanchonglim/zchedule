@@ -227,13 +227,19 @@ export class DataServiceService {
   clearData() {
     this._currentStudentSubjects = null;
     this._scheduleSubjects = [];
-    this.storage.clear();
+    this._students = [];
+    this._subjects = [];
+    this._roomSchedule = [];
+    this._subjectSections = [];
+    this._subjectLecturer = [];
+    this._subjectstudent = [];
+    this._lecturers = [];
   }
 
   //use when logged out
   clearAllData() {
-    console.log("clear all data");
     this.clearData();
+    this.storage.clear();
     this.isOfflineMode = false;
     this._currentUser = null;
     this._currentUserCredential = null;
@@ -241,15 +247,7 @@ export class DataServiceService {
     this._sesiSemester = [];
     this._studentSubjects = [];
     this._lecturerSubjects = [];
-    this._scheduleSubjects = [];
-    this._students = [];
-    this._subjects = [];
     this._rooms = [];
-    this._roomSchedule = [];
-    this._subjectSections = [];
-    this._subjectLecturer = [];
-    this._subjectstudent = [];
-    this._lecturers = [];
   }
 
   async login(login: string, password: string): Promise<Auth> {
@@ -306,6 +304,7 @@ export class DataServiceService {
     this.clearData();
     this._currentSesiSem = sesiSem;
     this.storage.set("_currentSesiSem", this._currentSesiSem);
+    console.log(this._currentSesiSem);
   }
 
   async getSesiSemester(): Promise<Array<SesiSemester>> {

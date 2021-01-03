@@ -4,12 +4,7 @@ import { HomeServiceService } from "./home-service.service";
 import { GlobalEventService } from "../core/service/global-event.service";
 import { RegisteredSubjectListData } from "../shared/components/list-subject/list-subject.component";
 import { Auth } from "src/app/shared/models/Auth";
-
-// import { ChartDataSets, ChartOptions } from "chart.js";
-// import { Color, Label } from "ng2-charts";
-
-// import { GoogleChartInterface } from "ng2-google-charts";
-// declare var google;
+import { SesiSemester } from "../shared/models/SesiSemester";
 
 @Component({
   selector: "app-home-page",
@@ -17,6 +12,7 @@ import { Auth } from "src/app/shared/models/Auth";
   styleUrls: ["./home-page.page.scss"],
 })
 export class HomePagePage implements OnInit {
+  currentSesiSem: SesiSemester;
   authUser: Auth;
   timetableData: TimetableData;
   registeredSubjectListData: Array<RegisteredSubjectListData> = [];
@@ -38,8 +34,8 @@ export class HomePagePage implements OnInit {
   ngOnInit() {}
 
   async ionViewDidEnter() {
-    console.log("enter home");
     this.authUser = await this.hs.getCurrentuser();
+    this.currentSesiSem = await this.hs.getCurrentSesiSem();
     this.getTimetableData();
     this.getSubjectData();
   }

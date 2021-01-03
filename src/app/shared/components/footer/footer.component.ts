@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { Navigation, Router } from "@angular/router";
 import { NavController, ToastController } from "@ionic/angular";
 import { DataServiceService } from "src/app/core/service/data-service.service";
 
@@ -51,9 +50,9 @@ export class FooterComponent implements OnInit {
   currentPage;
 
   constructor(
-    private router: Router,
     public ds: DataServiceService,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
@@ -64,12 +63,13 @@ export class FooterComponent implements OnInit {
     if (!page.supportOffline && this.ds.getOfflineMode()) {
       const toast = await this.toastController.create({
         message: "This feature does not support offline mode",
+        duration: 1000,
       });
       await toast.present();
       return;
     }
     this.currentPage = page;
-    this.router.navigateByUrl(page.url);
+    this.navCtrl.navigateRoot(page.url);
   }
 
   isSelected(page) {

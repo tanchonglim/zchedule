@@ -45,7 +45,6 @@ export class SubjectChartComponent implements OnInit {
     this.subjectList.forEach((sub) => {
       if (sub.bil_pelajar > max_stud) max_stud = sub.bil_pelajar;
     });
-    console.log(max_stud);
     max_stud = Math.round(max_stud / 10) * 10;
     this.bar_num = max_stud / 10;
   }
@@ -89,7 +88,6 @@ export class SubjectChartComponent implements OnInit {
   async select(event: ChartSelectEvent) {
     if (event.row == null) return;
     let index = event.row;
-    console.log(event);
 
     let subjects = this.bar[index].subjects;
 

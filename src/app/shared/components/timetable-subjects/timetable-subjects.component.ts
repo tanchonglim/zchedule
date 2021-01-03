@@ -90,11 +90,17 @@ export class TimetableSubjectsComponent implements OnInit {
 
     reversedArr.forEach((slot, i, slots) => {
       if (i == 0) slot.span = 1;
-      if (slot.data.data !== " " && slot.data.data == slots[i + 1].data.data) {
+      if (i == slots.length - 1) return;
+      if (
+        slot.data &&
+        slot.data.data !== " " &&
+        slot.data.data == slots[i + 1].data.data
+      ) {
         slots[i + 1].span += slot.span;
         slot.span = 0;
       }
     });
+
     this.timetableBody.slots = reversedArr.reverse();
   }
 

@@ -1,7 +1,13 @@
-<ion-content [scrollEvents]="true" (ionScroll)="scroll($event)">
+<ion-content
+  [scrollEvents]="true"
+  (ionScroll)="scroll($event)"
+  *ngIf="currentSesiSem"
+>
   <ion-header>
     <div class="home-header">
-      <span class="header-title"> Hello, Name </span>
+      <span class="header-title">
+        {{ currentSesiSem.semester + " "+ currentSesiSem.sesi }}
+      </span>
       <span class="select-tab">
         <div
           class="tab"

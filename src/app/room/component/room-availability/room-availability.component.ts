@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import { ModalController, ToastController } from "@ionic/angular";
 import {
   trigger,
   state,
@@ -82,7 +82,8 @@ export class RoomAvailabilityComponent implements OnInit {
 
   constructor(
     public modalCtrl: ModalController,
-    private rs: RoomServiceService
+    private rs: RoomServiceService,
+    public toastCtrl: ToastController
   ) {}
 
   async ngOnInit() {
@@ -133,15 +134,45 @@ export class RoomAvailabilityComponent implements OnInit {
   async getAvailableRoom() {
     //validation
     if (!this.sdateRangeFrom || !this.sdateRangeTo) {
-      alert("Please select a date range");
+      const toast = await this.toastCtrl.create({
+        message: "Please select a date range",
+        duration: 1000,
+        buttons: [
+          {
+            text: "Dismiss",
+            role: "cancel",
+          },
+        ],
+      });
+      await toast.present();
       return;
     }
     if (!this.selectedDay) {
-      alert("Please select a day");
+      const toast = await this.toastCtrl.create({
+        message: "Please select a day",
+        duration: 1000,
+        buttons: [
+          {
+            text: "Dismiss",
+            role: "cancel",
+          },
+        ],
+      });
+      await toast.present();
       return;
     }
     if (!this.timeslot.find((s) => s.isChecked)) {
-      alert("Please select at least one timeslot");
+      const toast = await this.toastCtrl.create({
+        message: "Please select at least one timeslot",
+        duration: 1000,
+        buttons: [
+          {
+            text: "Dismiss",
+            role: "cancel",
+          },
+        ],
+      });
+      await toast.present();
       return;
     }
 

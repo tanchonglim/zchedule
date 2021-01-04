@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { GlobalEventService } from "./../../core/service/global-event.service";
-import { RoomServiceService } from "./../room-service.service";
 import { PageHeaderProps } from "src/app/shared/components/page-header/page-header.component";
 
 @Component({
@@ -16,11 +15,7 @@ export class RoomHomePage implements OnInit {
   };
   selectedTab: number = 0;
 
-  constructor(
-    public modal: ModalController,
-    private rs: RoomServiceService,
-    private ge: GlobalEventService
-  ) {}
+  constructor(public modal: ModalController, private ge: GlobalEventService) {}
 
   ngOnInit() {}
 

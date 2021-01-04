@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { ModalController, PopoverController } from "@ionic/angular";
-import { random } from "lodash";
+import { ModalController } from "@ionic/angular";
 import { TimetableDetailComponent } from "./timetable-detail/timetable-detail.component";
 
 export interface TimetableData {
@@ -22,20 +21,10 @@ export interface TimetableData {
 })
 export class TimetableSubjectsComponent implements OnInit {
   @Input() timetableData: TimetableData;
+  @Input() expanded: boolean;
 
-  days = [" ", "SUN", "MON", "TUE", "WED", "THU"];
-  times = [
-    "8.00-8.50",
-    "9.00-9.50",
-    "10.00-10.50",
-    "11.00-11.50",
-    "12.00-12.50",
-    "1.00-1.50",
-    "2.00-2.50",
-    "3.00-3.50",
-    "4.00-4.50",
-    "5.00-5.50",
-  ];
+  days: Array<string>;
+  times: Array<string>;
   timetableBody: {
     slots: Array<{
       day: number;
@@ -57,12 +46,40 @@ export class TimetableSubjectsComponent implements OnInit {
   }
 
   generateTimetable() {
+    this.days = [" ", "SUN", "MON", "TUE", "WED", "THU"];
+    this.times = [
+      "8.00-8.50",
+      "9.00-9.50",
+      "10.00-10.50",
+      "11.00-11.50",
+      "12.00-12.50",
+      "1.00-1.50",
+      "2.00-2.50",
+      "3.00-3.50",
+      "4.00-4.50",
+      "5.00-5.50",
+    ];
     this.timetableBody = {
       slots: [],
     };
 
-    for (let day = 1; day <= 5; day++) {
-      for (let time = 2; time <= 11; time++) {
+    let numDays = 5;
+    let numTimes = 11;
+    if (this.expanded) {
+      this.days = [...this.days, "FRI", "SAT"];
+      this.times = [
+        "7.00-7.50",
+        ...this.times,
+        "6.00-6.50",
+        "7.00-7.50",
+        "8.00-8.50",
+      ];
+      numDays = 7;
+      numTimes = 15;
+    }
+
+    for (let day = 1; day <= numDays; day++) {
+      for (let time = 2; time <= numTimes; time++) {
         this.timetableBody.slots.push({
           day: day,
           timeSlot: time,

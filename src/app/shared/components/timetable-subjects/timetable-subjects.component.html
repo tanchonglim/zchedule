@@ -5,7 +5,10 @@
     </div>
   </div>
   <div class="timetable-bottom">
-    <div class="timetable-side-header">
+    <div
+      class="timetable-side-header"
+      [style.width.%]="100 / (days.length - 1)"
+    >
       <div *ngFor="let time of times" class="border">
         {{ time }}
       </div>
@@ -14,7 +17,8 @@
       <div
         *ngFor="let slot of timetableBody.slots; index as i"
         class="timetable-data border"
-        [style.height.%]="slot.span * 10"
+        [style.width.%]="100 / (days.length - 1)"
+        [style.height.%]="(slot.span * 100) / times.length"
         [style.display]="slot.span == 0 ? 'none' : 'flex'"
         [class]="'bg-color' + slot.data.type"
         (click)="viewDetail(slot.data.data, slot.data.detail)"

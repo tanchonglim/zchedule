@@ -1,6 +1,10 @@
 .wrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   background: var(--ion-color-secondary);
   background: linear-gradient(
     151deg,
@@ -13,16 +17,16 @@
 
 .login-form {
   width: 100%;
-  height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 10rem;
 }
 
 .logo {
+  padding-bottom: 5rem;
   width: 100%;
-  height: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,27 +1,28 @@
+<ion-header *ngIf="currentSesiSem">
+  <div class="home-header">
+    <span class="header-title">
+      {{ currentSesiSem.semester + " "+ currentSesiSem.sesi }}
+    </span>
+    <span class="select-tab">
+      <div
+        class="tab"
+        [class.selected]="selectedTab==i"
+        *ngFor="let tab of tabs;index as i"
+        (click)="selectTab(i)"
+      >
+        <ion-icon
+          [name]="selectedTab==i ? tab.icon :tab.icon+'-outline' "
+        ></ion-icon>
+      </div>
+    </span>
+  </div>
+</ion-header>
+
 <ion-content
   [scrollEvents]="true"
   (ionScroll)="scroll($event)"
   *ngIf="currentSesiSem"
 >
-  <ion-header>
-    <div class="home-header">
-      <span class="header-title">
-        {{ currentSesiSem.semester + " "+ currentSesiSem.sesi }}
-      </span>
-      <span class="select-tab">
-        <div
-          class="tab"
-          [class.selected]="selectedTab==i"
-          *ngFor="let tab of tabs;index as i"
-          (click)="selectTab(i)"
-        >
-          <ion-icon
-            [name]="selectedTab==i ? tab.icon :tab.icon+'-outline' "
-          ></ion-icon>
-        </div>
-      </span>
-    </div>
-  </ion-header>
   <div class="home-content" *ngIf="selectedTab==0">
     <app-timetable-subjects
       [timetableData]="timetableData"

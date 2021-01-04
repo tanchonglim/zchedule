@@ -10,7 +10,10 @@
     <div class="login-form">
       <ion-item style="--background: transparent; --color: white">
         <ion-label position="floating" color="light">Login</ion-label>
-        <ion-input [(ngModel)]="login"></ion-input>
+        <ion-input
+          [(ngModel)]="login"
+          style="text-transform: uppercase"
+        ></ion-input>
       </ion-item>
       <br />
       <ion-item style="--background: transparent; --color: white">
@@ -29,9 +32,12 @@
           --border-radius: 50px;
           --padding-end: 4rem;
           --padding-start: 4rem;
+          width: 10rem;
         "
-        >Sign In</ion-button
       >
+        <span *ngIf="!isLoading">Sign In</span>
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+      </ion-button>
     </div>
   </div>
 </ion-content>

@@ -10,6 +10,8 @@ import { UserServiceService } from "../user-service.service";
 export class LoginPagePage implements OnInit {
   login: string;
   password: string;
+  isLoading: boolean;
+
   constructor(
     private us: UserServiceService,
     private navCtrl: NavController,
@@ -23,6 +25,7 @@ export class LoginPagePage implements OnInit {
   }
 
   async signin() {
+    this.isLoading = true;
     let login = this.login;
     let password = this.password;
 
@@ -33,6 +36,7 @@ export class LoginPagePage implements OnInit {
         duration: 2000,
       });
       await toast.present();
+      this.isLoading = false;
       return;
     }
 
@@ -53,5 +57,6 @@ export class LoginPagePage implements OnInit {
       await toast.present();
       this.navCtrl.navigateRoot("/home");
     }
+    this.isLoading = false;
   }
 }

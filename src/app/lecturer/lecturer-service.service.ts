@@ -39,8 +39,8 @@ export class LecturerServiceService {
           day: schedule.hari,
           timeSlot: schedule.masa,
           data: {
-            data: subject.nama_subjek,
-            detail: `Subject Code: ${subject.kod_subjek}\nSection: ${
+            data: subject.kod_subjek,
+            detail: `Subject Name: ${subject.nama_subjek}\nSection: ${
               subject.seksyen < 10 ? "0" + subject.seksyen : subject.seksyen
             }\nVenue: ${schedule.ruang.nama_ruang || "-"}`,
             type: subjectType,

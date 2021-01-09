@@ -23,6 +23,7 @@ import {
   IonicColors,
 } from "ionic-angular-theme-switch";
 import { themes } from "src/app/user/Theme";
+import * as moment from "moment";
 
 @Injectable({
   providedIn: "root",
@@ -146,7 +147,7 @@ export class DataServiceService {
     }
 
     this._sesiSemester = await this.getSesiSemester();
-    this._currentSesiSem = this._sesiSemester[0];
+    this._currentSesiSem = await this.getCurrentSesiSem();
   }
 
   async getCurrentTheme() {
@@ -294,7 +295,10 @@ export class DataServiceService {
 
   async getCurrentSesiSem(): Promise<SesiSemester> {
     if (!this._currentSesiSem) {
-      this._currentSesiSem = (await this.getSesiSemester())[0];
+      this._currentSesiSem =
+        (await this.getSesiSemester()).find((ss) =>
+          moment().isBetween(moment(ss.tarikh_mula), moment(ss.tarikh_tamat))
+        ) || (await this.getSesiSemester())[0];
     }
     this.storage.set("_currentSesiSem", this._currentSesiSem);
     return this._currentSesiSem;

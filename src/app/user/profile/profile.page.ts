@@ -115,9 +115,9 @@ export class ProfilePage implements OnInit {
         },
         {
           text: "Log Out",
-          handler: () => {
-            this.us.logout();
-            this.route.navigate(["home"]);
+          handler: async () => {
+            await this.us.logout();
+            this.route.navigate(["login"]);
           },
         },
       ],

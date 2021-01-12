@@ -35,7 +35,7 @@ export class SubjectDetailComponent implements OnInit {
           : this.sectionInfo.seksyen
       }`,
       subtitle: `${this.sectionInfo.pensyarah || " "}`,
-      tabs: ["Timetable", "Students", "Analysis"],
+      tabs: ["Timetable", "Students"],
     };
 
     this.getTimetableData(this.subjectCode, this.sectionInfo.seksyen);

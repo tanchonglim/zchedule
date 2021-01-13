@@ -68,4 +68,8 @@ export class LecturerServiceService {
       };
     });
   }
+
+  async isAdmin() {
+    return (await this.ds.getAuthUser()).role == "3";
+  }
 }

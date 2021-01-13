@@ -49,4 +49,8 @@ export class SubjectServiceService {
   ): Promise<Array<SubjectStudent>> {
     return await this.ds.getSubjectStudent(subjectCode, section);
   }
+
+  async isAdmin() {
+    return (await this.ds.getAuthUser()).role == "3";
+  }
 }

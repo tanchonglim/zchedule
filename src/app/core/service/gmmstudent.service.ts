@@ -6,7 +6,7 @@ import { Auth } from "src/app/shared/models/Auth";
   providedIn: "root",
 })
 export class GMMStudentService {
-  apiEndpoint = "http://gmm-student.fc.utm.my/~tcl2/";
+  apiEndpoint = "http://161.139.68.245/~tcl2/";
 
   constructor(private http: HttpClient) {}
 

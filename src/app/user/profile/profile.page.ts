@@ -8,7 +8,11 @@ import { SesiSemester } from "src/app/shared/models/SesiSemester";
 import { UserServiceService } from "../user-service.service";
 import { Auth } from "./../../shared/models/Auth";
 import { Router } from "@angular/router";
-import { AlertController, LoadingController } from "@ionic/angular";
+import {
+  AlertController,
+  LoadingController,
+  ToastController,
+} from "@ionic/angular";
 import { themes } from "./../Theme";
 
 @Component({
@@ -36,7 +40,8 @@ export class ProfilePage implements OnInit {
     private us: UserServiceService,
     private route: Router,
     public alertController: AlertController,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public toastController: ToastController
   ) {}
 
   async ngOnInit() {
@@ -117,6 +122,11 @@ export class ProfilePage implements OnInit {
           text: "Log Out",
           handler: async () => {
             await this.us.logout();
+            const toast = await this.toastController.create({
+              message: "Logged out!",
+              duration: 2000,
+            });
+            await toast.present();
             this.route.navigate(["login"]);
           },
         },
@@ -124,5 +134,16 @@ export class ProfilePage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  getRole() {
+    switch (this.currentUser.role) {
+      case "2":
+        return "Lecturer";
+      case "3":
+        return "Admin";
+      default:
+        return "student";
+    }
   }
 }

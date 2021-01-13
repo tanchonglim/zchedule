@@ -4,17 +4,9 @@
       <ion-icon name="person-circle-outline"></ion-icon>
       <div>
         <span class="name"> {{currentUser.full_name}} </span> <br />
-        <span class="id"> {{currentUser.login_name}} </span>
+        <span class="id"> {{currentUser.login_name}} ({{getRole()}}) </span>
       </div>
     </div>
-
-    <!-- <div class="section info-section">
-      <div class="title">Information</div>
-      <div>
-        <div class="item">some info here</div>
-        <div class="item">iext info</div>
-      </div>
-    </div> -->
 
     <div class="section setting-section">
       <div class="title">Settings</div>
@@ -66,7 +58,12 @@
     </div>
 
     <div class="section logout-section">
-      <ion-button class="logout-btn" fill="outline" (click)="signout()">
+      <ion-button
+        class="logout-btn"
+        fill="outline"
+        (click)="signout()"
+        [disabled]="offlineMode"
+      >
         <ion-icon name="log-out-outline"></ion-icon> &nbsp; Log Out
       </ion-button>
     </div>

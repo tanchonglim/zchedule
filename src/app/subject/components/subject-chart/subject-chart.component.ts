@@ -28,14 +28,14 @@ export class SubjectChartComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(async () => {
-      await this.getLecturerList();
+      await this.getSubjectList();
       this.getBarNum();
       this.insertBarData();
       this.drawChart();
     }, 120);
   }
 
-  async getLecturerList() {
+  async getSubjectList() {
     this.subjectList = await this.ss.getSubjects();
     // this.bar_num = Math.ceil(this.lecturerList.length / 10);
   }

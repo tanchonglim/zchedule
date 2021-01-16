@@ -10,9 +10,6 @@ export class GlobalErrorHandler implements ErrorHandler {
   ) {}
 
   async handleError(error: Error) {
-    // this.errorDialogService.openDialog(
-    //   error.message || "Undefined client error"
-    // );
     const toast = await this.toastController.create({
       message: "An unexpected error occurs",
       duration: 2000,

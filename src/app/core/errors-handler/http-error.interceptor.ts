@@ -21,17 +21,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // show loading spinner
-    // this.loadingDialogService.openDialog();
-
     return from(this.handle(request, next)) as Observable<HttpEvent<any>>;
   }
 
   async handle(request: HttpRequest<any>, next: HttpHandler) {
-    const loading = await this.loadingController.create({
-      message: "Loading...",
-    });
-    await loading.present();
+    // const loading = await this.loadingController.create({
+    //   message: "Loading...",
+    // });
+    // await loading.present();
 
     return next
       .handle(request)
@@ -50,7 +47,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         }),
         finalize(() => {
           // hide loading spinner
-          loading.dismiss();
+          // loading.dismiss();
         })
       )
       .toPromise();

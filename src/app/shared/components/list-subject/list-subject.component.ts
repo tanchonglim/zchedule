@@ -86,7 +86,6 @@ export class ListSubjectComponent implements OnInit {
         });
       }
     });
-    console.log(this.sesiSemData);
   }
 
   expandCard(i) {

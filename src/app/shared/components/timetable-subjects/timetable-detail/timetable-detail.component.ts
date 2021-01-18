@@ -11,10 +11,7 @@ export class TimetableDetailComponent implements OnInit {
   @Input() title: string;
   constructor(public modalController: ModalController) {}
 
-  ngOnInit() {
-    console.log(this.title);
-    console.log(this.data);
-  }
+  ngOnInit() {}
 
   dismiss() {
     this.modalController.dismiss();

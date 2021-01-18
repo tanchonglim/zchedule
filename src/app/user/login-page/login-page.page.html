@@ -25,6 +25,7 @@
         ></ion-input>
       </ion-item>
       <br />
+      <br />
       <ion-button
         (click)="signin()"
         style="
@@ -35,7 +36,7 @@
           width: 10rem;
         "
       >
-        <span *ngIf="!isLoading">Sign In</span>
+        <span style="font-size: 1.1rem" *ngIf="!isLoading">Sign In</span>
         <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
       </ion-button>
     </div>

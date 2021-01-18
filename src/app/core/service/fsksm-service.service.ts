@@ -117,7 +117,6 @@ export class FsksmServiceService {
     let result: any = await this.http
       .get(this.apiEndpoint, { params: params })
       .toPromise();
-    console.log(result);
 
     return result;
   }

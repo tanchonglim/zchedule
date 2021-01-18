@@ -26,7 +26,6 @@ export class StudentDetailComponent implements OnInit {
       subtitle: null,
       tabs: ["Info", "Timetable"],
     };
-    console.log(this.student);
     this.getTimetableData(this.student.no_matrik);
     this.getStudentSubject(this.student.no_matrik);
   }

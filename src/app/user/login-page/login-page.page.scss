@@ -56,6 +56,10 @@ ion-item {
   --highlight-color-focused: white;
   --highlight-color-valid: white;
   --highlight-color-invalid: white;
+  --border-color: var(
+    --ion-item-border-color,
+    var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13)))
+  ) !important;
 }
 
 ion-button {

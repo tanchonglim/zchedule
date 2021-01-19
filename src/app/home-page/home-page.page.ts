@@ -24,7 +24,7 @@ export class HomePagePage implements OnInit {
     },
     {
       label: "Subject",
-      icon: "library",
+      icon: "book",
     },
   ];
   selectedTab: number = 0;

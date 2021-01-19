@@ -94,3 +94,7 @@ g > rect {
 ion-item {
   --border-color: var(--ion-color-primary) !important;
 }
+
+div.alert-button-group.sc-ion-alert-md {
+  justify-content: space-around;
+}

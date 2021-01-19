@@ -30,7 +30,7 @@ export class FooterComponent implements OnInit {
     {
       title: "Subject",
       url: "/subject",
-      icon: "library",
+      icon: "book",
       supportOffline: false,
     },
     {

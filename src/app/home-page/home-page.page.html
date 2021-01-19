@@ -23,7 +23,7 @@
   (ionScroll)="scroll($event)"
   *ngIf="currentSesiSem"
 >
-  <div class="home-content" *ngIf="selectedTab==0">
+  <div class="home-content" *ngIf="selectedTab==0" style="padding:10px">
     <app-timetable-subjects
       [timetableData]="timetableData"
       *ngIf="timetableData"

@@ -174,6 +174,13 @@ export class DataServiceService {
     //if set to true, store possible data in localstorage
     if (status) await this.setOfflineData();
 
+    if (!status) {
+      this._currentUser = await this.login(
+        this._currentUserCredential.login,
+        this._currentUserCredential.password
+      );
+    }
+
     //set the mode
     await this.storage.set("offlineMode", status);
     this.isOfflineMode = status;

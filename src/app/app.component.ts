@@ -61,10 +61,10 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // this.ge.scrollEvent.subscribe((e) => {
-    //   this.showFooter = e;
-    // });
-    //auto login feature
+    this.ge.scrollEvent.subscribe((e) => {
+      this.showFooter = e;
+    });
+    // auto login feature
     //if success login before, then every 10 minutes, get new session
     let credential = await this.ds.getCurrentUserCredential();
     if (credential) {

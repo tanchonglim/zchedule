@@ -59,6 +59,7 @@ export class HomePagePage implements OnInit {
   }
 
   selectTab(i) {
+    this.ge.scrollEvent.emit(true);
     this.selectedTab = i;
   }
 }

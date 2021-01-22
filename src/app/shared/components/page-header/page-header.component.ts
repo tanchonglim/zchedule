@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Input } from "@angular/core";
+import { GlobalEventService } from "src/app/core/service/global-event.service";
 
 /**
  * pass empty array if no tabs
@@ -20,11 +21,12 @@ export class PageHeaderComponent implements OnInit {
   @Input() selectedTab?: number = 0;
   @Output() selectedTabChange = new EventEmitter();
 
-  constructor() {}
+  constructor(private ge: GlobalEventService) {}
 
   ngOnInit() {}
 
   changeTab(number) {
+    this.ge.scrollEvent.emit(true);
     this.selectedTab = number;
     this.selectedTabChange.emit(number);
   }

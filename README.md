@@ -40,4 +40,4 @@ Demo: [Demo]
   [Ionic 5]: <https://ionicframework.com/docs>
   [Google Chart API]: <https://developers.google.com/chart>
   [Google Translation API]: <https://cloud.google.com/translate/docs>
-  [Demo]: <https://zchedule.herokuapp.com/>
+  [Demo]: <http://gmm-student.fc.utm.my/~tcl2/>

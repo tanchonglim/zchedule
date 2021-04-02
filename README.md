@@ -7,7 +7,6 @@ Demo: [Demo]
 ## Tools used 
 - [Ionic 5]
 - [Google Chart API]
-- [Google Translation API]
 
 # Features!
 
@@ -39,5 +38,4 @@ Demo: [Demo]
   [FSKSM E-Learning]: <http://web1.fsksm.utm.my/~webapps/cgi-bin/webman/applications/fsksmELearning/index.cgi>
   [Ionic 5]: <https://ionicframework.com/docs>
   [Google Chart API]: <https://developers.google.com/chart>
-  [Google Translation API]: <https://cloud.google.com/translate/docs>
   [Demo]: <http://gmm-student.fc.utm.my/~tcl2/>

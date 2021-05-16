@@ -42,6 +42,6 @@ ZCHEDULE is a hybrid mobile application extended from existing [FSKSM E-Learning
   [Ionic 5]: <https://ionicframework.com/docs>
   [Google Chart API]: <https://developers.google.com/chart>
   [Web App]: <http://gmm-student.fc.utm.my/~tcl2/>
-  [Android Download (APK)]: <>
+  [Android Download (APK)]: <https://raw.githubusercontent.com/tanchonglim/zchedule/main/zchedule.apk>
   [NodeJS]: <https://nodejs.org/en/> 
   [Ionic CLI]: <https://ionicframework.com/docs/cli>
